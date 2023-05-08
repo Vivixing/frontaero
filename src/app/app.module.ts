@@ -9,6 +9,10 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { IndexComponent } from './index/index.component';
 import { ErrorComponent } from './error/error.component';
+import { AeropuertosComponent } from './aeropuertos/aeropuertos.component';
+import { CrearAeropuertoComponent } from './crear-aeropuerto/crear-aeropuerto.component';
+import { CrearVueloComponent } from './crear-vuelo/crear-vuelo.component';
+import { CrearAvionComponent } from './crear-avion/crear-avion.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { ErrorComponent } from './error/error.component';
     LoginComponent,
     RegistroComponent,
     IndexComponent,
-    ErrorComponent
+    ErrorComponent,
+    AeropuertosComponent,
+    CrearAeropuertoComponent,
+    CrearVueloComponent,
+    CrearAvionComponent
   ],
   imports: [
     BrowserModule,
