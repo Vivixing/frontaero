@@ -1,0 +1,44 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+div{
+    display: block;
+}
+/*Inicio Header*/
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto;
+}/*Fin Header*/
+
+/*Inicio Carousel*/
+.carousel{
+    margin-bottom: 4rem;
+    position: relative;
+}/*Fin Carousel*/
+
+/*Inicio Features*/
+.featurette-divider {
+    margin: 5rem 0;
+}
+
+hr {
+    margin: 1rem 0;
+    color: inherit;
+    border: 0;
+    border-top: var(--bs-border-width) solid;
+    opacity: .25;
+    display: block;
+    unicode-bidi: isolate;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px
+}/*Fin Features*/
