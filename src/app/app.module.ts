@@ -8,11 +8,12 @@ import { AvionesComponent } from './aviones/aviones.component';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { IndexComponent } from './index/index.component';
-import { ErrorComponent } from './error/error.component';
 import { AeropuertosComponent } from './aeropuertos/aeropuertos.component';
 import { CrearAeropuertoComponent } from './crear-aeropuerto/crear-aeropuerto.component';
 import { CrearVueloComponent } from './crear-vuelo/crear-vuelo.component';
 import { CrearAvionComponent } from './crear-avion/crear-avion.component';
+import { Error404Component } from './error404/error404.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +23,12 @@ import { CrearAvionComponent } from './crear-avion/crear-avion.component';
     LoginComponent,
     RegistroComponent,
     IndexComponent,
-    ErrorComponent,
     AeropuertosComponent,
     CrearAeropuertoComponent,
     CrearVueloComponent,
-    CrearAvionComponent
+    CrearAvionComponent,
+    Error404Component,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
