@@ -14,7 +14,8 @@ export class AeropuertosService {
   urlAeropuerto = `${environment.serverUrl}aeropuerto`
 
   //Obtener todos los Aeropuertos
-  getAll():Observable<Aeropuerto[]>{ //Observable es asíncrono, permite obtener datos a menera que estén disponibles
+  getAll():Observable<Aeropuerto[]>{ 
+    //Observable es asíncrono, permite obtener datos a menera que estén disponibles
     return this.http.get<Aeropuerto[]>(`${this.urlAeropuerto}/obtenerAeropuertos`)
   }
 
