@@ -122,8 +122,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 .btn-primary {
   color: #fff;
-  background-color: #B618A8;
-  border-color: #B618A8;
+  
 }
 .btn {
   display: inline-block;

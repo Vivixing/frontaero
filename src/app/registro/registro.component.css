@@ -3,10 +3,6 @@
     background: hsla(0, 0%, 100%, 0.55);
     backdrop-filter: blur(30px);
   }
-.btn{
-  background-color: #B618A8;
-  border-color: #B618A8;
-}
 @media (max-width: 991.98px) {
     .cascading-right {
       margin-right: 0;
