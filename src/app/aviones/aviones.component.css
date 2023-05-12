@@ -37,7 +37,6 @@ section{
     color: var(--mdb-table-color);
     vertical-align: top;
     border-color: var(--mdb-table-border-color);
-    caption-side: top;
     border-collapse: collapse;
 }
 .align-middle {
