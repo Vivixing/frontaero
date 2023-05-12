@@ -14,17 +14,17 @@ export class VueloService {
   urlVuelo = `${environment.serverUrl}vuelo`
 
   //Obtener todos los vuelos
-  getAll():Observable<Vuelo[]>{
+  obtenerVuelos():Observable<Vuelo[]>{
     return this.http.get<Vuelo[]>(`${this.urlVuelo}/obtenerVuelos`)
   }
 
   //Obtener vuelo por id
-  getById(id:number):Observable<Vuelo>{
+  obtenerVueloById(id:number):Observable<Vuelo>{
     return this.http.get<Vuelo>(`${this.urlVuelo}/${id}`)
   }
 
   //Crear vuelo
-  create(vuelo:Vuelo):Observable<Vuelo>{
+  crearVuelo(vuelo:Vuelo):Observable<Vuelo>{
     return this.http.post<Vuelo>(`${this.urlVuelo}/guardarVuelo`,vuelo)
   }
 

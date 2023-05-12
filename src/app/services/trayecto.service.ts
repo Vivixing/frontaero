@@ -14,17 +14,17 @@ export class TrayectoService {
   urlTrayecto = `${environment.serverUrl}trayecto`
 
   //Obtener todos los trayectos
-  getAll():Observable<Trayecto[]>{
+  obtenerTrayectos():Observable<Trayecto[]>{
     return this.http.get<Trayecto[]>(`${this.urlTrayecto}/obtenerTrayecto`)
   }
 
   //Obtener trayecto por Id
-  getById(id:number):Observable<Trayecto>{
+  obtenerTrayectoById(id:number):Observable<Trayecto>{
     return this.http.get<Trayecto>(`${this.urlTrayecto}/${id}`)
   }
 
   //Crear Trayecto
-  create(trayecto:Trayecto):Observable<Trayecto>{
+  crearTrayecto(trayecto:Trayecto):Observable<Trayecto>{
     return this.http.post<Trayecto>(`${this.urlTrayecto}/guardarTrayecto`,trayecto)
   }
 }

@@ -15,15 +15,15 @@ export class UsuarioService {
   urlUsuario = `${environment.serverUrl}usuario`
 
   //Obtener todos los Usuarios
-  getAll():Observable<Usuario[]>{
+  obtenerUsuarios():Observable<Usuario[]>{
     return this.http.get<Usuario[]>(`${this.urlUsuario}/obtenerUsuarios`)
   }
   //Obtener todos Usuarios por Id
-  getById(id:number):Observable<Usuario>{
+  obtenerUsuarioById(id:number):Observable<Usuario>{
     return this.http.get<Usuario>(`${this.urlUsuario}/${id}`)
   }
   //Crear Usuario
-  create(usuario:Usuario):Observable<Usuario>{
+  crearUsuario(usuario:Usuario):Observable<Usuario>{
     return this.http.post<Usuario>(`${this.urlUsuario}/guardarUsuario`,usuario)
   }
 }

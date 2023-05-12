@@ -14,18 +14,18 @@ export class AeropuertosService {
   urlAeropuerto = `${environment.serverUrl}aeropuerto`
 
   //Obtener todos los Aeropuertos
-  getAll():Observable<Aeropuerto[]>{ 
+  obtenerAeropuertos():Observable<Aeropuerto[]>{ 
     //Observable es asíncrono, permite obtener datos a menera que estén disponibles
     return this.http.get<Aeropuerto[]>(`${this.urlAeropuerto}/obtenerAeropuertos`)
   }
 
   //Obtener Aeropuerto por Id
-  getById(id:number):Observable<Aeropuerto>{
+  obtenerAeropuertoById(id:number):Observable<Aeropuerto>{
     return this.http.get<Aeropuerto>(`${this.urlAeropuerto}/${id}`)
   }
 
   //Crear Aeropuerto
-  create(aeropuerto:Aeropuerto):Observable<Aeropuerto>{
+  crearAeropuerto(aeropuerto:Aeropuerto):Observable<Aeropuerto>{
     return this.http.post<Aeropuerto>(`${this.urlAeropuerto}/guardarAeropuerto`,aeropuerto)
   }
 
