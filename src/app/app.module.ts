@@ -3,36 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
+import { AdministradorModule } from './administrador/administrador.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 import { AppComponent } from './app.component';
-import { VuelosComponent } from './vuelos/vuelos.component';
-import { AvionesComponent } from './aviones/aviones.component';
-import { IndexComponent } from './index/index.component';
-import { AeropuertosComponent } from './aeropuertos/aeropuertos.component';
-import { CrearAeropuertoComponent } from './crear-aeropuerto/crear-aeropuerto.component';
-import { CrearVueloComponent } from './crear-vuelo/crear-vuelo.component';
-import { CrearAvionComponent } from './crear-avion/crear-avion.component';
-import { Error404Component } from './error404/error404.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    VuelosComponent,
-    AvionesComponent,
-    IndexComponent,
-    AeropuertosComponent,
-    CrearAeropuertoComponent,
-    CrearVueloComponent,
-    CrearAvionComponent,
-    Error404Component,
-    DashboardComponent
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AuthModule
+    UsuarioModule,
+    AdministradorModule,
+    AuthModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

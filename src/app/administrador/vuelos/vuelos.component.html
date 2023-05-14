@@ -25,18 +25,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let vuelo of vuelos">
+            <th scope="row">{{vuelo.vueloId}}</th>
+            <td>{{vuelo.aeropuerto_aeroIdOrigen}}</td>
+            <td>{{vuelo.aeropuerto_aeroIdDestino}}</td>
+            <td>{{vuelo.nombreAeroOrigen}}</td>
+            <td>{{vuelo.nombreAeroDestino}}</td>
+            <td>{{vuelo.precio}}</td>
+            <td>{{vuelo.hora_salida}}</td>
+            <td>{{vuelo.hora_llegada}}</td>
+            <td>{{vuelo.precioAsientoVip}}</td>
+            <td>{{vuelo.precioAsientoNormal}}</td>
+            <td>{{vuelo.precioAsientoBasico}}</td>
+            <td>{{vuelo.estado}}</td>
             <td>
               <div class="d-grid gap-3 d-sm-flex justify-content">
                 <i class="fa fa-pen-to-square bigicon"></i>

@@ -14,8 +14,8 @@ export class AvionService {
   urlAvion = `${environment.serverUrl}avion`
 
   //Obtener todos los Aviones
-  obtenerAviones():Observable<Avion>{
-    return this.http.get<Avion>(`${this.urlAvion}/obtenerAviones`)
+  obtenerAviones():Observable<Avion[]>{
+    return this.http.get<Avion[]>(`${this.urlAvion}/obtenerAviones`)
   }
 
   //Obtener Avión por Id

@@ -4,7 +4,7 @@
       <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand">Listado Aviones</a>
-          <button class="d-flex btn btn-outline-primary" routerLink="/avionCrearAdmin">Crear</button>
+          <button class="d-flex btn btn-outline-primary" routerLink="/administrador/avionCrearAdmin">Crear</button>
         </div>
       </nav>
       <table class="table caption-top align-middle">
@@ -17,10 +17,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let avion of aviones">
+            <th scope="row">{{avion.avioID}}</th>
+            <td>{{avion.modelo}}</td>
+            <td>{{avion.estado}}</td>
             <td>
               <div class="d-grid gap-3 d-sm-flex justify-content">
                 <i class="fa fa-pen-to-square bigicon" ></i>

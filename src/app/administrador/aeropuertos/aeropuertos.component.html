@@ -4,7 +4,7 @@
       <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand">Listado Aeropuertos</a>
-          <button class="d-flex btn btn-outline-primary" routerLink="/aeropuertoCrearAdmin">Crear</button>
+          <button class="d-flex btn btn-outline-primary" routerLink="/administrador/aeropuertoCrearAdmin">Crear</button>
         </div>
       </nav>
       <table class="table caption-top align-middle">
@@ -19,12 +19,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let aeropuerto of aeropuertos">
+            <th scope="row">{{aeropuerto.aeroId}}</th>
+            <td>{{aeropuerto.nombre}}</td>
+            <td>{{aeropuerto.iata}}</td>
+            <td>{{aeropuerto.ubicacion}}</td>
+            <td>{{aeropuerto.estado}}</td>
             <td>
               <div class="d-grid gap-3 d-sm-flex justify-content">
                 <i class="fa fa-pen-to-square bigicon"></i>
