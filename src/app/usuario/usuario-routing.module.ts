@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { IndexComponent } from './index/index.component';
-import { Error404Component } from './error404/error404.component';
+
 
 
 const routes: Routes = [
-  {path:'',redirectTo:'index'},
-  {path:'index',component:IndexComponent},
-  {path:'error',component:Error404Component},
-  {path:'**',redirectTo:'error'},
+  
 
 ];
 

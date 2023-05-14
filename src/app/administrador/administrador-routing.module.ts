@@ -18,8 +18,7 @@ const routes: Routes = [
   {path:'vueloCrearAdmin',component:CrearVueloComponent},
   {path:'aeropuertosListadoAdmin',component:AeropuertosComponent},
   {path:'aeropuertoCrearAdmin',component:CrearAeropuertoComponent},
-  {path:'**',redirectTo:'dashboardAdmin',pathMatch:'full'},
-
+  
 ];
 
 @NgModule({
