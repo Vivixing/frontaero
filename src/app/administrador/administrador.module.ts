@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { AdministradorRoutingModule } from './administrador-routing.module';
 import { VuelosComponent } from './vuelos/vuelos.component';
@@ -23,16 +24,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   imports: [
     CommonModule,
-    AdministradorRoutingModule
-  ],
-  exports:[
-    VuelosComponent,
-    AvionesComponent,
-    AeropuertosComponent,
-    CrearAeropuertoComponent,
-    CrearVueloComponent,
-    CrearAvionComponent,
-    DashboardComponent,
+    AdministradorRoutingModule,
+    RouterModule
   ]
 })
 export class AdministradorModule { }

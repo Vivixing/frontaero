@@ -14,10 +14,6 @@ import { Error404Component } from './error404/error404.component';
   imports: [
     CommonModule,
     UsuarioRoutingModule
-  ],
-  exports:[
-    IndexComponent,
-    Error404Component
   ]
 })
 export class UsuarioModule { }

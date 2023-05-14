@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthModule } from './auth/auth.module';
-import { AdministradorModule } from './administrador/administrador.module';
-import { UsuarioModule } from './usuario/usuario.module';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -23,9 +21,7 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    UsuarioModule,
-    AdministradorModule,
-    AuthModule    
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
