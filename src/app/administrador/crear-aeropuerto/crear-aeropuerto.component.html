@@ -34,26 +34,54 @@
                                     <input type="text" class="form-control" placeholder="Nombre *"
                                         formControlName="nombre" required/>
                                     <span class="text-danger"
-                                        *ngIf="(aeropuertoformulario)&& aeropuertoformulario.nombre.errors?.required">
-                                        Name is required
+                                        *ngIf="aeropuertoformulario.get('nombre')?.hasError('required') && aeropuertoformulario.get('nombre')?.touched">
+                                        Nombre requerido
+                                    </span>
+                                    <span class="text-danger"
+                                        *ngIf="aeropuertoformulario.get('nombre')?.hasError('maxLength')">
+                                        Nombre carácteres max 30
+                                    </span>
+                                    <span class="text-danger"
+                                        *ngIf="aeropuertoformulario.get('nombre')?.hasError('minLength')">
+                                        Nombre carácteres min 5
+                                    </span>
+                                    <span class="text-danger"
+                                        *ngIf="aeropuertoformulario.get('nombre')?.hasError('pattern')">
+                                        El Nombre solo permite letras y guiones
                                     </span>
                                 </div>
                                 <div class="form-group">
                                     <label class="input-group-text">IATA</label>
                                     <input type="text" class="form-control" placeholder="IATA *"
                                         formControlName="iata" required/>
+                                    <span class="text-danger"
+                                        *ngIf="aeropuertoformulario.get('iata')?.hasError('required') && aeropuertoformulario.get('iata')?.touched">
+                                        Iata requerido
+                                    </span>
+                                    <span class="text-danger"
+                                        *ngIf="aeropuertoformulario.get('iata')?.hasError('maxLength')">
+                                        Iata carácteres max 3
+                                    </span>
+                                    <span class="text-danger"
+                                        *ngIf="aeropuertoformulario.get('iata')?.hasError('minLength')">
+                                        Iata carácteres min 3
+                                    </span>
+                                    <span class="text-danger"
+                                        *ngIf="aeropuertoformulario.get('nombre')?.hasError('pattern')">
+                                        El Iata solo permite letras
+                                    </span>
                                 </div>
                                 <div class="form-group">
                                     <label class="input-group-text">Ubicación</label>
                                     <input type="text" class="form-control" placeholder="Ubicación *"
                                         formControlName="ubicacion" required/>
+                                    <span class="text-danger"
+                                        *ngIf="aeropuertoformulario.get('ubicacion')?.hasError('required') && aeropuertoformulario.get('ubicacion')?.touched">
+                                        Ubicación requerido
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="input-group-text">Estado</label>
-                                    <input type="text" class="form-control" placeholder="Estado *" />
-                                </div>
                                 <button class="btnRegister" type="submit" [disabled]="!aeropuertoformulario.valid">
                                     Crear
                                 </button>
