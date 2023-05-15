@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 
@@ -10,70 +10,71 @@ import { AeropuertosService } from 'src/app/services/aeropuertos.service';
   templateUrl: './crear-aeropuerto.component.html',
   styleUrls: ['./crear-aeropuerto.component.css']
 })
-export class CrearAeropuertoComponent implements OnInit{
+export class CrearAeropuertoComponent implements OnInit {
 
-  IataenUso : boolean = false
+  IataenUso: boolean = false
 
-  constructor(private aeropuertosService:AeropuertosService,
-              private router:Router,
-              private fb : FormBuilder){}
+  constructor(private aeropuertosService: AeropuertosService,
+    private router: Router,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    
+
   }
 
-  aeropuertoformulario: FormGroup= this.fb.group({
+  aeropuertoformulario: FormGroup = this.fb.group({
     //id :['',Validators.required],
-    nombre :['',[Validators.required,Validators.maxLength(30), Validators.minLength(5), Validators.pattern(/^[A-Za-z-]+$/)]],
-    iata: ['',[Validators.required, Validators.maxLength(3),Validators.minLength(3),Validators.pattern(/^[A-Za-z]+$/)]],
-    ubicacion : ['', Validators.required]
+    nombre: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(5), Validators.pattern(/^[A-Za-z-]+$/)]],
+    iata: ['', [Validators.required, Validators.maxLength(3), Validators.minLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
+    ubicacion: ['', Validators.required]
   })
 
-  crearAeropuerto():void{
+  crearAeropuerto(): void {
     const datos = this.aeropuertoformulario.value
-    
-    const aeropuerto : Aeropuerto = {
+
+    const aeropuerto: Aeropuerto = {
       nombre: datos.nombre,
       iata: datos.iata,
       ubicacion: datos.ubicacion,
       estado: 'Activo'
     };
     console.log(aeropuerto);
-    let listadoAeropuertos :Aeropuerto[]=[]
-    this.aeropuertosService.obtenerAeropuertos().subscribe(res=>{
+    let listadoAeropuertos: Aeropuerto[] = []
+    this.aeropuertosService.obtenerAeropuertos().subscribe(res => {
       listadoAeropuertos = res
-      if(this.validarIata(listadoAeropuertos,datos.iata))return
+      if (this.validarIata(listadoAeropuertos, datos.iata)) return
 
+      this.enviarAeropuerto(aeropuerto)
       this.aeropuertoformulario.reset()
     })
   }
-  
-  enviarAeropuerto(datos:Aeropuerto){
-    this.aeropuertosService.crearAeropuerto(datos)?.subscribe(res=>{
-      if(res==null){
+
+  enviarAeropuerto(datos: Aeropuerto) {
+    this.aeropuertosService.crearAeropuerto(datos)?.subscribe(res => {
+      if (res == null) {
         console.log('No se puedo crear el aeropuerto')
         return
       }
       console.log('Aeropuerto creado con éxito')
     },
-    err => {
-      let MensajeError = 'Error al crear el aeropuerto'
-      if(err.error && err.error.mensaje){
-        MensajeError = err.error.mensaje;
-      }
-      console.log(MensajeError);
-    })
+      err => {
+        let MensajeError = 'Error al crear el aeropuerto'
+        if (err.error && err.error.mensaje) {
+          MensajeError = err.error.mensaje;
+        }
+        console.log(MensajeError);
+      })
   }
 
-  validarIata(aeropuerto:Aeropuerto[],iata:string):boolean{
-    
-    const respuesta =aeropuerto.filter (res => res.iata === iata)
+  validarIata(aeropuerto: Aeropuerto[], iata: string): boolean {
 
-    if(respuesta.length == 0){
+    const respuesta = aeropuerto.filter(res => res.iata === iata)
+
+    if (respuesta.length == 0) {
       this.IataenUso = false
       return false
     }
-    this.IataenUso = true 
+    this.IataenUso = true
     return true
   }
 

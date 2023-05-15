@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { AdministradorRoutingModule } from './administrador-routing.module';
 import { VuelosComponent } from './vuelos/vuelos.component';
@@ -27,7 +27,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CommonModule,
     AdministradorRoutingModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AdministradorModule { }

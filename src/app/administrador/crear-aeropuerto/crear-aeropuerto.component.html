@@ -13,42 +13,53 @@
         <div class="col-md-9 register-right">
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab"
-                        aria-controls="home" aria-selected="true">Aeropuerto</a>
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home"
+                        aria-selected="true">Aeropuerto</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">Crear Aeropuerto</h3>
-                    <div class="row register-form">
-                        <div class="col-md-6">
-                            <!--
+                    <form (submit)="crearAeropuerto()" [formGroup]="aeropuertoformulario">
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <!--
                             <div class="form-group">
                                 <label class="input-group-text">Id Aeropuerto</label>
                                 <input type="number" class="form-control" placeholder="Id Aeropuerto *" formControlName="" />
                             </div>
                             -->
-                            <div class="form-group">
-                                <label class="input-group-text">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre *" formControlName="nombre" />
+                                <div class="form-group">
+                                    <label class="input-group-text">Nombre</label>
+                                    <input type="text" class="form-control" placeholder="Nombre *"
+                                        formControlName="nombre" required/>
+                                    <span class="text-danger"
+                                        *ngIf="(aeropuertoformulario)&& aeropuertoformulario.nombre.errors?.required">
+                                        Name is required
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="input-group-text">IATA</label>
+                                    <input type="text" class="form-control" placeholder="IATA *"
+                                        formControlName="iata" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="input-group-text">Ubicación</label>
+                                    <input type="text" class="form-control" placeholder="Ubicación *"
+                                        formControlName="ubicacion" required/>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="input-group-text">IATA</label>
-                                <input type="text" class="form-control" placeholder="IATA *" formControlName="iata" />
-                            </div>
-                            <div class="form-group">
-                                <label class="input-group-text">Ubicación</label>
-                                <input type="text" class="form-control" placeholder="Ubicación *" formControlName="ubicacion" />
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="input-group-text">Estado</label>
+                                    <input type="text" class="form-control" placeholder="Estado *" />
+                                </div>
+                                <button class="btnRegister" type="submit" [disabled]="!aeropuertoformulario.valid">
+                                    Crear
+                                </button>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="input-group-text">Estado</label>
-                                <input type="text" class="form-control" placeholder="Estado *" />
-                            </div>
-                            <input type="submit" class="btnRegister" value="Crear" />
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
