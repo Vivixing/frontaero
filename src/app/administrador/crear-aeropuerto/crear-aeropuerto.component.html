@@ -22,22 +22,29 @@
                     <h3 class="register-heading">Crear Aeropuerto</h3>
                     <div class="row register-form">
                         <div class="col-md-6">
+                            <!--
                             <div class="form-group">
-                                <input type="number" class="form-control" placeholder="Id Aeropuerto *" value="" />
+                                <label class="input-group-text">Id Aeropuerto</label>
+                                <input type="number" class="form-control" placeholder="Id Aeropuerto *" formControlName="" />
+                            </div>
+                            -->
+                            <div class="form-group">
+                                <label class="input-group-text">Nombre</label>
+                                <input type="text" class="form-control" placeholder="Nombre *" formControlName="nombre" />
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Nombre *" value="" />
+                                <label class="input-group-text">IATA</label>
+                                <input type="text" class="form-control" placeholder="IATA *" formControlName="iata" />
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="IATA *" value="" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Ubicación *" value="" />
+                                <label class="input-group-text">Ubicación</label>
+                                <input type="text" class="form-control" placeholder="Ubicación *" formControlName="ubicacion" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Estado *" value="" />
+                                <label class="input-group-text">Estado</label>
+                                <input type="text" class="form-control" placeholder="Estado *" />
                             </div>
                             <input type="submit" class="btnRegister" value="Crear" />
                         </div>
