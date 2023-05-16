@@ -17,7 +17,7 @@ export class CrearAvionComponent implements OnInit{
   }
 
   avionFormulario: FormGroup = this.fb.group({
-    modelo:['',[Validators.maxLength(30),Validators.required],Validators.pattern(/^[a-zA-Z]{4,}[0-9]{3,}[\/\-]?[a-zA-Z0-9\/\-]*$/)]
+    modelo:['',[Validators.maxLength(30),Validators.required],Validators.pattern(/^[a-zA-Z]{5,}[0-9]{3,}[\/\-]?[a-zA-Z0-9\/\-]*$/)]
   })
 
   crearAvion():void{

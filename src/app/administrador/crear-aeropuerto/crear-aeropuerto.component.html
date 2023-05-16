@@ -35,19 +35,19 @@
                                         formControlName="nombre" required/>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('nombre')?.hasError('required') && aeropuertoformulario.get('nombre')?.touched">
-                                        Nombre requerido
+                                        Nombre del aeropuerto requerido
                                     </span>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('nombre')?.hasError('maxLength')">
-                                        Nombre carácteres max 30
+                                        Nombre del aeropuerto con 30 carácteres máximo
                                     </span>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('nombre')?.hasError('minLength')">
-                                        Nombre carácteres min 5
+                                        Nombre del aeropuerto con 5 carácteres mínimo
                                     </span>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('nombre')?.hasError('pattern')">
-                                        El Nombre solo permite letras y guiones
+                                        El Nombre del aeropuerto permite almenos 5 letras y el uso de guiones
                                     </span>
                                 </div>
                                 <div class="form-group">
@@ -56,19 +56,19 @@
                                         formControlName="iata" required/>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('iata')?.hasError('required') && aeropuertoformulario.get('iata')?.touched">
-                                        Iata requerido
+                                        Iata del aeropuerto requerido
                                     </span>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('iata')?.hasError('maxLength')">
-                                        Iata carácteres max 3
+                                        Iata del aeropuerto con 3 carácteres máximo 
                                     </span>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('iata')?.hasError('minLength')">
-                                        Iata carácteres min 3
+                                        Iata del aeropuerto con 3 carácteres mínimo 
                                     </span>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('nombre')?.hasError('pattern')">
-                                        El Iata solo permite letras
+                                        El Iata del aeropuerto solo permite letras
                                     </span>
                                 </div>
                                 <div class="form-group">
@@ -77,7 +77,7 @@
                                         formControlName="ubicacion" required/>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('ubicacion')?.hasError('required') && aeropuertoformulario.get('ubicacion')?.touched">
-                                        Ubicación requerido
+                                        Ubicación del aeropuerto requerido
                                     </span>
                                 </div>
                             </div>
