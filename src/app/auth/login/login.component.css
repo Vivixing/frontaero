@@ -28,6 +28,9 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: #fff;
 }
+.bg{
+  background-image: url('../../assets/imagenes/avion.jpg');
+}
 .half, .half .container > .row {
   height: 100vh;
   min-height: 700px;
