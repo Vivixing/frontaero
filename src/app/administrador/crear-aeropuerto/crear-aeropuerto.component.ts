@@ -24,8 +24,8 @@ export class CrearAeropuertoComponent implements OnInit {
 
   aeropuertoformulario: FormGroup = this.fb.group({
     //id :['',Validators.required],
-    nombre: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(5), Validators.pattern(/^[a-zA-Z]{6,}?[A-Za-z-]+$/)]],
-    iata: ['', [Validators.required, Validators.maxLength(3), Validators.minLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
+    nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{6,30}?[A-Za-z-]+$/)]],
+    iata: ['', [Validators.required,Validators.minLength(3), Validators.maxLength(3) ,Validators.pattern(/^[A-Za-z]+$/)]],
     ubicacion: ['', Validators.required]
   })
 
