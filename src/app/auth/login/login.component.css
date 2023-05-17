@@ -29,7 +29,7 @@ body {
   background-color: #fff;
 }
 .bg{
-  background-image: url('../../assets/imagenes/avion.jpg');
+  background-image: url('../../../assets/imagenes/avion.jpg');
 }
 .half, .half .container > .row {
   height: 100vh;
