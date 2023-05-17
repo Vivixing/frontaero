@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                     <label class="input-group-text">Nombre</label>
                                     <input type="text" class="form-control" placeholder="Nombre *"
-                                        formControlName="nombre" required/>
+                                        formControlName="nombre" required />
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('nombre')?.hasError('required') && aeropuertoformulario.get('nombre')?.touched">
                                         Nombre del aeropuerto requerido
@@ -48,8 +48,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-group-text">IATA</label>
-                                    <input type="text" class="form-control" placeholder="IATA *"
-                                        formControlName="iata" required/>
+                                    <input type="text" class="form-control" placeholder="IATA *" formControlName="iata"
+                                        required />
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('iata')?.hasError('required') && aeropuertoformulario.get('iata')?.touched">
                                         Iata del aeropuerto es requerido
@@ -59,8 +59,8 @@
                                         Iata del aeropuerto debe tener mínimo 3 letras
                                     </span>
                                     <span class="text-danger"
-                                    *ngIf="aeropuertoformulario.get('iata')?.hasError('maxlength')">
-                                    Iata del aeropuerto debe tener máximo 3 letras
+                                        *ngIf="aeropuertoformulario.get('iata')?.hasError('maxlength')">
+                                        Iata del aeropuerto debe tener máximo 3 letras
                                     </span>
                                     <span class="text-danger"
                                         *ngIf="aeropuertoformulario.get('iata')?.hasError('pattern')">
@@ -68,13 +68,30 @@
                                     </span>
                                 </div>
                                 <div class="form-group">
-                                    <label class="input-group-text">Ubicación</label>
-                                    <input type="text" class="form-control" placeholder="Ubicación *"
-                                        formControlName="ubicacion" required/>
-                                    <span class="text-danger"
-                                        *ngIf="aeropuertoformulario.get('ubicacion')?.hasError('required') && aeropuertoformulario.get('ubicacion')?.touched">
-                                        Ubicación del aeropuerto requerido
-                                    </span>
+                                    <label class="input-group-text">País</label>
+                                    <select class="form-control" placeholder="Seleccione un país *"
+                                        formControlName="pais" required>
+                                        <option value="" disabled selected>Seleccione un país</option>
+                                        <option *ngFor="let country of paises" [value]="country.pais">{{ country.name }}
+                                        </option>
+                                        <span class="text-danger"
+                                            *ngIf="aeropuertoformulario.get('pais')?.hasError('required') && aeropuertoformulario.get('pais')?.touched">
+                                            Seleccione un pais para el aeropuerto
+                                        </span>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="input-group-text">Ciudad</label>
+                                    <select type="text" class="form-control" placeholder="Seleccione una ciudad *"
+                                        formControlName="ciudad" required>
+                                        <option value="">Selecciona una Ciudad</option>
+                                        
+                                        <span class="text-danger"
+                                            *ngIf="aeropuertoformulario.get('ciudad')?.hasError('required') && aeropuertoformulario.get('ciudad')?.touched">
+                                            Selecciona la ciudad del pais para el aeropuerto
+                                        </span>
+                                    </select>
+
                                 </div>
                             </div>
                             <div class="col-md-6">
