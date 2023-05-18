@@ -14,9 +14,9 @@ import { Pais } from 'src/app/interfaces/pais';
 })
 export class CrearAeropuertoComponent implements OnInit {
 
-  paises: any[] = [];
-  /*ciudades: any[] = [];*/
-
+  //paises: any[] = [];
+  ciudades: any[] = [];
+  paises:any[]=[]
   IataenUso: boolean = false
 
   constructor(private aeropuertosService: AeropuertosService,
@@ -39,13 +39,14 @@ export class CrearAeropuertoComponent implements OnInit {
   })
 
   loadCountries() {
-    this.locationService.obtenerPaises().subscribe((data:any[]) => {
+    this.locationService.obtenerPaises().subscribe((data) => {
       this.paises = data;
     },
       error => {
         console.log('error al obtener los paises',error);
       });
   }
+
   /*
   buscarCiudades(pais: string) {
     this.locationService.obtenerCiudades(pais).subscribe(

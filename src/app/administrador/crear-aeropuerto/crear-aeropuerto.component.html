@@ -72,7 +72,7 @@
                                     <select class="form-control" placeholder="Seleccione un país *"
                                         formControlName="pais" required>
                                         <option value="" disabled selected>Seleccione un país</option>
-                                        <option *ngFor="let country of paises" [value]="country.pais">{{ country.name }}
+                                        <option *ngFor="let country of paises" [value]="country.name">{{ country.name }}
                                         </option>
                                         <span class="text-danger"
                                             *ngIf="aeropuertoformulario.get('pais')?.hasError('required') && aeropuertoformulario.get('pais')?.touched">

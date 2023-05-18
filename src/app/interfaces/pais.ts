@@ -1,4 +1,4 @@
 export interface Pais {
     nombre:string;
-    ciudades:[];
+    ciudades:string[];
 }
