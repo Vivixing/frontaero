@@ -23,21 +23,21 @@ export class LoginComponent {
               private fb : FormBuilder){}
 
   loginFormulario: FormGroup = this.fb.group({
-    cedula: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(10),Validators.pattern(/^[0-9]{8,10}$/)]],
-    email:['',[Validators.required,Validators.pattern(/[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}/)]]
+    cedula: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(10),Validators.pattern(/^[0-9]+$/)]],
+    email:['',[Validators.required,Validators.minLength(20),Validators.maxLength(64),Validators.pattern(/[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]/)]]
   })
 
   iniciarSesion(){
     this.usuario.cedula = this.loginFormulario.value['cedula']
     this.usuario.email =this.loginFormulario.value['email']
     //Crear en el back obtener usuario por Cédula o implementar el del obtener usuario por Id
-
+    this.loginFormulario.valid
   }
 
   usuarioExistenteEnBd(usuarioExite: Usuario){
     if(usuarioExite.rolUsuario_rousid == 1){ //el id 1 de rolUsuario es el Admin
       if(usuarioExite.correo == this.usuario.email){
-        this.route.navigate(["administrador"])
+        this.route.navigate(["/administrador/dashboard"])
         this.credencialesNoValidas = false
       }
       this.credencialesNoValidas = true

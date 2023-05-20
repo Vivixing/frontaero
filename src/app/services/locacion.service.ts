@@ -12,8 +12,8 @@ export class LocacionService {
 
   urlApiLocacion = 'https://restcountries.com/v2/all';
 
-  obtenerPaises():Observable<any[]> {
-    return this.http.get<any[]>(`${this.urlApiLocacion}`);
+  obtenerPaises():Observable<Pais[]> {
+    return this.http.get<Pais[]>(`${this.urlApiLocacion}`);
   }
 
   /*obtenerCiudades(pais: string): Observable<any> {

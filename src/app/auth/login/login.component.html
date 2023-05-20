@@ -15,30 +15,37 @@
                   <label>Cédula</label>
                   <input type="password" class="form-control" placeholder="Ingresa la cédula" formControlName="cedula">
                   <span class="text-danger" *ngIf="loginFormulario.get('cedula')?.hasError('required') && loginFormulario.get('cedula')?.touched">
-                    La cédula del usuario es requerida
+                    La cédula del usuario es requerida<br>
                   </span>
-                  <span class="text-danger" *ngIf="loginFormulario.get('cedula')?.hasError('minLength')">
-                    La cédula del usuario debe tener mínimo 8 números
+                  <span class="text-danger" *ngIf="loginFormulario.get('cedula')?.errors?.['minlength']">
+                    La cédula del usuario debe tener mínimo 8 números<br>
                   </span>
-                  <span class="text-danger" *ngIf="loginFormulario.get('cedula')?.hasError('maxLength')">
-                    La cédula del usuario debe tener máximo 8 números
+                  <span class="text-danger" *ngIf="loginFormulario.get('cedula')?.hasError('maxlength')">
+                    La cédula del usuario debe tener máximo 10 números<br>
                   </span>
                   <span class="text-danger" *ngIf="loginFormulario.get('cedula')?.hasError('pattern')">
-                    La cédula del usuario solo permite números
+                    La cédula del usuario solo permite números<br>
                   </span>
                 </div>
                 <div class="form-group last mb-3">
                   <label>Email</label>
                   <input type="email" class="form-control" placeholder="Ingrese el email" formControlName="email">
                   <span class="text-danger" *ngIf="loginFormulario.get('email')?.hasError('required') && loginFormulario.get('email')?.touched">
-                    El email del usuario es requerido
+                    El email del usuario es requerido<br>
+                  </span>
+                  <span class="text-danger" *ngIf="loginFormulario.get('email')?.hasError('minlength')">
+                    El email debe tener una longitud mínima de 15 caracteres<br>
+                  </span>
+                  <span class="text-danger" *ngIf="loginFormulario.get('email')?.hasError('maxlength')">
+                    El email debe tener una longitud máxima de 64 caracteres<br>
                   </span>
                   <span class="text-danger" *ngIf="loginFormulario.get('email')?.hasError('pattern')">
-                    El email del usuario debe tener al menos 2 caracteres y máximo 5
+                    Debe ser una dirección de email válida<br>
                   </span>
                 </div>
                 <span *ngIf="credencialesNoValidas">Error en las Credenciales</span>
-                <input type="submit" value="Ingresar" class="btn btn-block btn-primary">
+                <!-- <button class="btn btn-block btn-danger"><i class="fa fa-times"></i></button> -->
+                <button type="submit" value="Ingresar" class="btn btn-block btn-primary" [disabled]="loginFormulario.invalid">Ingresar</button>
               </form>
             </div>
           </div>

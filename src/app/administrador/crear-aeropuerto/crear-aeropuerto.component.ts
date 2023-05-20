@@ -15,8 +15,8 @@ import { Pais } from 'src/app/interfaces/pais';
 export class CrearAeropuertoComponent implements OnInit {
 
   //paises: any[] = [];
-  ciudades: any[] = [];
-  paises:any[]=[]
+  ciudades: string[] = [];
+  paises:Pais[]=[];
   IataenUso: boolean = false
 
   constructor(private aeropuertosService: AeropuertosService,
@@ -25,27 +25,30 @@ export class CrearAeropuertoComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.loadCountries()
+
+    this.locationService.obtenerPaises().subscribe( (data) =>{
+      this.paises = data
+    })
     
   }
 
   aeropuertoformulario: FormGroup = this.fb.group({
     //id :['',Validators.required],
-    nombre: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]{6,30}?[A-Za-z-]+$/)]],
+    nombre: ['', [Validators.required,Validators.maxLength(30),Validators.minLength(5),Validators.pattern(/^[a-zA-Z]?[A-Za-z-]+$/)]],
     pais: ['', Validators.required],
     ciudad: ['', Validators.required],
     iata: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
     ubicacion: ['', Validators.required]
   })
 
-  loadCountries() {
+  /*loadCountries() {
     this.locationService.obtenerPaises().subscribe((data) => {
       this.paises = data;
     },
       error => {
         console.log('error al obtener los paises',error);
       });
-  }
+  }*/
 
   /*
   buscarCiudades(pais: string) {
@@ -61,6 +64,7 @@ export class CrearAeropuertoComponent implements OnInit {
   */
 
   crearAeropuerto(): void {
+    this.aeropuertoformulario.valid
     const datos = this.aeropuertoformulario.value
 
     const aeropuerto: Aeropuerto = {
@@ -87,7 +91,8 @@ export class CrearAeropuertoComponent implements OnInit {
         console.log('No se puedo crear el aeropuerto')
         return
       }
-      console.log('Aeropuerto creado con éxito')
+      console.log('Aeropuerto creado con éxito');
+      this.router.navigate(["/administrador/aeropuertosListadoAdmin"])
     },
       err => {
         let MensajeError = 'Error al crear el aeropuerto'
