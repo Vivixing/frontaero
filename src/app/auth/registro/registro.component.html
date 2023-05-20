@@ -1,56 +1,107 @@
 <!-- Section: Design Block -->
-<section class="text-center text-lg-start">  
-    <!-- Jumbotron -->
-    <div class="container py-4">
-      <div class="row g-0 align-items-center">
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <div class="card cascading-right">
-            <div class="card-body p-5 shadow-5 text-center">
-              <h2 class="fw-bold mb-5">Regístrate Skylance</h2>
-              <form>
-                <!-- 2 column grid layout with text inputs for the first and last names -->
-                <div class="row">
-                  <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                      <input type="text" class="form-control" />
-                      <label class="form-label">Nombre</label>
-                    </div>
+<section class="text-center text-lg-start">
+  <!-- Jumbotron -->
+  <div class="container py-4">
+    <div class="row g-0 align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="card cascading-right">
+          <div class="card-body p-5 shadow-5 text-center">
+            <h2 class="fw-bold mb-5">Regístrate Skylance</h2>
+            <form [formGroup]="registroFormulario">
+              <!-- 2 column grid layout with text inputs for the first and last names -->
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" class="form-control" formControlName="nombre" />
+                    <span class="text-danger"
+                      *ngIf="registroFormulario.get('nombre')?.hasError('required') && registroFormulario.get('nombre')?.touched">
+                      Nombre del usuario a registar es requerido <br>
+                    </span>
+                    <span class="text-danger" *ngIf="registroFormulario.get('nombre')?.hasError('maxlength')">
+                      Nombre del usuario solo permite una longitud máxima de 30 caracteres <br>
+                    </span>
+                    <span class="text-danger" *ngIf="registroFormulario.get('nombre')?.hasError('minlength')">
+                      Nombre del usuario solo permite una longitud mínima de 4 caracteres <br>
+                    </span>
+                    <span class="text-danger" *ngIf="registroFormulario.get('nombre')?.hasError('pattern')">
+                      Nombre del usuario solo permite letras <br>
+                    </span>
                   </div>
-                  <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                      <input type="text" class="form-control" />
-                      <label class="form-label">Apellido</label>
-                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label">Apellido</label>
+                    <input type="text" class="form-control" formControlName="apellido" />
+                    <span class="text-danger"
+                      *ngIf="registroFormulario.get('apellido')?.hasError('required') && registroFormulario.get('apellido')?.touched">
+                      Apellido del usuario a registar es requerido <br>
+                    </span>
+                    <span class="text-danger" *ngIf="registroFormulario.get('apellido')?.hasError('maxlength')">
+                      Apellido del usuario solo permite una longitud máxima de 30 caracteres <br>
+                    </span>
+                    <span class="text-danger" *ngIf="registroFormulario.get('apellido')?.hasError('minlength')">
+                      Apellido del usuario solo permite una longitud mínima de 4 caracteres <br>
+                    </span>
+                    <span class="text-danger" *ngIf="registroFormulario.get('apellido')?.hasError('pattern')">
+                      Apellido del usuario solo permite letras <br>
+                    </span>
                   </div>
                 </div>
-  
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                  <input type="email" class="form-control" />
-                  <label class="form-label">Email</label>
-                </div>
-  
-                <!-- Password input -->
-                <div class="form-outline mb-4">
-                  <input type="password" class="form-control" />
-                  <label class="form-label">Cédula</label>
-                </div>
-    
-                <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4">
-                  Registrar
-                </button>
-              </form>
-            </div>
+              </div>
+
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" formControlName="email" />
+                <span class="text-danger"
+                  *ngIf="registroFormulario.get('email')?.hasError('required') && registroFormulario.get('email')?.touched">
+                  Apellido del usuario a registar es requerido <br>
+                </span>
+                <span class="text-danger" *ngIf="registroFormulario.get('email')?.hasError('maxlength')">
+                  Apellido del usuario solo permite una longitud máxima de 64 caracteres <br>
+                </span>
+                <span class="text-danger" *ngIf="registroFormulario.get('email')?.hasError('minlength')">
+                  Email del usuario solo permite una longitud mínima de 15 caracteres <br>
+                </span>
+                <span class="text-danger" *ngIf="registroFormulario.get('email')?.hasError('pattern')">
+                  Email del usuario debe ser una dirección de correo válida <br>
+                </span>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <label class="form-label">Cédula</label>
+                <input type="password" class="form-control" formControlName="cedula" />
+                <span class="text-danger"
+                  *ngIf="registroFormulario.get('cedula')?.hasError('required') && registroFormulario.get('cedula')?.touched">
+                  Cédula del usuario a registar es requerido <br>
+                </span>
+                <span class="text-danger" *ngIf="registroFormulario.get('cedula')?.hasError('maxlength')">
+                  Cédula del usuario solo permite una longitud máxima de 10 números <br>
+                </span>
+                <span class="text-danger" *ngIf="registroFormulario.get('cedula')?.hasError('minlength')">
+                  Cédula del usuario solo permite una longitud mínima de 8 números <br>
+                </span>
+                <span class="text-danger" *ngIf="registroFormulario.get('cedula')?.hasError('pattern')">
+                  Cédula del usuario solo permite números <br>
+                </span>
+              </div>
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary btn-block mb-4" [disabled]="registroFormulario.invalid">
+                Registrar
+              </button>
+            </form>
           </div>
         </div>
-  
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <img src="../../assets/imagenes/avion.jpg" class="w-100 rounded-4 shadow-4"
-            alt="" />
-        </div>
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <img src="../../assets/imagenes/avion.jpg" class="w-100 rounded-4 shadow-4" alt="" />
       </div>
     </div>
-    <!-- Jumbotron -->
-  </section>
-  <!-- Section: Design Block -->
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->

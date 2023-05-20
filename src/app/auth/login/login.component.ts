@@ -24,7 +24,7 @@ export class LoginComponent {
 
   loginFormulario: FormGroup = this.fb.group({
     cedula: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(10),Validators.pattern(/^[0-9]+$/)]],
-    email:['',[Validators.required,Validators.minLength(20),Validators.maxLength(64),Validators.pattern(/[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]/)]]
+    email:['',[Validators.required,Validators.minLength(15),Validators.maxLength(64),Validators.pattern(/[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]/)]]
   })
 
   iniciarSesion(){
