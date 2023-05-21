@@ -32,7 +32,7 @@
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label">Apellido</label>
-                    <input type="text" class="form-control" formControlName="apellido" />
+                    <input type="text" class="form-control" formControlName="apellido"/>
                     <span class="text-danger"
                       *ngIf="registroFormulario.get('apellido')?.hasError('required') && registroFormulario.get('apellido')?.touched">
                       Apellido del usuario a registar es requerido <br>
@@ -72,7 +72,7 @@
               <!-- Password input -->
               <div class="form-outline mb-4">
                 <label class="form-label">Cédula</label>
-                <input type="password" class="form-control" formControlName="cedula" />
+                <input type="password" class="form-control" formControlName="cedula"/>
                 <span class="text-danger"
                   *ngIf="registroFormulario.get('cedula')?.hasError('required') && registroFormulario.get('cedula')?.touched">
                   Cédula del usuario a registar es requerido <br>
@@ -89,7 +89,7 @@
               </div>
 
               <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-block mb-4" [disabled]="registroFormulario.invalid">
+              <button type="submit" class="btn btn-primary btn-block mb-4" (click)="create()" [disabled]="registroFormulario.invalid">
                 Registrar
               </button>
             </form>

@@ -11,15 +11,6 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class RegistroComponent {
 
-  nuevoUsuario :Usuario ={
-    rolUsuario_rousid: 0,
-    descripcion: '',
-    cedula: '',
-    nombre: '',
-    apellido: '',
-    correo: '',
-    estado: ''
-  };
 
   constructor(private usuarioService:UsuarioService,
               private route:Router,
@@ -33,6 +24,17 @@ export class RegistroComponent {
   })
 
   create():void{
-    console.log(this.nuevoUsuario);
+    const datos = this.registroFormulario.value
+    const nuevoUsuario: Usuario ={
+      cedula: datos.cedula,
+      nombre: datos.nombre,
+      apellido: datos.apellido,
+      correo: datos.email,
+      estado: 'Activo'
+    };
+    console.log(nuevoUsuario)
+    this.usuarioService.crearUsuario(nuevoUsuario).subscribe(
+      res=>this.route.navigate(['']) //Escribir la ruta de enlace 'Debe ser vista de '/usuario/mainpage' 
+    )
   }
 }
