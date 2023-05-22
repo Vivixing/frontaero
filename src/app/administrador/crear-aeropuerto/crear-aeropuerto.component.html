@@ -74,7 +74,7 @@
                                 <div class="form-group">
                                     <label class="input-group-text">País</label>
                                     <select class="form-control" placeholder="Seleccione un país *"
-                                        formControlName="pais" required>
+                                        formControlName="pais" (change)="encontrarCiudades()" required>
                                         <option value="" class="text-primary" disabled selected>Seleccione un país</option>
                                         <option *ngFor="let pais of paises" [value]="pais.country">{{ pais.country }}
                                         </option>
@@ -89,7 +89,7 @@
                                     <select type="text" class="form-control" placeholder="Seleccione una ciudad *"
                                         formControlName="ciudad" required>
                                         <option value="" class="text-primary" disabled selected>Seleccione una ciudad</option>
-                                        
+                                        <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
                                         <span class="text-danger"
                                             *ngIf="aeropuertoformulario.get('ciudad')?.hasError('required') && aeropuertoformulario.get('ciudad')?.touched">
                                             Selecciona la ciudad del pais para el aeropuerto <br>

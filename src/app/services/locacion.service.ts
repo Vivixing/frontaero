@@ -10,15 +10,10 @@ export class LocacionService {
   
   constructor(private http: HttpClient) { }
 
-  urlApiLocacion = 'https://countriesnow.space/api/v0.1/countries';
+  urlApiLocacion = 'https://countriesnow.space/api/v0.1';
 
   obtenerPaises():Observable<ApiPais> {
-    return this.http.get<ApiPais>(this.urlApiLocacion);
+    return this.http.get<ApiPais>(`${this.urlApiLocacion}/countries`);
   }
-
-  obtenerCiudades(pais: string): Observable<ApiPais> {
-    return this.http.get<ApiPais>(`${this.urlApiLocacion}/${pais}/cities`);
-  }
-
   
 }

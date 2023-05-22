@@ -16,7 +16,7 @@ import { count } from 'rxjs';
 export class CrearAeropuertoComponent implements OnInit {
 
   //paises: any[] = [];
-  ciudades: string[] = [];
+  ciudades: String[] = [];
   paises: Pais[] = [];
   IataenUso: boolean = false
 
@@ -25,17 +25,18 @@ export class CrearAeropuertoComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.locationService.obtenerPaises().subscribe(
       (paises) => {
         this.paises = paises.data;
-        console.log(paises);
+        //console.log(paises);
       },
       (error) => {
-        console.log('Error fetching countries:', error);
+        console.log('Error al encontrar paises:', error);
       }
     );
+
   }
   aeropuertoformulario: FormGroup = this.fb.group({
     //id :['',Validators.required],
@@ -46,28 +47,11 @@ export class CrearAeropuertoComponent implements OnInit {
     ubicacion: ['', Validators.required]
   })
 
-  /*loadCountries() {
-    this.locationService.obtenerPaises().subscribe((data) => {
-      this.paises = data;
-    },
-      error => {
-        console.log('error al obtener los paises',error);
-      });
-  }*/
-
-  /*
-  buscarCiudades(pais: string) {
-    this.locationService.obtenerCiudades(pais).subscribe(
-      (data) => {
-        this.ciudades = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  encontrarCiudades() {
+    this.ciudades = []
+    const elPais = this.paises.filter(elPais => elPais.country == this.aeropuertoformulario.value['pais'])
+    this.ciudades = elPais[0].cities
   }
-  */
-
   crearAeropuerto(): void {
     this.aeropuertoformulario.valid
     const datos = this.aeropuertoformulario.value
@@ -83,15 +67,17 @@ export class CrearAeropuertoComponent implements OnInit {
     let listadoAeropuertos: Aeropuerto[] = []
     this.aeropuertosService.obtenerAeropuertos().subscribe(res => {
       listadoAeropuertos = res
-      if (this.validarIata(listadoAeropuertos, datos.iata)) return
+      if (this.validarIata(listadoAeropuertos, aeropuerto.iata)) return
 
       this.enviarAeropuerto(aeropuerto)
       this.aeropuertoformulario.reset()
     })
   }
 
-  enviarAeropuerto(datos: Aeropuerto) {
-    this.aeropuertosService.crearAeropuerto(datos)?.subscribe(res => {
+  enviarAeropuerto(aeropuerto: Aeropuerto) {
+    this.aeropuertoformulario.valid
+    this.aeropuertosService.crearAeropuerto(aeropuerto)?.subscribe(
+      res => {
       if (res == null) {
         console.log('No se puedo crear el aeropuerto')
         return
