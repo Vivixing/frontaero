@@ -5,7 +5,6 @@ import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { LocacionService } from 'src/app/services/locacion.service';
 import { Pais } from 'src/app/interfaces/pais';
-import { count } from 'rxjs';
 
 
 @Component({
@@ -39,12 +38,10 @@ export class CrearAeropuertoComponent implements OnInit {
 
   }
   aeropuertoformulario: FormGroup = this.fb.group({
-    //id :['',Validators.required],
     nombre: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(5), Validators.pattern(/^[a-zA-Z]?[A-Za-z-]+$/)]],
-    pais: ['', Validators.required],
-    ciudad: ['', Validators.required],
     iata: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
-    ubicacion: ['', Validators.required]
+    pais: ['', [Validators.required]],
+    ciudad: ['', [Validators.required]],
   })
 
   encontrarCiudades() {
@@ -53,36 +50,26 @@ export class CrearAeropuertoComponent implements OnInit {
     this.ciudades = elPais[0].cities
   }
   crearAeropuerto(): void {
-    this.aeropuertoformulario.valid
-    const datos = this.aeropuertoformulario.value
-
     const aeropuerto: Aeropuerto = {
-      nombre: datos.nombre,
-      iata: datos.iata,
-      ubicacion: `${datos.pais} - ${datos.ciudad}`,
-      estado: 'Activo'
+      nombre: this.aeropuertoformulario.value['nombre'],
+      iata: this.aeropuertoformulario.value['iata'],
+      ubicacion: `${this.aeropuertoformulario.value['pais']}  ${this.aeropuertoformulario.value['ciudad']}`,
+      estado: 'Activo'      
     };
-    console.log(aeropuerto);
-
-    let listadoAeropuertos: Aeropuerto[] = []
-    this.aeropuertosService.obtenerAeropuertos().subscribe(res => {
-      listadoAeropuertos = res
-      if (this.validarIata(listadoAeropuertos, aeropuerto.iata)) return
-
-      this.enviarAeropuerto(aeropuerto)
-      this.aeropuertoformulario.reset()
-    })
+    this.aeropuertoformulario.valid,
+    //console.log(aeropuerto);
+    this.enviarAeropuerto(aeropuerto)
+    this.aeropuertoformulario.reset()
   }
 
   enviarAeropuerto(aeropuerto: Aeropuerto) {
-    this.aeropuertoformulario.valid
     this.aeropuertosService.crearAeropuerto(aeropuerto)?.subscribe(
       res => {
       if (res == null) {
         console.log('No se puedo crear el aeropuerto')
         return
       }
-      console.log('Aeropuerto creado con éxito');
+      console.log(res,'Aeropuerto creado con éxito');
       this.router.navigate(["/administrador/aeropuertosListadoAdmin"])
     },
       err => {
@@ -94,17 +81,17 @@ export class CrearAeropuertoComponent implements OnInit {
       })
   }
 
-  validarIata(aeropuerto: Aeropuerto[], iata: string): boolean {
+  // validarIata(aeropuerto: Aeropuerto[], iata: string): boolean {
 
-    const respuesta = aeropuerto.filter(res => res.iata === iata)
+  //   const respuesta = aeropuerto.filter(res => res.iata === iata)
 
-    if (respuesta.length == 0) {
-      this.IataenUso = false
-      return false
-    }
-    this.IataenUso = true
-    return true
-  }
+  //   if (respuesta.length == 0) {
+  //     this.IataenUso = false
+  //     return false
+  //   }
+  //   this.IataenUso = true
+  //   return true
+  // }
 
 }
 
