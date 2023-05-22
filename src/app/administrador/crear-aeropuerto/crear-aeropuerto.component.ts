@@ -5,6 +5,7 @@ import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { LocacionService } from 'src/app/services/locacion.service';
 import { Pais } from 'src/app/interfaces/pais';
+import { count } from 'rxjs';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class CrearAeropuertoComponent implements OnInit {
 
   //paises: any[] = [];
   ciudades: string[] = [];
-  paises:Pais[]=[];
+  paises: Pais[] = [];
   IataenUso: boolean = false
 
   constructor(private aeropuertosService: AeropuertosService,
@@ -24,17 +25,21 @@ export class CrearAeropuertoComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
-    this.locationService.obtenerPaises().subscribe( (data) =>{
-      this.paises = data
-    })
-    
+    this.locationService.obtenerPaises().subscribe(
+      (paises) => {
+        this.paises = paises.data;
+        console.log(paises);
+      },
+      (error) => {
+        console.log('Error fetching countries:', error);
+      }
+    );
   }
-
   aeropuertoformulario: FormGroup = this.fb.group({
     //id :['',Validators.required],
-    nombre: ['', [Validators.required,Validators.maxLength(30),Validators.minLength(5),Validators.pattern(/^[a-zA-Z]?[A-Za-z-]+$/)]],
+    nombre: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(5), Validators.pattern(/^[a-zA-Z]?[A-Za-z-]+$/)]],
     pais: ['', Validators.required],
     ciudad: ['', Validators.required],
     iata: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
@@ -116,3 +121,6 @@ export class CrearAeropuertoComponent implements OnInit {
   }
 
 }
+
+
+

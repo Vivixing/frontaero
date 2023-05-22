@@ -1,4 +1,8 @@
+export interface ApiPais{
+    data: Pais[];
+}
+
 export interface Pais {
-    nombre:string;
-    ciudades:string[];
+    country:string;
+    cities:string[];
 }
