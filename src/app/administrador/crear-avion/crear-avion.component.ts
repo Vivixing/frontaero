@@ -17,14 +17,12 @@ export class CrearAvionComponent implements OnInit{
   }
 
   avionFormulario: FormGroup = this.fb.group({
-    modelo:['',[Validators.maxLength(30),Validators.required],Validators.pattern(/^[a-zA-Z]{5,}[0-9]{3,}[\/\-]?[a-zA-Z0-9\/\-]*$/)]
+    modelo:['',[Validators.required,Validators.maxLength(10),Validators.pattern(/^[a-zA-Z]{5,}[0-9]{3,}[\/\-]?[a-zA-Z0-9\/\-]*$/)],]
   })
 
   crearAvion():void{
-    const datos = this.avionFormulario.value
-
     const avion : Avion ={
-      modelo: datos.modelo,
+      modelo: this.avionFormulario.value['modelo'],
       estado: 'Activo'
     };
     console.log(avion);
@@ -34,7 +32,7 @@ export class CrearAvionComponent implements OnInit{
         console.log('No se puede crear el avión');
         return;
       }else{
-        console.log('avión creado con éxito');
+        console.log('Avión creado con éxito');
         this.avionFormulario.reset()
       }
     },

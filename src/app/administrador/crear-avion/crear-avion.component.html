@@ -36,8 +36,12 @@
                                         Modelo del avión requerido
                                     </span>
                                     <span class="text-danger"
+                                        *ngIf="avionFormulario.get('modelo')?.hasError('maxlength')">
+                                        El modelo del avión debe tener una longitud máxima de 10 caracteres
+                                    </span>
+                                    <span class="text-danger"
                                         *ngIf="avionFormulario.get('modelo')?.hasError('pattern')">
-                                        El modelo del avión debe tener al menos 4 letras y 3 números
+                                        El modelo del avión debe tener al menos 5 letras y 3 números en ese orden
                                     </span>
                                 </div>
                                 <!--
