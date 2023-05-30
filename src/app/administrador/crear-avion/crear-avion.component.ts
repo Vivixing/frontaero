@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
 
@@ -11,6 +12,7 @@ import { AvionService } from 'src/app/services/avion.service';
 export class CrearAvionComponent implements OnInit{
 
   constructor(private avionService:AvionService,
+              private router : Router,
               private fb:FormBuilder){}
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class CrearAvionComponent implements OnInit{
       }else{
         console.log('Avión creado con éxito');
         this.avionFormulario.reset()
+        this.router.navigate(["/administrador/avionesListadoAdmin"])
       }
     },
     err=>{
