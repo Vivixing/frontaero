@@ -14,7 +14,7 @@ export class AeropuertosComponent implements OnInit {
 
   ngOnInit():void{
     this.aeropuertosService.obtenerAeropuertos().subscribe(
-      e => this.aeropuertos = e
+      listadoAeropuerto => this.aeropuertos = listadoAeropuerto
     );
   }
 }
