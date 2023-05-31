@@ -21,51 +21,56 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">Crear Vuelo</h3>
                     <div class="row register-form">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Aeropuerto Origen:</label>
-                                <select class="form-control" name="aeropuertoOrigen">
-                                    <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto de Origen</option>
-                                    <option *ngFor="let aeropuerto of aeropuertos" [value]="aeropuerto.aeroId">{{aeropuerto.nombre}}</option>
-                                </select>
+                        <form (ngSubmit)="enviarFromulario()">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Aeropuerto Origen:</label>
+                                    <select class="form-control" name="aeropuertoOrigen" formControlName="origen">
+                                        <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto
+                                            de Origen</option>
+                                        <option *ngFor="let aeropuerto of aeropuertos" [value]="aeropuerto.aeroId">
+                                            {{aeropuerto.nombre}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Aeropuerto Destino:</label>
+                                    <select class="form-control" name="aeropuertoDestino" formControlName="destino">
+                                        <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto
+                                            de Destino</option>
+                                        <option *ngFor="let aeropuerto of aeropuertos" [value]="aeropuerto.aeroId">{{
+                                            aeropuerto.nombre}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio Vuelo:</label>
+                                    <input type="number" class="form-control" name="precio" formControlName="precioVuelo"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Hora de salida:</label>
+                                    <input type="datetime-local" class="form-control" name="hora_salida" formControlName="fechaHoraSalida" />
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Aeropuerto Destino:</label>
-                                <select  class="form-control" name="aeropuertoDestino">
-                                    <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto de Destino</option>
-                                    <option *ngFor="let aeropuerto of aeropuertos" [value]="aeropuerto.aeroId">{{
-                                        aeropuerto.nombre}}</option>
-                                </select>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label>Hora de llegada:</label>
+                                    <input type="datetime-local" class="form-control" name="hora_llegada" formControlName="fechaHoraLlegada"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio Asiento VIP:</label>
+                                    <input type="number" class="form-control" name="precioAsientoVip" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio Asiento Normal:</label>
+                                    <input type="number" class="form-control" name="precioAsientoNormal" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Precio Asiento Básico:</label>
+                                    <input type="number" class="form-control" name="precioAsientoBasico" />
+                                </div>
+                                <button type="submit" class="btnRegister">Crear</button>
                             </div>
-                            <div class="form-group">
-                                <label>Precio Vuelo:</label>
-                                <input type="number" class="form-control"  name="precio"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Hora de salida:</label>
-                                <input type="datetime-local" class="form-control"  name="hora_salida"/>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            
-                            <div class="form-group">
-                                <label>Hora de llegada:</label>
-                                <input type="datetime-local" class="form-control"  name="hora_llegada"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Precio Asiento VIP:</label>
-                                <input type="number" class="form-control" name="precioAsientoVip"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Precio Asiento Normal:</label>
-                                <input type="number" class="form-control"  name="precioAsientoNormal"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Precio Asiento Básico:</label>
-                                <input type="number" class="form-control"  name="precioAsientoBasico"/>
-                            </div>
-                            <button type="submit" class="btnRegister" (click)="crearVuelo()">Crear</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

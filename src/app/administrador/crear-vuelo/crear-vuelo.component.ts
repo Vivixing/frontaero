@@ -4,7 +4,8 @@ import { VueloService } from 'src/app/services/vuelo.service';
 import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { Vuelo } from 'src/app/interfaces/vuelo';
-import { HttpClient } from '@angular/common/http';
+import { Avion } from 'src/app/interfaces/avion';
+import { AvionService } from 'src/app/services/avion.service';
 
 @Component({
   selector: 'app-crear-vuelo',
@@ -14,17 +15,52 @@ import { HttpClient } from '@angular/common/http';
 export class CrearVueloComponent implements OnInit {
 
   aeropuertos: Aeropuerto[] = [];
+  aviones: Avion[] = [];
   vuelos: Vuelo[] = [];
+  vueloForm: FormGroup
 
 
-  constructor(private vueloService: VueloService,
-    private fb: FormBuilder, private aeropuertoService: AeropuertosService) { }
+  constructor(private vueloService: VueloService, private AvionService: AvionService,
+    private fb: FormBuilder, private aeropuertoService: AeropuertosService) {
+    this.vueloForm = this.fb.group({
+      origen: ['', [Validators.required]],
+      destino: ['', [Validators.required]],
+      precioVuelo:[Validators.required],
+      fechaHoraSalida: ['', [Validators.required]],
+      fechaHoraLlegada: ['', [Validators.required]],
+    }, { Validators: this.fechaValidacion });
+  }
 
 
   ngOnInit(): void {
     this.getAeropuertos()
     this.getAviones()
   }
+
+  enviarFromulario() {
+    if (this.vueloForm.valid) {
+      const datosVuelo = this.vueloForm.value;
+      // Realiza la validación de id de aeropuerto de origen y destino
+      if (datosVuelo.origen === datosVuelo.destino) {
+        alert('El aeropuerto de origen y destino deben ser diferentes.');
+        return;
+      }
+    }
+    this.vueloForm.reset();    
+  }
+
+  fechaValidacion(vueloForm: FormGroup): { [key: string]: boolean } | null {
+    const fechaHoraSalida = vueloForm.get('fechaHoraSalida')?.value;
+    const fechaHoraLlegada = vueloForm.get('fechaHoraLlegada')?.value;
+
+    if (fechaHoraSalida >= fechaHoraLlegada) {
+      return { 'Fecha Inválida': true };
+    }
+
+    return null;
+  }
+
+  /*
   fechas = {
 
     fechaEscala1   : "",
@@ -35,9 +71,9 @@ export class CrearVueloComponent implements OnInit {
 
     fechaEscala3   : "",
     fechaEscala3_2  : "",
-  }
+  }*/
 
-  vueloFormulario: FormGroup = this.fb.group({
+  /*vueloFormulario: FormGroup = this.fb.group({
     precioVuelo: [, [Validators.required]],
     precioAsientoVip: [],
     precioAsientoNormal: [],
@@ -58,6 +94,7 @@ export class CrearVueloComponent implements OnInit {
     idAvion2:[],
     idAvion3:[]
   })
+
   validacionEscalasFechas(){
     const formularioFechas = this.vueloFormulario.controls
     this.fechas.fechaEscala1_2=this.vueloFormulario.controls['fechaOrigen_1'].value
@@ -89,64 +126,65 @@ export class CrearVueloComponent implements OnInit {
 
     if( formularioFechas['fechaOrigen_3'].value == null  ) this.vueloFormulario.get("fechaDestino_3")?.disable()
     else this.vueloFormulario.get("fechaDestino_3")?.enable()
-  }
+  }*/
   getAeropuertos() {
     this.aeropuertoService.obtenerAeropuertos().subscribe(listaAeropuertos => {
       this.aeropuertos = listaAeropuertos
     })
   }
   getAviones() {
-    this.vueloService.obtenerVuelos().subscribe(listaVuelos => {
-      this.vuelos = listaVuelos
+    this.AvionService.obtenerAviones().subscribe(listaAviones => {
+      this.aviones = listaAviones
     })
   }
-  crearVuelo() {
-    this.vueloFormulario.valid
-    // Obtener los aeropuertos seleccionados para origen y destino del vuelo
-    const aeropuertoOrigenSeleccionado = this.aeropuertos.find(a => a.aeroId === this.vuelos.find(e => e.aeropuerto_aeroIdOrigen));
-    const aeropuertoDestinoSeleccionado = this.aeropuertos.find(a => a.aeroId === this.vuelos.find(e => e.aeropuerto_aeroIdDestino));
 
-    // Asignar los aeropuertos seleccionados al modelo de vuelo
-    this.vuelos.find(e=> e.aeropuerto_aeroIdOrigen) == aeropuertoOrigenSeleccionado;
-    this.vuelos.find(e=> e.aeropuerto_aeroIdDestino) == aeropuertoDestinoSeleccionado;
+  // crearVuelo() {
+  //   this.vueloFormulario.valid
+  //   // Obtener los aeropuertos seleccionados para origen y destino del vuelo
+  //   const aeropuertoOrigenSeleccionado = this.aeropuertos.find(a => a.aeroId === this.vuelos.find(e => e.aeropuerto_aeroIdOrigen));
+  //   const aeropuertoDestinoSeleccionado = this.aeropuertos.find(a => a.aeroId === this.vuelos.find(e => e.aeropuerto_aeroIdDestino));
 
-    //Enviar el form
-    const VueloCrear: Vuelo = {
-      aeropuerto_aeroIdOrigen: parseInt(this.vueloFormulario.controls['aeroOrigen_1'].value),
-      aeropuerto_aeroIdDestino: parseInt(this.vueloFormulario.controls['aeroDestino_1'].value),
-      nombreAeroOrigen: this.vueloFormulario.controls['aeroOrigen_1'].value,
-      nombreAeroDestino: this.vueloFormulario.controls['aeroDestino_1'].value,
-      precio: this.vueloFormulario.controls['precioVuelo'].value,
-      hora_salida: this.vueloFormulario.controls['fechaOrigen_1'].value,
-      hora_llegada: this.vueloFormulario.controls['fechaDestino_1'].value,
-      precioAsientoVip: parseInt(this.vueloFormulario.controls['precioAsientoVip'].value),
-      precioAsientoNormal: parseInt(this.vueloFormulario.controls['precioAsientoNormal'].value),
-      precioAsientoBasico: parseInt(this.vueloFormulario.controls['precioAsientoBasico'].value),
-      estado: 'Activo'
-    }
-    this.vueloService.crearVuelo(VueloCrear)?.subscribe(
-      vuelo => {
-        if (vuelo == null) {
-          console.log('No se puede crear el vuelo')
-          return
-        /*}if (vuelo.vueloId == undefined) {
-          console.log('El id del vuelo es indefinido')
-          return*/
-        }else {
-          console.log('Vuelo creado con éxito')
-          this.vueloFormulario.reset()
-        }
-      },
-      errorVuelo => {
-        let errorMensaje = 'Error al crear el vuelo';
+  //   // Asignar los aeropuertos seleccionados al modelo de vuelo
+  //   this.vuelos.find(e=> e.aeropuerto_aeroIdOrigen) == aeropuertoOrigenSeleccionado;
+  //   this.vuelos.find(e=> e.aeropuerto_aeroIdDestino) == aeropuertoDestinoSeleccionado;
 
-        if (errorVuelo.error && errorVuelo.error.mensaje) {
-          errorMensaje = errorVuelo.error.mensaje;
-        }
-        console.log(errorMensaje, 'Error');
-      }
-    )
+  //   //Enviar el form
+  //   const VueloCrear: Vuelo = {
+  //     aeropuerto_aeroIdOrigen: parseInt(this.vueloFormulario.controls['aeroOrigen_1'].value),
+  //     aeropuerto_aeroIdDestino: parseInt(this.vueloFormulario.controls['aeroDestino_1'].value),
+  //     nombreAeroOrigen: this.vueloFormulario.controls['aeroOrigen_1'].value,
+  //     nombreAeroDestino: this.vueloFormulario.controls['aeroDestino_1'].value,
+  //     precio: this.vueloFormulario.controls['precioVuelo'].value,
+  //     hora_salida: this.vueloFormulario.controls['fechaOrigen_1'].value,
+  //     hora_llegada: this.vueloFormulario.controls['fechaDestino_1'].value,
+  //     precioAsientoVip: parseInt(this.vueloFormulario.controls['precioAsientoVip'].value),
+  //     precioAsientoNormal: parseInt(this.vueloFormulario.controls['precioAsientoNormal'].value),
+  //     precioAsientoBasico: parseInt(this.vueloFormulario.controls['precioAsientoBasico'].value),
+  //     estado: 'Activo'
+  //   }
+  //   this.vueloService.crearVuelo(VueloCrear)?.subscribe(
+  //     vuelo => {
+  //       if (vuelo == null) {
+  //         console.log('No se puede crear el vuelo')
+  //         return
+  //       /*}if (vuelo.vueloId == undefined) {
+  //         console.log('El id del vuelo es indefinido')
+  //         return*/
+  //       }else {
+  //         console.log('Vuelo creado con éxito')
+  //         this.vueloFormulario.reset()
+  //       }
+  //     },
+  //     errorVuelo => {
+  //       let errorMensaje = 'Error al crear el vuelo';
 
-  }
+  //       if (errorVuelo.error && errorVuelo.error.mensaje) {
+  //         errorMensaje = errorVuelo.error.mensaje;
+  //       }
+  //       console.log(errorMensaje, 'Error');
+  //     }
+  //   )
+
+  // }
 
 }
