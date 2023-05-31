@@ -25,7 +25,18 @@ export class CrearVueloComponent implements OnInit {
     this.getAeropuertos()
     this.getAviones()
   }
-  
+  fechas = {
+
+    fechaEscala1   : "",
+    fechaEscala1_2 : "",
+
+    fechaEscala2  : "",
+    fechaEscala2_2 : "",
+
+    fechaEscala3   : "",
+    fechaEscala3_2  : "",
+  }
+
   vueloFormulario: FormGroup = this.fb.group({
     precioVuelo: [, [Validators.required]],
     precioAsientoVip: [],
@@ -43,8 +54,42 @@ export class CrearVueloComponent implements OnInit {
     fechaDestino_1: [],
     fechaDestino_2: [],
     fechaDestino_3: [],
+    idAvion1:[],
+    idAvion2:[],
+    idAvion3:[]
   })
+  validacionEscalasFechas(){
+    const formularioFechas = this.vueloFormulario.controls
+    this.fechas.fechaEscala1_2=this.vueloFormulario.controls['fechaOrigen_1'].value
+    this.fechas.fechaEscala2=this.vueloFormulario.controls['fechaDestino_1'].value
+    this.fechas.fechaEscala2_2=this.vueloFormulario.controls['fechaOrigen_2'].value
+    this.fechas.fechaEscala3=this.vueloFormulario.controls['fechaDestino_2'].value
+    this.fechas.fechaEscala3_2=this.vueloFormulario.controls['fechaOrigen_3'].value
 
+    // Desactivar formularios que aún no se pueden tocar    
+
+    if( formularioFechas['fechaOrigen_1'].value == null){
+      this.vueloFormulario.get("fechaDestino_1")?.disable()
+    }else {this.vueloFormulario.get("fechaDestino_1")?.enable()}
+
+
+    // Desactivar fecha segunda escala
+    if( formularioFechas['fechaDestino_1'].value == null ) this.vueloFormulario.get("fechaOrigen_2")?.disable()
+    else this.vueloFormulario.get("fechaOrigen_2")?.enable()
+    
+
+    if( formularioFechas['fechaOrigen_2'].value == null ) this.vueloFormulario.get("fechaDestino_2")?.disable()
+    else this.vueloFormulario.get("fechaDestino_2")?.enable()
+  
+
+    // Desactivar fecha tercer escala
+    if( formularioFechas['fechaDestino_2'].value == null  ) this.vueloFormulario.get("fechaOrigen_3")?.disable()
+    else this.vueloFormulario.get("fechaOrigen_3")?.enable()
+    
+
+    if( formularioFechas['fechaOrigen_3'].value == null  ) this.vueloFormulario.get("fechaDestino_3")?.disable()
+    else this.vueloFormulario.get("fechaDestino_3")?.enable()
+  }
   getAeropuertos() {
     this.aeropuertoService.obtenerAeropuertos().subscribe(listaAeropuertos => {
       this.aeropuertos = listaAeropuertos
