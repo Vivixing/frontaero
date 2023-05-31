@@ -24,15 +24,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Aeropuerto Origen:</label>
-                                <select [(ngModel)]="vuelo.aeropuertoOrigen" name="aeropuertoOrigen">
-                                    <option *ngFor="let aeropuerto of aeropuertos" [value]="aeropuerto">{{
-                                        aeropuerto.nombre }}</option>
+                                <select class="form-control" name="aeropuertoOrigen">
+                                    <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto de Origen</option>
+                                    <option *ngFor="let aeropuerto of aeropuertos">{{aeropuerto.nombre}}</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Aeropuerto Destino:</label>
-                                <select [(ngModel)]="vuelo.aeropuertoDestino" name="aeropuertoDestino">
-                                    <option *ngFor="let aeropuerto of aeropuertos" [value]="aeropuerto">{{
+                                <select  class="form-control" name="aeropuertoDestino">
+                                    <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto de Destino</option>
+                                    <option *ngFor="let aeropuerto of aeropuertos" [value]="aeropuerto.aeroId">{{
                                         aeropuerto.nombre}}</option>
                                 </select>
                             </div>
@@ -40,12 +41,13 @@
                                 <label>Precio Vuelo:</label>
                                 <input type="number" class="form-control" [(ngModel)]="vuelo.precio" name="precio"/>
                             </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Hora de salida:</label>
                                 <input type="datetime-local" class="form-control" [(ngModel)]="vuelo.hora_salida" name="hora_salida"/>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                            
                             <div class="form-group">
                                 <label>Hora de llegada:</label>
                                 <input type="datetime-local" class="form-control" [(ngModel)]="vuelo.hora_llegada" name="hora_llegada"/>
