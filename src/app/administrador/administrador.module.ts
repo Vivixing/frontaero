@@ -11,6 +11,8 @@ import { CrearAeropuertoComponent } from './crear-aeropuerto/crear-aeropuerto.co
 import { CrearVueloComponent } from './crear-vuelo/crear-vuelo.component';
 import { CrearAvionComponent } from './crear-avion/crear-avion.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderadminComponent } from './components/headeradmin/headeradmin.component';
+
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CrearVueloComponent,
     CrearAvionComponent,
     DashboardComponent,
+    HeaderadminComponent
   ],
   imports: [
     CommonModule,

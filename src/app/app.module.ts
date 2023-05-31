@@ -10,7 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { IndexComponent } from './components/index/index.component';
 import { Error404Component } from './components/error404/error404.component';
-import { HeaderadminComponent } from './components/headeradmin/headeradmin.component';
+
 
 
 
@@ -22,7 +22,6 @@ import { HeaderadminComponent } from './components/headeradmin/headeradmin.compo
     FooterComponent,
     IndexComponent,
     Error404Component,
-    HeaderadminComponent
   ],
   imports: [
     BrowserModule,
