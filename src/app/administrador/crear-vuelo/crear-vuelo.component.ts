@@ -25,7 +25,7 @@ export class CrearVueloComponent implements OnInit {
     this.getAeropuertos()
     this.getAviones()
   }
-
+  
   vueloFormulario: FormGroup = this.fb.group({
     precioVuelo: [, [Validators.required]],
     precioAsientoVip: [],
@@ -56,6 +56,7 @@ export class CrearVueloComponent implements OnInit {
     })
   }
   crearVuelo() {
+    this.vueloFormulario.valid
     // Obtener los aeropuertos seleccionados para origen y destino del vuelo
     const aeropuertoOrigenSeleccionado = this.aeropuertos.find(a => a.aeroId === this.vuelos.find(e => e.aeropuerto_aeroIdOrigen));
     const aeropuertoDestinoSeleccionado = this.aeropuertos.find(a => a.aeroId === this.vuelos.find(e => e.aeropuerto_aeroIdDestino));
