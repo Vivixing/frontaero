@@ -99,7 +99,7 @@
                                     <input type="number" class="form-control" name="precioAsientoBasico"
                                         formControlName="precioAsientoBasico" />
                                 </div>
-                                <button type="submit" class="btnRegister">Crear</button>
+                                <button type="submit" class="btnRegister" [disabled]="!vueloForm.valid">Crear</button>
                             </div>
                         </form>
                     </div>
