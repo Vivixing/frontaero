@@ -43,7 +43,7 @@ export class CrearVueloComponent implements OnInit {
     return this.vueloForm.get('escalas') as FormArray;
   }
 
-  agregarEscalas(){
+  agregarEscala(){
     const escalasGroup = this.fb.group({
       aeropuertoEscala:[],
       fechaHoraSalida:[],

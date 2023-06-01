@@ -21,10 +21,10 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">Crear Vuelo</h3>
                     <div class="row register-form">
-                        <form (ngSubmit)="enviarFromulario()">
+                        <form [formGroup]="vueloForm" (ngSubmit)="enviarFromulario()">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Aeropuerto Origen:</label>
+                                    <label for="origen">Aeropuerto Origen:</label>
                                     <select class="form-control" name="aeropuertoOrigen" formControlName="origen">
                                         <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto
                                             de Origen</option>
@@ -33,7 +33,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Aeropuerto Destino:</label>
+                                    <label for="destino">Aeropuerto Destino:</label>
                                     <select class="form-control" name="aeropuertoDestino" formControlName="destino">
                                         <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto
                                             de Destino</option>
@@ -42,31 +42,62 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio Vuelo:</label>
-                                    <input type="number" class="form-control" name="precio" formControlName="precioVuelo"/>
+                                    <label for="tieneEscalas">¿El vuelo tiene escalas?</label>
+                                    <input type="checkbox" id="tieneEscalas" formControlName="tieneEscalas">
+                                </div>
+                                <div class="form-group" *ngIf="vueloForm.get('tieneEscalas')?.value">
+                                    <h3>Escala(s)</h3>
+                                    <div formArrayName="escalas">
+                                        <div *ngFor="let escala of escalas.controls; let i=index" [formGroupName]="i">
+                                            <label>Aeropuerto de escala:</label>
+                                            <select formControlName="aeropuertoEscala">
+                                                <option *ngFor="let airport of aeropuertos" [value]="airport.aeroId">{{
+                                                    airport.nombre }}</option>
+                                            </select>
+
+                                            <label>Hora de salida:</label>
+                                            <input type="datetime-local" formControlName="fechaHoraSalida">
+
+                                            <label>Hora de llegada:</label>
+                                            <input type="datetime-local" formControlName="fechaHoraLlegada">
+
+                                            <button type="button" (click)="eliminarEscala(i)">Eliminar Escala</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" (click)="agregarEscala()">Agregar Escala</button>
                                 </div>
                                 <div class="form-group">
-                                    <label>Hora de salida:</label>
-                                    <input type="datetime-local" class="form-control" name="hora_salida" formControlName="fechaHoraSalida" />
+                                    <label for="precioVuelo">Precio Vuelo:</label>
+                                    <input type="number" class="form-control" name="precio"
+                                        formControlName="precioVuelo" />
+                                </div>
+                                <div class="form-group">
+                                    <label for=" fechaHoraSalida">Hora de salida:</label>
+                                    <input type="datetime-local" class="form-control" name="hora_salida"
+                                        formControlName="fechaHoraSalida" />
                                 </div>
                             </div>
                             <div class="col-md-6">
 
                                 <div class="form-group">
-                                    <label>Hora de llegada:</label>
-                                    <input type="datetime-local" class="form-control" name="hora_llegada" formControlName="fechaHoraLlegada"/>
+                                    <label for="fechaHoraLlegada">Hora de llegada:</label>
+                                    <input type="datetime-local" class="form-control" name="hora_llegada"
+                                        formControlName="fechaHoraLlegada" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio Asiento VIP:</label>
-                                    <input type="number" class="form-control" name="precioAsientoVip" formControlName="precioAsientoVip" />
+                                    <label for="precioAsientoVip">Precio Asiento VIP:</label>
+                                    <input type="number" class="form-control" name="precioAsientoVip"
+                                        formControlName="precioAsientoVip" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio Asiento Normal:</label>
-                                    <input type="number" class="form-control" name="precioAsientoNormal" formControlName="precioAsientoNormal" />
+                                    <label for=" precioAsientoNormal">Precio Asiento Normal:</label>
+                                    <input type="number" class="form-control" name="precioAsientoNormal"
+                                        formControlName="precioAsientoNormal" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Precio Asiento Básico:</label>
-                                    <input type="number" class="form-control" name="precioAsientoBasico"formControlName="precioAsientoBasico"/>
+                                    <label for="precioAsientoBasico">Precio Asiento Básico:</label>
+                                    <input type="number" class="form-control" name="precioAsientoBasico"
+                                        formControlName="precioAsientoBasico" />
                                 </div>
                                 <button type="submit" class="btnRegister">Crear</button>
                             </div>
