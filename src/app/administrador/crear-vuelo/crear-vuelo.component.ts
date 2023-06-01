@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VueloService } from 'src/app/services/vuelo.service';
 import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
@@ -25,16 +25,36 @@ export class CrearVueloComponent implements OnInit {
     this.vueloForm = this.fb.group({
       origen: ['', [Validators.required]],
       destino: ['', [Validators.required]],
+      tieneEscalas:[false],
       precioVuelo:[Validators.required],
       fechaHoraSalida: ['', [Validators.required]],
       fechaHoraLlegada: ['', [Validators.required]],
-    }, { Validators: this.fechaValidacion });
+      precioAsientoVip:[],
+      precioAsientoNormal:[],
+      precioAsientoBasico:[],
+      escalas:this.fb.array([])
+    });
   }
-
 
   ngOnInit(): void {
     this.getAeropuertos()
     this.getAviones()
+  }
+
+  get escalas(){
+    return this.vueloForm.get('escalas') as FormArray;
+  }
+
+  agregarEscalas(){
+    const escalasGroup = this.fb.group({
+      aeropuertoEscala:[],
+      fechaHoraSalida:[],
+      fechaHoraLlegada:[]
+    });
+    this.escalas.push(escalasGroup);
+  }
+  eliminarEscala(index:number){
+    this.escalas.removeAt(index);
   }
 
   enviarFromulario() {
@@ -45,20 +65,44 @@ export class CrearVueloComponent implements OnInit {
         alert('El aeropuerto de origen y destino deben ser diferentes.');
         return;
       }
+      //Validacioón fecha salida con la de llegada
+      const fechaHoraSalida = this.vueloForm.get('fechaHoraSalida')?.value;
+      const fechaHoraLlegada = this.vueloForm.get('fechaHoraLlegada')?.value;
+      if (fechaHoraSalida >= fechaHoraLlegada) {
+        alert('La fecha hora de salida no puede ser igual o una fecha después que la fecha hora de llegada')
+        return;
+      }
+      //Validación escalas
+      if(datosVuelo.tieneEscalas && datosVuelo.escalas.length < 1){
+        alert('Debe agregar al menos una escala')
+        return;
+      }
+      //Validación Aeropuertos de escalas diferentes a los de origen y destino
+      for(const escalas of datosVuelo.escalas){
+        if(escalas.aeroId === datosVuelo.origen || escalas.aeroId === datosVuelo.destino){
+          alert('Los aeropuertos de escalas deben ser diferentes a el aeropuerto de origen y destino')
+          return;
+        }
+        const escalaFechaHoraSalida = this.escalas.get('fechaHoraSalida')?.value;
+        const escalaFechaHoraLlegada = this.escalas.get('fechaHoraLlegada')?.value;
+        if(escalaFechaHoraSalida >= escalaFechaHoraLlegada){
+          alert('La fecha hora de salida de la escala no puede ser después de la fecha hora de llegada')
+          return;
+        }
+      }
+
+      this.vueloService.crearVuelo(datosVuelo).subscribe((response)=>{
+        console.log('Datos enviados éxitosamente al backend')
+        this.vueloForm.reset(); 
+      },
+      (error)=>{
+        console.error('Error al enviar los datos al backend',error);
+      });
     }
-    this.vueloForm.reset();    
+    
   }
 
-  fechaValidacion(vueloForm: FormGroup): { [key: string]: boolean } | null {
-    const fechaHoraSalida = vueloForm.get('fechaHoraSalida')?.value;
-    const fechaHoraLlegada = vueloForm.get('fechaHoraLlegada')?.value;
-
-    if (fechaHoraSalida >= fechaHoraLlegada) {
-      return { 'Fecha Inválida': true };
-    }
-
-    return null;
-  }
+  
 
   /*
   fechas = {
