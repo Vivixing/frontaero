@@ -15,7 +15,6 @@ import { AvionService } from 'src/app/services/avion.service';
 export class CrearVueloComponent implements OnInit {
 
   aeropuertos: Aeropuerto[] = [];
-  aviones: Avion[] = [];
   vuelos: Vuelo[] = [];
   vueloForm: FormGroup
 
@@ -38,7 +37,6 @@ export class CrearVueloComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAeropuertos()
-    this.getAviones()
   }
 
   get escalas(){
@@ -174,11 +172,6 @@ export class CrearVueloComponent implements OnInit {
   getAeropuertos() {
     this.aeropuertoService.obtenerAeropuertos().subscribe(listaAeropuertos => {
       this.aeropuertos = listaAeropuertos
-    })
-  }
-  getAviones() {
-    this.AvionService.obtenerAviones().subscribe(listaAviones => {
-      this.aviones = listaAviones
     })
   }
 
