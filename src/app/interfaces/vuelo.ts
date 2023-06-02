@@ -7,8 +7,8 @@ export interface Vuelo {
     nombreAeroOrigen: string;
     nombreAeroDestino: string;
     precio: number;
-    hora_salida : string;
-    hora_llegada: string;
+    hora_salida : Date;
+    hora_llegada: Date;
     precioAsientoVip : number;
     precioAsientoNormal : number;
     precioAsientoBasico :number;
@@ -22,8 +22,8 @@ export interface VueloModelo {
     nombreAeroOrigen: string;
     nombreAeroDestino: string;
     precio: number;
-    hora_salida : string;
-    hora_llegada: string;
+    hora_salida : Date;
+    hora_llegada: Date;
     precioAsientoVip : number;
     precioAsientoNormal : number;
     precioAsientoBasico :number;
