@@ -27,4 +27,14 @@ export class FacturaService {
   crearFactura(factura:Factura):Observable<Factura>{
     return this.http.post<Factura>(`${this.urlFactura}/guardarFactura`,factura)
   }
+
+  //Actualizar Factura
+  actualizarFactura(factura:Factura):Observable<Factura>{
+    return this.http.put<Factura>(`${this.urlFactura}/modificarFactura`,factura)
+  }
+
+  //Eliminar Factura
+  eliminarFactura(idFactura:number):Observable<Factura>{
+    return this.http.delete<Factura>(`${this.urlFactura}/eliminarFactura${idFactura}`)
+  }
 }
