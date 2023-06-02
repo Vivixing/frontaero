@@ -12,6 +12,8 @@ import { CrearVueloComponent } from './crear-vuelo/crear-vuelo.component';
 import { CrearAvionComponent } from './crear-avion/crear-avion.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderadminComponent } from './components/headeradmin/headeradmin.component';
+import { EditarAeropuertoComponent } from './editar-aeropuerto/editar-aeropuerto.component';
+import { EditarAvionComponent } from './editar-avion/editar-avion.component';
 
 
 
@@ -24,7 +26,9 @@ import { HeaderadminComponent } from './components/headeradmin/headeradmin.compo
     CrearVueloComponent,
     CrearAvionComponent,
     DashboardComponent,
-    HeaderadminComponent
+    HeaderadminComponent,
+    EditarAeropuertoComponent,
+    EditarAvionComponent
   ],
   imports: [
     CommonModule,
