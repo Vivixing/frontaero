@@ -27,4 +27,14 @@ export class TrayectoService {
   crearTrayecto(trayecto:Trayecto):Observable<Trayecto>{
     return this.http.post<Trayecto>(`${this.urlTrayecto}/guardarTrayecto`,trayecto)
   }
+
+  //Actualizar Trayecto
+  actualizarTrayecto(trayecto:Trayecto):Observable<Trayecto>{
+    return this.http.put<Trayecto>(`${this.urlTrayecto}/modificarTrayecto`,trayecto)
+  }
+
+  //Eliminar Trayecto
+  eliminarTrayecto(idTrayecto:number):Observable<Trayecto>{
+    return this.http.delete<Trayecto>(`${this.urlTrayecto}/eliminarTrayecto${idTrayecto}`)
+  }
 }
