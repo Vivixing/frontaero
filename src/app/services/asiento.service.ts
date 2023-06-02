@@ -27,4 +27,14 @@ export class AsientoService {
   crearAsiento(asiento:Asiento){
     return this.http.post<Asiento>(`${this.urlAsiento}/guardarAsiento`,asiento)
   }
+
+  //Actualizar Asiento
+  actualizarAsiento(asiento:Asiento):Observable<Asiento>{
+    return this.http.put<Asiento>(`${this.urlAsiento}/modificarAsiento`,asiento)
+  }
+
+  //Eliminar Asiento
+  eliminarAsiento(idAsiento:number):Observable<Asiento>{
+    return this.http.delete<Asiento>(`${this.urlAsiento}/eliminarAsiento${idAsiento}`)
+  }
 }
