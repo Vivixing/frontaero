@@ -28,4 +28,13 @@ export class VueloService {
     return this.http.post<Vuelo>(`${this.urlVuelo}/guardarVuelo`,vuelo)
   }
 
+  //Actualizar Vuelo
+  actualizarVuelo(vuelo:Vuelo):Observable<Vuelo>{
+    return this.http.put<Vuelo>(`${this.urlVuelo}/modificarVuelo`,vuelo)
+  }
+
+  //Eliminar Vuelo
+  eliminarVuelo(idVuelo:number):Observable<Vuelo>{
+    return this.http.delete<Vuelo>(`${this.urlVuelo}/eliminarVuelo${idVuelo}`)
+  }
 }
