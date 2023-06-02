@@ -31,13 +31,26 @@ export class LoginComponent {
     this.usuario.cedula = this.loginFormulario.value['cedula']
     this.usuario.email =this.loginFormulario.value['email']
     //Crear en el back obtener usuario por Cédula o implementar el del obtener usuario por Id
+    this.usuarioService.obtenerUsuarioByCorreoYCedula(this.usuario.email,this.usuario.cedula).subscribe((response)=>{
+      if(response !== null){
+        this.usuarioExistenteEnBd(response)
+      }else{
+        alert('No existen esas credenciales')
+      }
+    })
     this.loginFormulario.valid
   }
 
   usuarioExistenteEnBd(usuarioExite: Usuario){
     if(usuarioExite.rolUsuario_rousid == 1){ //el id 1 de rolUsuario es el Admin
-      if(usuarioExite.correo == this.usuario.email){
-        this.route.navigate(["/administrador/dashboard"])
+      if(usuarioExite.correo === this.usuario.email && usuarioExite.cedula === this.usuario.cedula){
+        this.route.navigate(["/administrador/dashboardAdmin"])
+        this.credencialesNoValidas = false
+      }
+      this.credencialesNoValidas = true
+    }else if(usuarioExite.rolUsuario_rousid != 1){
+      if(usuarioExite.correo === this.usuario.email && usuarioExite.cedula === this.usuario.cedula){
+        this.route.navigate(["/index"])
         this.credencialesNoValidas = false
       }
       this.credencialesNoValidas = true

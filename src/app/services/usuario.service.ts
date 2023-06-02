@@ -19,8 +19,8 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(`${this.urlUsuario}/obtenerUsuarios`)
   }
   //Obtener todos Usuarios por Id
-  obtenerUsuarioById(id:number):Observable<Usuario>{
-    return this.http.get<Usuario>(`${this.urlUsuario}/${id}`)
+  obtenerUsuarioByCorreoYCedula(correo:string,cedula:string):Observable<Usuario>{
+    return this.http.get<Usuario>(`${this.urlUsuario}/login/${correo}/${cedula}`)
   }
   //Crear Usuario
   crearUsuario(usuario:Usuario):Observable<Usuario>{
