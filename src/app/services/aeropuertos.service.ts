@@ -29,4 +29,13 @@ export class AeropuertosService {
     return this.http.post<Aeropuerto>(`${this.urlAeropuerto}/guardarAeropuerto`,aeropuerto)
   }
 
+  //Actualizar Aeropuerto
+  actualizarAeropuerto(aeropuerto:Aeropuerto):Observable<Aeropuerto>{
+    return this.http.put<Aeropuerto>(`${this.urlAeropuerto}/modificarAeropuerto`,aeropuerto)
+  }
+
+  //Eliminar Aeropuerto
+  eliminarAeropuerto(idAeropuerto:number):Observable<Aeropuerto>{
+    return this.http.delete<Aeropuerto>(`${this.urlAeropuerto}/eliminarAeropuerto${idAeropuerto}`)
+  }
 }
