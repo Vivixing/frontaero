@@ -21,15 +21,15 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">Crear Trayecto</h3>
                     <div class="row register-form">
-                        <form [formGroup]="trayectoForm" (ngSubmit)="enviarFromulario()">
+                        <form [formGroup]="trayectoForm" (ngSubmit)="enviarFormulario()">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="origen">Avion:</label>
-                                    <select class="form-control" name="aeropuertoOrigen" formControlName="origen">
+                                    <select class="form-control" name="aeropuertoOrigen" formControlName="avion">
                                         <option value="" class="text-primary" disabled selected>Seleccione un avión
                                             para el trayecto</option>
                                         <option *ngFor="let avion of aviones" [value]="avion.avioID">
-                                            {{aeropuerto.modelo}}</option>
+                                            {{avion.avioID}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -65,10 +65,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="origen">Vuelo</label>
-                                    <select class="form-control" name="aeropuertoOrigen" formControlName="origen">
+                                    <select class="form-control" name="aeropuertoOrigen" formControlName="vuelo">
                                         <option value="" class="text-primary" disabled selected>Seleccione un vuelo
                                             para el trayecto</option>
-                                        <option *ngFor="let vuelo of vuelos" [value]="vuelo.vueloId">
+                                        <option *ngFor="let vuelo of vuelos" [value]="vuelo. vueloId">
                                             {{vuelo.vueloId}}</option>
                                     </select>
                                 </div>

@@ -79,12 +79,12 @@ export class CrearTrayectoComponent implements OnInit {
         return;
       }
       const crearTrayecto:Trayecto={
-        avioId: parseInt(this.trayectoForm.controls['avion'].value),
+        avioId: this.trayectoForm.controls['avion'].value,
         aereoIdOrigen: parseInt(this.trayectoForm.controls['origen'].value),
         aereoIdDestino: parseInt(this.trayectoForm.controls['destino'].value),
         horaSalida: this.trayectoForm.controls['fechaHoraSalida'].value,
-        horaLlegada: this.trayectoForm.controls['fechaHoraSalida'].value,
-        vuelId: parseInt(this.trayectoForm.controls['vuelo'].value),
+        horaLlegada: this.trayectoForm.controls['fechaHoraLlegada'].value,
+        vuelId: this.trayectoForm.controls['vuelo'].value,
         estado: 'Activo'
       }
       this.trayectoService.crearTrayecto(crearTrayecto).subscribe(response=>{
@@ -98,7 +98,6 @@ export class CrearTrayectoComponent implements OnInit {
         console.error('Error al enviar los datos al backend', error);
       });
     }
-    alert('Campos no completos')
     this.trayectoForm.invalid
   }
 }

@@ -125,7 +125,6 @@ export class CrearVueloComponent implements OnInit {
           console.error('Error al enviar los datos al backend', error);
         });
     }
-    alert('Campos no completos')
     this.vueloForm.invalid
 
   }
