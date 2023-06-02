@@ -25,4 +25,13 @@ export class ReservaService {
   crearReserva(reserva:Reserva):Observable<Reserva>{
     return this.http.post<Reserva>(`${this.urlReserva}/guardarReserva`, reserva)
   }
+  //Actualizar Reserva
+  actualizarReserva(reserva:Reserva):Observable<Reserva>{
+    return this.http.put<Reserva>(`${this.urlReserva}/modificarReserva`,reserva)
+  }
+
+  //Eliminar Reserva
+  eliminarReserva(idReserva:number):Observable<Reserva>{
+    return this.http.delete<Reserva>(`${this.urlReserva}/eliminarReserva${idReserva}`)
+  }
 }
