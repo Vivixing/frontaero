@@ -10,8 +10,8 @@ import { CrearAvionComponent } from './crear-avion/crear-avion.component';
 import { CrearVueloComponent } from './crear-vuelo/crear-vuelo.component';
 import { EditarAeropuertoComponent } from './editar-aeropuerto/editar-aeropuerto.component';
 import { EditarAvionComponent } from './editar-avion/editar-avion.component';
-
-
+import { TrayectosComponent } from './trayectos/trayectos.component';
+import { CrearTrayectoComponent } from './crear-trayecto/crear-trayecto.component';
 
 const routes: Routes = [
   {path:'dashboardAdmin',component:DashboardComponent},
@@ -22,7 +22,9 @@ const routes: Routes = [
   {path:'vueloCrearAdmin',component:CrearVueloComponent},
   {path:'aeropuertosListadoAdmin',component:AeropuertosComponent},
   {path:'aeropuertoCrearAdmin',component:CrearAeropuertoComponent},
-  {path:'aeropuertoEditarAdmin',component:EditarAeropuertoComponent}  
+  {path:'aeropuertoEditarAdmin',component:EditarAeropuertoComponent},
+  {path:'trayectosListadoAdmin',component:TrayectosComponent},
+  {path:'trayectoCrearAdmin',component:CrearTrayectoComponent}  
 ];
 
 @NgModule({

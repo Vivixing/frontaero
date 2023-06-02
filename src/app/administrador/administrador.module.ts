@@ -14,6 +14,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderadminComponent } from './components/headeradmin/headeradmin.component';
 import { EditarAeropuertoComponent } from './editar-aeropuerto/editar-aeropuerto.component';
 import { EditarAvionComponent } from './editar-avion/editar-avion.component';
+import { TrayectosComponent } from './trayectos/trayectos.component';
+import { CrearTrayectoComponent } from './crear-trayecto/crear-trayecto.component';
 
 
 
@@ -28,7 +30,9 @@ import { EditarAvionComponent } from './editar-avion/editar-avion.component';
     DashboardComponent,
     HeaderadminComponent,
     EditarAeropuertoComponent,
-    EditarAvionComponent
+    EditarAvionComponent,
+    TrayectosComponent,
+    CrearTrayectoComponent
   ],
   imports: [
     CommonModule,

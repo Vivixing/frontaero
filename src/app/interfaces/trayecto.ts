@@ -7,8 +7,8 @@ export interface Trayecto {
     avioId: number;
     aereoIdOrigen: number;
     aereoIdDestino : number;
-    horaSalida : string;
-    horaLlegada : string;
+    horaSalida : Date;
+    horaLlegada : Date;
     vuelId: number;
     estado: string;
 }
@@ -18,8 +18,8 @@ export interface TrayectoModelo {
     avioId: Avion;
     aereoIdOrigen: Aeropuerto;
     aereoIdDestino : Aeropuerto;
-    horaSalida : string;
-    horaLlegada : string;
+    horaSalida : Date;
+    horaLlegada : Date;
     vuelId: Vuelo;
     estado: string;
 }

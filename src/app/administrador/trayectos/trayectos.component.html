@@ -1,0 +1,45 @@
+<section class="pb-4">
+    <div class="bg-white border rounded-5">
+      <section class="w-100 p-4">
+        <nav class="navbar bg-body-tertiary">
+          <div class="container-fluid">
+            <a class="navbar-brand">Listado Trayectos</a>
+            <button class="d-flex btn btn-outline-primary" routerLink="/administrador/trayectoCrearAdmin">Crear</button>
+          </div>
+        </nav>
+        <table class="table caption-top align-middle">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Avión</th>
+              <th scope="col">Aeropuerto Origen</th>
+              <th scope="col">Aeropuerto Llegada</th>
+              <th scope="col">Fecha Hora Salida</th>
+              <th scope="col">Fecha Hora Llegada</th>
+              <th scope="col">Vuelo</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let trayecto of trayectos">
+              <th scope="row">{{trayecto.trayId}}</th>
+              <td>{{trayecto.avioId}}</td>
+              <td>{{trayecto.aereoIdOrigen}}</td>
+              <td>{{trayecto.aereoIdDestino}}</td>
+              <td>{{trayecto.horaSalida}}</td>
+              <td>{{trayecto.horaLlegada}}</td>
+              <td>{{trayecto.vuelId}}</td>
+              <td>{{trayecto.estado}}</td>
+              <td>
+                <div class="d-grid gap-3 d-sm-flex justify-content">
+                  <i routerLink="/administrador/trayectoEditarAdmin" class="fa fa-pen-to-square bigicon"></i>
+                  <i class="fa fa-trash bigicon"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </section>
