@@ -1,0 +1,40 @@
+
+<section class="pb-4">
+    <div class="table-resonsive bg-white border rounded-5">
+      <section class="w-100 p-4">
+        <nav class="navbar bg-body-tertiary">
+          <div class="container-fluid">
+            <a class="navbar-brand">Listado Asientos</a>
+            <button class="d-flex btn btn-outline-primary" routerLink="/administrador/asien">Crear</button>
+          </div>
+        </nav>
+        <table class="table caption-top align-middle">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Avión</th>
+              <th scope="col">Ubicación</th>
+              <th scope="col">Clase</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let asiento of asientos">
+              <th scope="row">{{asiento.asieId}}</th>
+              <td>{{asiento.avion_avioId}}</td>
+              <td>{{asiento.ubicacion}}</td>
+              <td>{{asiento.nombreTipoAsiento}}</td>
+              <td>{{asiento.estado}}</td>
+              <td>
+                <div class="d-grid gap-3 d-sm-flex justify-content">
+                  <i routerLink="/administrador/avionEditarAdmin" class="fa fa-pen-to-square bigicon" ></i>
+                  <i class="fa fa-trash bigicon"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </section>

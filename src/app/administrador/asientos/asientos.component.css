@@ -1,0 +1,44 @@
+section{
+    display: block;
+}
+.pb-4 {
+    padding-bottom: 1.5rem!important;
+}
+.rounded-5 {
+    border-radius: 0.5rem!important;
+}
+
+.bg-white {
+    --mdb-bg-opacity: 1;
+    background-color: rgba(255,255,255),var(--mdb-bg-opacity)!important;
+}
+.border {
+    border: 1px solid #e0e0e0!important;
+}
+.w-100 {
+    width: 100%!important;
+}
+.table {
+    --mdb-table-font-size: 0.9rem;
+    --mdb-table-divider-color: rgba(0,0,0,0.1);
+    font-size: var(--mdb-table-font-size);
+    --mdb-table-color: var(--mdb-body-color);
+    --mdb-table-bg: transparent;
+    --mdb-table-border-color: var(--mdb-border-color);
+    --mdb-table-accent-bg: transparent;
+    --mdb-table-striped-color: var(--mdb-body-color);
+    --mdb-table-striped-bg: rgba(0,0,0,0.02);
+    --mdb-table-active-color: var(--mdb-body-color);
+    --mdb-table-active-bg: rgba(0,0,0,0.1);
+    --mdb-table-hover-color: var(--mdb-body-color);
+    --mdb-table-hover-bg: rgba(0,0,0,0.025);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--mdb-table-color);
+    vertical-align: top;
+    border-color: var(--mdb-table-border-color);
+    border-collapse: collapse;
+}
+.align-middle {
+    vertical-align: middle!important;
+}
