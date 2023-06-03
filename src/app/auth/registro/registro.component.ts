@@ -26,6 +26,7 @@ export class RegistroComponent {
   create():void{
     const datos = this.registroFormulario.value
     const nuevoUsuario: Usuario ={
+      rolUsuario_rousid: 106,
       cedula: datos.cedula,
       nombre: datos.nombre,
       apellido: datos.apellido,
