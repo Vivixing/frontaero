@@ -1,0 +1,10 @@
+
+<div class="seleccionar-vuelo-container">
+    <div class="buscar-vuelos">
+      <app-index-page *ngIf="vuelos != []" [listadoVuelos]="vuelos"></app-index-page>
+    </div>
+  
+    <div class="lista-vuelos">
+      <app-vuelos-listado *ngIf="vuelos != []"  [listadoVuelos]="vuelos" ></app-vuelos-listado>
+    </div>
+  </div>

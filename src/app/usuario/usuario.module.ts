@@ -8,7 +8,8 @@ import {ReservaUsuarioComponent} from './reserva-usuario/reserva-usuario.compone
 import {PagoUsuarioComponent} from './pago-usuario/pago-usuario.component'
 import {FacturaUsuarioComponent} from './factura-usuario/factura-usuario.component';
 import { VuelosListadoComponent } from './vuelos-listado/vuelos-listado.component';
-import { DatosVueloComponent } from './datos-vuelo/datos-vuelo.component'
+import { DatosVueloComponent } from './datos-vuelo/datos-vuelo.component';
+import { EscogerVueloComponent } from './escoger-vuelo/escoger-vuelo.component'
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DatosVueloComponent } from './datos-vuelo/datos-vuelo.component'
     PagoUsuarioComponent,
     FacturaUsuarioComponent,
     VuelosListadoComponent,
-    DatosVueloComponent
+    DatosVueloComponent,
+    EscogerVueloComponent
   ],
   imports: [
     CommonModule,

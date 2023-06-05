@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Vuelo } from '../interfaces/vuelo';
+import { Vuelo, VueloModelo } from '../interfaces/vuelo';
+import { AeropuertosService } from './aeropuertos.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VueloService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private aeropuertoService:AeropuertosService) { }
 
   urlVuelo = `${environment.serverUrl}vuelo`
 
@@ -36,5 +37,51 @@ export class VueloService {
   //Eliminar Vuelo
   eliminarVuelo(idVuelo:number):Observable<Vuelo>{
     return this.http.delete<Vuelo>(`${this.urlVuelo}/eliminarVuelo${idVuelo}`)
+  }
+
+  obtenerVueloConLosDatos():Promise<any[]>{
+    let vuelosModelo: any[]=[]
+    return new Promise<any[]>((resolve,reject) => {
+      try{
+        this.obtenerVuelos()?.subscribe((response:Vuelo[])=>{
+          vuelosModelo = response.map(vueloAntiguo =>{
+            let nuevoVuelo: VueloModelo={
+              aeropuerto_aeroIdOrigen: {nombre:'',iata:'',estado:'',ubicacion:''},
+              aeropuerto_aeroIdDestino: {nombre:'',iata:'',estado:'',ubicacion:''},
+              nombreAeroOrigen: '',
+              nombreAeroDestino: '',
+              precio: 0,
+              hora_salida: new Date(),
+              hora_llegada: new Date(),
+              precioAsientoVip: 0,
+              precioAsientoNormal: 0,
+              precioAsientoBasico: 0,
+              estado: ''
+            };
+            if(vueloAntiguo.estado=='Activo' || vueloAntiguo.estado=='Activa'){
+              nuevoVuelo.vueloId = vueloAntiguo.vueloId
+              nuevoVuelo.hora_salida = vueloAntiguo.hora_salida
+              nuevoVuelo.hora_llegada = vueloAntiguo.hora_llegada
+              nuevoVuelo.precioAsientoBasico = vueloAntiguo.precioAsientoBasico
+              nuevoVuelo.precioAsientoNormal = vueloAntiguo.precioAsientoNormal
+              nuevoVuelo.precioAsientoVip = vueloAntiguo.precioAsientoVip
+              nuevoVuelo.estado = 'Activo'
+              nuevoVuelo.precio = vueloAntiguo.precio
+              this.aeropuertoService.obtenerAeropuertoById(vueloAntiguo.aeropuerto_aeroIdOrigen).subscribe(response =>{
+                nuevoVuelo.aeropuerto_aeroIdOrigen = response
+                this.aeropuertoService.obtenerAeropuertoById(vueloAntiguo.aeropuerto_aeroIdDestino).subscribe(response=>{
+                  nuevoVuelo.aeropuerto_aeroIdDestino = response
+                })
+              })
+            }
+            return nuevoVuelo
+          })
+          resolve(vuelosModelo)
+        })
+      }catch(error){
+        console.log('Error obteniendo el modelo del vuelo '+ error)
+        reject([])
+      }
+    })
   }
 }
