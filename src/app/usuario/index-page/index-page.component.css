@@ -17,7 +17,7 @@ body {
 }
 
 a {
-    color: #09C6AB;
+    color: #0d6efd;
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
@@ -26,7 +26,7 @@ a {
 a:hover,
 a:active,
 a:focus {
-    color: #09C6AB;
+    color: #0d6efd;
     outline: none;
     text-decoration: none;
 }
@@ -49,19 +49,18 @@ figure {
 
 ::-webkit-selection {
     color: #fff;
-    background: #09C6AB;
+    background: #0d6efd;
 }
 
 ::-moz-selection {
     color: #fff;
-    background: #09C6AB;
+    background: #0d6efd;
 }
 
 ::selection {
     color: #fff;
     background: #063267;
 }
-
 .gtco-section {
     padding: 7em 0;
     clear: both;
@@ -94,7 +93,7 @@ figure {
 }
 
 .gtco-nav #gtco-logo em {
-    color: #09C6AB;
+    color: #0d6efd;
 }
 
 .gtco-nav a {
@@ -197,7 +196,7 @@ figure {
 }
 
 .gtco-nav ul li.has-dropdown .dropdown li a:hover {
-    color: #09C6AB;
+    color: #0d6efd;
 }
 
 .gtco-nav ul li.has-dropdown .dropdown li.active>a {
@@ -210,7 +209,7 @@ figure {
 }
 
 .gtco-nav ul li.btn-cta a {
-    color: #09C6AB;
+    color: #0d6efd;
 }
 
 .gtco-nav ul li.btn-cta a span {
@@ -232,21 +231,17 @@ figure {
 
 .gtco-nav ul li.btn-cta a:hover span {
     background: #fff;
-    color: #09C6AB;
+    color: #0d6efd;
 }
 
 .gtco-nav ul li.active>a {
     color: #fff !important;
 }
 
-#gtco-header {
-    background: #4d4d4d;
-}
-
 .gtco-cover {
     height: 900px;
-    background-size: cover;
-    background-position: center center;
+    background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
     position: relative;
     float: left;
@@ -254,7 +249,7 @@ figure {
 }
 
 .gtco-cover a {
-    color: #09C6AB;
+    color: #0d6efd;
 }
 
 .gtco-cover a:hover {
@@ -414,7 +409,7 @@ figure {
 }
 
 #gtco-header .form-wrap {
-    border-top: 10px solid #09C6AB;
+    border-top: 10px solid #0d6efd;
     position: relative;
     width: 100%;
     -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
@@ -458,7 +453,7 @@ figure {
     display: block;
     padding: 10px 20px 20px 20px;
     background: #fff;
-    color: #09C6AB;
+    color: #0d6efd;
 }
 
 #gtco-header .form-wrap .tab-menu li.gtco-first a {
@@ -510,6 +505,7 @@ figure {
 
 .gtco-heading {
     margin-bottom: 5em;
+    margin-left:  12rem;
 }
 
 .gtco-heading.gtco-heading-sm {
@@ -618,7 +614,7 @@ figure {
     font-size: 20px;
     font-weight: 400;
     margin: 0 0 10px 0;
-    color: #09C6AB;
+    color: #0d6efd;
 }
 
 .fh5co-card-item .fh5co-text span {
@@ -672,8 +668,8 @@ figure {
     opacity: 1;
     visibility: visible;
     bottom: 0px;
-    border: 2px solid #0adec0 !important;
-    background: #0adec0 !important;
+    border: 2px solid #0d6efd !important;
+    background: #0d6efd !important;
 }
 
 .fh5co-card-item:hover figure .overlay,
@@ -737,27 +733,27 @@ figure {
 }
 
 .btn-primary {
-    background: #09C6AB;
+    background: #0d6efd;
     color: #fff;
-    border: 2px solid #09C6AB !important;
+    border: 2px solid #0d6efd !important;
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-    background: #0adec0 !important;
-    border-color: #0adec0 !important;
+    background: #0d6efd !important;
+    border-color: #0d6efd !important;
 }
 
 .btn-primary.btn-outline {
     background: transparent;
-    color: #09C6AB;
-    border: 2px solid #09C6AB;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
 }
 
 .btn-primary.btn-outline:hover,
 .btn-primary.btn-outline:focus,
 .btn-primary.btn-outline:active {
-    background: #09C6AB;
+    background: #0d6efd;
     color: #fff;
 }
