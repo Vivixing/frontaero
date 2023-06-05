@@ -1,0 +1,24 @@
+<div class="container">
+  <span class="alert-danger" *ngIf="!exiteBuscador">No se encontraron coincidencias con las características del
+    vuelo</span>
+  <table class="table table-striped" *ngIf="exiteBuscador">
+    <thead>
+      <tr>
+        <th scope="col">Origen</th>
+        <th scope="col">Destino</th>
+        <th scope="col">Fecha Hora Salida</th>
+        <th scope="col">Fecha Hora Llegada</th>
+        <th scope="col">Precio $</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vuelo of listadoVuelos">
+        <td vuelo.vueloId>{{vuelo.aeropuerto_aeroIdOrigen.ubicacion}}</td>
+        <td vuelo.vueloId>{{vuelo.aeropuerto_aeroIdDestino.ubicacion}}</td>
+        <td vuelo.vueloId>{{vuelo.hora_salida}}</td>
+        <td vuelo.vueloId>{{vuelo.hora_llegada}}</td>
+        <td vuelo.vueloId>{{vuelo.precio}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

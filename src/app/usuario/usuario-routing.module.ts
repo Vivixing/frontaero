@@ -4,13 +4,15 @@ import { IndexPageComponent } from './index-page/index-page.component';
 import {ReservaUsuarioComponent} from './reserva-usuario/reserva-usuario.component'
 import {PagoUsuarioComponent} from './pago-usuario/pago-usuario.component'
 import {FacturaUsuarioComponent} from './factura-usuario/factura-usuario.component'
-
+import { VuelosListadoComponent } from './vuelos-listado/vuelos-listado.component';
+import { DatosVueloComponent } from './datos-vuelo/datos-vuelo.component';
 
 const routes: Routes = [
   {path:'indexUsuario',component:IndexPageComponent},
   {path:'facturaUsuario',component:FacturaUsuarioComponent},
   {path:'reservaUsuario',component:ReservaUsuarioComponent},
-  {path:'pagoUsuario',component:PagoUsuarioComponent}
+  {path:'pagoUsuario',component:PagoUsuarioComponent},
+  
 ];
 
 @NgModule({
