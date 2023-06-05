@@ -25,7 +25,7 @@
 									<div class="tab-content">
 										<div class="tab-content-inner active" data-content="signup">
 											<h3>Separa tu vuelo</h3>
-											<form action="#">
+											<form [formGroup]="viajeForm" (submit)="enviarFormulario()" >
 												<!-- <div class="row form-group">
 													<div class="col-md-12">
 														<label for="fullname">Nombre Usuario</label>
@@ -35,22 +35,16 @@
 												<div class="row form-group">
 													<div class="col-md-12">
 														<label for="activities">Origen</label>
-														<select name="#" id="activities" class="form-control">
-															<option value="">Activities</option>
-															<option value="">Hiking</option>
-															<option value="">Caving</option>
-															<option value="">Swimming</option>
+														<select name="#" id="activities" class="form-control" formControlName="viajeOrigen">
+															<option *ngFor="let aeropuerto of aeropuertos" value="aeropuerto.aeroId">{{aeropuerto.ubicacion}}</option>
 														</select>
 													</div>
 												</div>
 												<div class="row form-group">
 													<div class="col-md-12">
 														<label for="destination">Destino</label>
-														<select name="#" id="destination" class="form-control">
-															<option value="">Philippines</option>
-															<option value="">USA</option>
-															<option value="">Australia</option>
-															<option value="">Singapore</option>
+														<select name="#" id="destination" class="form-control" formControlName="viajeDestino">
+															<option *ngFor="let aeropuerto of aeropuertos" value="aeropuerto.aeroId">{{aeropuerto.ubicacion}}</option>
 														</select>
 													</div>
 												</div>
@@ -64,8 +58,7 @@
 
 												<div class="row form-group">
 													<div class="col-md-12">
-														<input type="submit" class="btn btn-primary btn-block"
-															value="Buscar">
+														<button type="submit" class="btn btn-primary btn-block" [disabled]="!viajeForm.valid" (click)="enviarFormulario()"></button>
 													</div>
 												</div>
 											</form>
