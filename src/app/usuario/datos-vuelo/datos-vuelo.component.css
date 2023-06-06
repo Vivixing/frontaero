@@ -1,0 +1,125 @@
+.mostrar-data-vuelo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .vuelo-principal {
+    background-color: #f1f1f1;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 500px;
+    border-radius: 5px;
+  }
+  
+  .info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .data-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .horas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .ubicacion-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .ubicacion {
+    font-weight: bold;
+  }
+  
+  .iata {
+    color: gray;
+  }
+  
+  .nombre-aeropuerto {
+    font-style: italic;
+  }
+  
+  .asientos-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .data-asientos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .asiento-title {
+    font-weight: bold;
+  }
+  
+  .precio-asiento {
+    font-size: 20px;
+    color: #337ab7;
+    margin-bottom: 5px;
+  }
+  
+  .container-trayectos {
+    width: 500px;
+  }
+  
+  .trayecto {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .subtrayecto-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .subtrayecto-subcontainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .material-icons {
+    margin-right: 5px;
+  }
+  
+  .ubi-trayecto-info {
+    margin-left: 10px;
+  }
+  
+  .hora-info {
+    margin-left: 10px;
+  }
+  
+  .ubi-p {
+    font-weight: bold;
+  }
+  
+  .little-p {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  .model-plane {
+    font-weight: bold;
+  }
+  

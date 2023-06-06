@@ -1,1 +1,102 @@
-<p>datos-vuelo works!</p>
+<div class="mostrar-data-vuelo-container">
+    <div class="vuelo-principal" *ngIf="trayectos !== undefined && trayectoModelo !== undefined && trayectoModelo.length !== 0&& vuelo !== undefined">
+       <div class="info-container">
+            <p>Vuelo número {{ vuelo.vueloId }}</p>
+            <p>-</p>
+            <p>Precio inicial ${{ vuelo.precio }}</p>
+       </div>
+       <div class="data-container">
+
+            <div class="data">
+
+                <div class="horas-container">
+                    <p>{{ trayectoModelo[0].horaSalida| date: 'shortTime'}}</p>
+                    <p>{{ trayectoModelo[0].horaSalida | date: 'mediumDate'}}</p>
+                </div>
+                <div class="ubicacion-info">
+                    <p class="ubicacion">{{ trayectoModelo[0].aereoIdOrigen.ubicacion }}</p>
+                    <p class="iata">{{ trayectoModelo[0].aereoIdOrigen.iata    }}</p>
+                    <p class="nombre-aeropuerto">{{ trayectoModelo[0].aereoIdOrigen.nombre  }}</p>
+                </div>
+            </div>
+
+             <div class="data">
+
+                <div class="horas-container">
+                    <p>{{ trayectoModelo[ trayectoModelo.length - 1 ].horaLlegada | date: 'shortTime'}}</p>
+                    <p>{{ trayectoModelo[ trayectoModelo.length - 1 ].horaLlegada | date: 'mediumDate'}}</p>
+                </div>
+
+                <div class="ubicacion-info">
+                    <p  class="ubicacion">{{ trayectoModelo[ trayectoModelo.length - 1 ].aereoIdDestino.ubicacion }}</p>
+                    <p class="iata">{{ trayectoModelo[ trayectoModelo.length - 1 ].aereoIdDestino.iata  }}</p>
+                    <p class="nombre-aeropuerto">{{ trayectoModelo[ trayectoModelo.length - 1 ].aereoIdDestino.nombre }}</p>
+                </div>
+            </div>
+       </div>
+
+       <div class="asientos-container">
+            <div class="data-asientos">
+
+                <p class="asiento-title">Asientos económicos</p>
+                <p class="precio-asiento">${{ vuelo.precioAsientoBasico }}</p>
+            </div>
+            <div class="data-asientos">
+                <p class="asiento-title">Asientos normales</p>
+                <p class="precio-asiento">${{ vuelo.precioAsientoNormal }}</p>
+            </div>
+            <div class="data-asientos">
+                <p class="asiento-title">Asientos ejecutivos</p>
+                <p class="precio-asiento">${{ vuelo.precioAsientoVip }}</p>
+            </div>
+       </div>
+    </div>
+
+
+    <div class="container-trayectos" *ngIf="trayectoModelo != undefined">
+
+        <div class="trayecto" *ngFor="let trayecto of trayectoModelo">
+            <div class="subtrayecto-container">
+
+                <div class="subtrayecto-subcontainer">
+                    <i class="material-icons" aria-hidden="true">flight_takeoff</i>
+                    <div class="ubi-trayecto-info">
+
+                        <p class="ubi-p">{{ trayecto.aereoIdOrigen.ubicacion }}</p>
+                        <p class="little-p">{{ trayecto.aereoIdOrigen.iata }}</p>
+                        <p>{{ trayecto.aereoIdOrigen.nombre }}</p>
+                    </div>
+
+                    <div class="hora-info">
+                        <p class="little-p">{{trayecto.horaSalida | date: 'shortTime'}}</p>
+                        <p>{{trayecto.horaSalida | date: 'mediumDate'}}</p>
+                    </div>
+                </div>
+
+                <div class="avioId-contain">
+
+                    <i class="material-icons" aria-hidden="true">airplanemode_active</i>
+                    <p class="model-plane">{{ trayecto.avioId.modelo }}</p>
+                </div>
+
+
+                <div class="subtrayecto-subcontainer">
+                    <i class="material-icons" aria-hidden="true">flight_land</i>
+
+                    <div class="ubi-trayecto-info">
+
+                        <p class="ubi-p">{{ trayecto.aereoIdDestino.ubicacion }}</p>
+                        <p class="little-p">{{ trayecto.aereoIdDestino.iata }}</p>
+                        <p>{{ trayecto.aereoIdDestino.nombre }}</p>
+                    </div>
+
+                    <div class="hora-info">
+                        <p class="little-p">{{trayecto.horaLlegada | date: 'shortTime'}}</p>
+                        <p>{{trayecto.horaLlegada | date: 'mediumDate'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
