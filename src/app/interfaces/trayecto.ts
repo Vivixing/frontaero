@@ -1,6 +1,6 @@
 import { Aeropuerto } from "./aeropuerto";
 import { Avion } from "./avion";
-import { Vuelo } from "./vuelo";
+
 
 export interface Trayecto {
     trayId ?: number;
@@ -20,6 +20,6 @@ export interface TrayectoModelo {
     aereoIdDestino : Aeropuerto;
     horaSalida : Date;
     horaLlegada : Date;
-    vuelId: Vuelo;
+    vuelId: number;
     estado: string;
 }
