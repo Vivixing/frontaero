@@ -1,0 +1,47 @@
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .contenedor-info-reserva {
+    max-width: 500px;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .info {
+    margin-bottom: 20px;
+  }
+  
+  .data {
+    margin-bottom: 10px;
+  }
+  
+  .section {
+    margin-top: 10px;
+  }
+  
+  .fecha-container-trayecto {
+    font-weight: bold;
+  }
+  
+  .botones-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .btn {
+    margin: 0 5px;
+  }
+  

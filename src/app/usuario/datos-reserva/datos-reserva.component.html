@@ -1,1 +1,39 @@
+<div class="contenedor">
+    <div class="contenedor-info-reserva mt-5" *ngIf="datosReserva !== undefined">
 
+        <h1 class="title">Reserva #{{ datosReserva.reservaDatos.reseId }}</h1>
+
+        <div class="info">
+            <p class="title text-center">Información general del vuelo </p>
+            <p class="data">Vuelo #{{ datosReserva.vueloDatos.vueloId }}</p>
+            <p class="data">Precio base ${{ datosReserva.vueloDatos.precio }}</p>
+            <p class="data">Fecha de salida {{ datosReserva.vueloDatos.hora_salida| date:"medium" }}</p>
+            <p class="data">Fecha de llegada {{ datosReserva.vueloDatos.hora_llegada| date:"medium" }}</p>
+            <p class="data">Asiento #{{ datosReserva.asientoDatos.ubicacion }}</p>
+            <p class="data">Precio total a pagar ${{ datosReserva.reservaDatos.precioTotal }}</p>
+        </div>
+        <div class="info">
+            <p class="title text-center">Información de las escalas</p>
+            <div *ngFor="let escala of datosReserva.escalasDatos; let i = index">
+                <p>Escala #{{i + 1}}</p>
+
+                <div class="section" *ngIf="listadoAeropuertos !== undefined">
+                    <p class="data">Salide desde: {{ listadoAeropuertos[i][0].nombre }} - {{
+                        listadoAeropuertos[i][0].ubicacion}} - <span class="fecha-container-trayecto">Fecha: {{
+                            escala.horaSalida | date:"medium"}}</span> </p>
+                    <p class="data">Llega a: {{ listadoAeropuertos[i][1].nombre }} - {{
+                        listadoAeropuertos[i][1].ubicacion}} - <span class="fecha-container-trayecto">Fecha: {{
+                            escala.horaLlegada | date:"medium"}}</span> </p>
+                    <p class="data">Modelo del avión {{ datosReserva.avionesDatos[i].modelo }}</p>
+                    <hr>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="botones-container" *ngIf="datosReserva.reservaDatos.estadoPago == 'I'">
+            <button class="btn btn-danger" (click)="cancelarReserva()">Cancelar reserva</button>
+            <button class="btn btn-danger" (click)="pagarReserva()">Pagar reserva</button>
+        </div>
+    </div>
+</div>
