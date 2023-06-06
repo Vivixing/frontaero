@@ -13,7 +13,9 @@ export class EscogerVueloComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    
+    this.obtenerVuelos().then(response => {
+      this.vuelos = response
+    })
   }
 
   obtenerVuelos():Promise<any[]>{
