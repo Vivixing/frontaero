@@ -10,7 +10,8 @@ import {FacturaUsuarioComponent} from './factura-usuario/factura-usuario.compone
 import { VuelosListadoComponent } from './vuelos-listado/vuelos-listado.component';
 import { DatosVueloComponent } from './datos-vuelo/datos-vuelo.component';
 import { EscogerVueloComponent } from './escoger-vuelo/escoger-vuelo.component';
-import { DatosReservaComponent } from './datos-reserva/datos-reserva.component'
+import { DatosReservaComponent } from './datos-reserva/datos-reserva.component';
+import { VerReservaComponent } from './ver-reserva/ver-reserva.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DatosReservaComponent } from './datos-reserva/datos-reserva.component'
     VuelosListadoComponent,
     DatosVueloComponent,
     EscogerVueloComponent,
-    DatosReservaComponent
+    DatosReservaComponent,
+    VerReservaComponent
   ],
   imports: [
     CommonModule,
