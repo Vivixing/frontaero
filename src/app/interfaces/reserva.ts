@@ -1,5 +1,7 @@
+import { Aeropuerto } from "./aeropuerto";
 import { Asiento } from "./asiento";
-import { Usuario } from "./usuario";
+import { Avion } from "./avion";
+import { Trayecto } from "./trayecto";
 import { Vuelo } from "./vuelo";
 
 export interface Reserva {
@@ -14,12 +16,11 @@ export interface Reserva {
 }
 
 export interface ReservaModelo {
-    reseId ?: number;
-    vuelId : Vuelo;
-    asieId : Asiento;
-    usuaId : Usuario;
-    precioTotal : number;
-    estadoPago : string;
-    fecha : string;
-    estado : string;
+    reservaDatos: Reserva;
+    vueloDatos : Vuelo;
+    escalasDatos : Trayecto[];
+    avionesDatos : Avion[];
+    aeropuertosDatos : Aeropuerto[],
+    asientoDatos : Asiento
+    
 }
