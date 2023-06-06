@@ -1,7 +1,7 @@
 import { Aeropuerto } from "./aeropuerto";
 
 export interface Vuelo {
-    vueloId ?: number ;
+    vueloId ?: number;
     aeropuerto_aeroIdOrigen: number;
     aeropuerto_aeroIdDestino: number;
     nombreAeroOrigen: string;

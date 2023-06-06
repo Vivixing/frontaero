@@ -9,37 +9,37 @@ import { Trayecto } from '../interfaces/trayecto';
 })
 export class TrayectoService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   urlTrayecto = `${environment.serverUrl}trayecto`
 
   //Obtener todos los trayectos
-  obtenerTrayectos():Observable<Trayecto[]>{
+  obtenerTrayectos(): Observable<Trayecto[]> {
     return this.http.get<Trayecto[]>(`${this.urlTrayecto}/obtenerTrayecto`)
   }
 
   //Obtener trayecto por Id
-  obtenerTrayectoById(id:number):Observable<Trayecto>{
+  obtenerTrayectoById(id: number): Observable<Trayecto> {
     return this.http.get<Trayecto>(`${this.urlTrayecto}/${id}`)
   }
 
   //Crear Trayecto
-  crearTrayecto(trayecto:Trayecto):Observable<Trayecto>{
-    return this.http.post<Trayecto>(`${this.urlTrayecto}/guardarTrayecto`,trayecto)
+  crearTrayecto(trayecto: Trayecto): Observable<Trayecto> {
+    return this.http.post<Trayecto>(`${this.urlTrayecto}/guardarTrayecto`, trayecto)
   }
 
   //Actualizar Trayecto
-  actualizarTrayecto(trayecto:Trayecto):Observable<Trayecto>{
-    return this.http.put<Trayecto>(`${this.urlTrayecto}/modificarTrayecto`,trayecto)
+  actualizarTrayecto(trayecto: Trayecto): Observable<Trayecto> {
+    return this.http.put<Trayecto>(`${this.urlTrayecto}/modificarTrayecto`, trayecto)
   }
 
   //Eliminar Trayecto
-  eliminarTrayecto(idTrayecto:number):Observable<Trayecto>{
+  eliminarTrayecto(idTrayecto: number): Observable<Trayecto> {
     return this.http.delete<Trayecto>(`${this.urlTrayecto}/eliminarTrayecto${idTrayecto}`)
   }
 
-  //Trayecto por vuelo
-  obtenerTrayectoByVuelo(id:number):Observable<Trayecto>{
+  //Trayecto por el id del Vuelo
+  obtenerTrayectoByVuelo(id: number): Observable<Trayecto> {
     return this.http.get<Trayecto>(`${this.urlTrayecto}/obtenerTrayectosVuelo/${id}`)
   }
 }

@@ -20,90 +20,107 @@ import { AvionService } from './avion.service';
 export class ReservaService {
 
   private reservaModeloUsuario = new Subject<ReservaModelo>();
-  constructor(private http:HttpClient,private vueloService:VueloService,private asientoService:AsientoService,
-    private trayectoService:TrayectoService,private aeropuertoService:AeropuertosService,private avionService:AvionService) { }
+  constructor(private http: HttpClient, private vueloService: VueloService, private asientoService: AsientoService,
+    private trayectoService: TrayectoService, private aeropuertoService: AeropuertosService, private avionService: AvionService) { }
 
   urlReserva = `${environment.serverUrl}reserva`
 
   //Obtener todas las reservas
-  obtenerReservas():Observable<Reserva[]>{
+  obtenerReservas(): Observable<Reserva[]> {
     return this.http.get<Reserva[]>(`${this.urlReserva}/obtenerReserva`)
   }
   //Obtener reservas por Id
-  obtenerReservaById(id:number):Observable<Reserva>{
+  obtenerReservaById(id: number): Observable<Reserva> {
     return this.http.get<Reserva>(`${this.urlReserva}/${id}`)
   }
   //Crear Reserva
-  crearReserva(reserva:Reserva):Observable<Reserva>{
+  crearReserva(reserva: Reserva): Observable<Reserva> {
     return this.http.post<Reserva>(`${this.urlReserva}/guardarReserva`, reserva)
   }
   //Actualizar Reserva
-  actualizarReserva(reserva:Reserva):Observable<Reserva>{
-    return this.http.put<Reserva>(`${this.urlReserva}/modificarReserva`,reserva)
+  actualizarReserva(reserva: Reserva): Observable<Reserva> {
+    return this.http.put<Reserva>(`${this.urlReserva}/modificarReserva`, reserva)
   }
 
   //Eliminar Reserva
-  eliminarReserva(idReserva:number):Observable<Reserva>{
+  eliminarReserva(idReserva: number): Observable<Reserva> {
     return this.http.delete<Reserva>(`${this.urlReserva}/eliminarReserva${idReserva}`)
   }
 
   //Obtener Resersvas por usuario 
-  ontenerReservaDelUsuario(cedula:string):Observable<Reserva[]>{
+  ontenerReservaDelUsuario(cedula: string): Observable<Reserva[]> {
     return this.http.get<Reserva[]>(`${this.urlReserva}/obtenerReservasUsuario/${cedula}`)
   }
 
   //Reserva Modelo
-  mandarReservaUsarioModelo(reservaModelo:ReservaModelo){
+  mandarReservaUsarioModelo(reservaModelo: ReservaModelo) {
     this.reservaModeloUsuario.next(reservaModelo)
   }
 
-  obtenerReservaUsuarioModelo():Observable<ReservaModelo>{
+  obtenerReservaUsuarioModelo(): Observable<ReservaModelo> {
     return this.reservaModeloUsuario.asObservable()
   }
 
   //Datos reserva
 
-  obtenerDatosReserva(reseId:number){
-    let avionesDatos : Avion[]=[]
-    let escalasDatos : Trayecto[]=[]
-    let aeropuertosDatos : Aeropuerto[]=[]
-    let reservaDatos: Reserva
-    let vueloDatos : Vuelo
-    let asientoDatos : Asiento
-    let reservaModelo !: ReservaModelo
+  obtenerDatosReserva(reseId: number) {
+    let avionesDatos: Avion[] = [];
+    let escalasDatos: Trayecto[] = [];
+    let aeropuertosDatos: Aeropuerto[] = [];
+    let reservaDatos: Reserva;
+    let vueloDatos: Vuelo;
+    let asientoDatos: Asiento;
+    let reservaModelo!: ReservaModelo;
 
-    this.obtenerReservaById(reseId).subscribe(reserva=>{
-      reservaDatos=reserva
+    this.obtenerReservaById(reseId).subscribe(reserva => {
+      reservaDatos = reserva;
 
-      this.vueloService.obtenerVueloById(reserva.vuelId).subscribe(vuelo=>{
-        vueloDatos=vuelo
+      if (reserva.vuelId !== undefined) {
+        this.vueloService.obtenerVueloById(reserva.vuelId).subscribe(vuelo => {
+          vueloDatos = vuelo;
 
-        this.asientoService.obtenerAsientoById(reserva.asieId).subscribe(asiento=>{
-          asientoDatos= asiento
+          if (reserva.asieId !== undefined) {
+            this.asientoService.obtenerAsientoById(reserva.asieId).subscribe(asiento => {
+              asientoDatos = asiento;
 
-          this.trayectoService.obtenerTrayectoByVuelo(vuelo.vueloId).subscribe(trayectos=>{
-            escalasDatos.push(trayectos)
+              if (vuelo.vueloId !== undefined) {
+                this.trayectoService.obtenerTrayectoByVuelo(vuelo.vueloId).subscribe(trayecto => {
+                  escalasDatos.push(trayecto);
 
-            for(let i=0; i<escalasDatos.length; i++){
-              this.aeropuertoService.obtenerAeropuertoById(escalasDatos[i].aereoIdOrigen).subscribe(origen=>{
-                aeropuertosDatos.push(origen)
+                  if (trayecto.aereoIdOrigen !== undefined) {
+                    this.aeropuertoService.obtenerAeropuertoById(trayecto.aereoIdOrigen).subscribe(origen => {
+                      aeropuertosDatos.push(origen);
 
-                this.aeropuertoService.obtenerAeropuertoById(escalasDatos[i].aereoIdDestino).subscribe(destino=>{
-                  aeropuertosDatos.push(destino)
+                      if (trayecto.aereoIdDestino !== undefined) {
+                        this.aeropuertoService.obtenerAeropuertoById(trayecto.aereoIdDestino).subscribe(destino => {
+                          aeropuertosDatos.push(destino);
 
-                  this.avionService.obtenerAvionById(escalasDatos[i].avioId).subscribe(avion=>{
-                    avionesDatos.push(avion)
+                          if (trayecto.avioId !== undefined) {
+                            this.avionService.obtenerAvionById(trayecto.avioId).subscribe(avion => {
+                              avionesDatos.push(avion);
 
-                    if(i==(escalasDatos.length-1)){
-                      reservaModelo = {}
-                    }
-                  })
-                })
-              })
-            }
-          })
-        })
-      })
-    })
+                              reservaModelo = {
+                                reservaDatos,
+                                vueloDatos,
+                                escalasDatos,
+                                avionesDatos,
+                                aeropuertosDatos,
+                                asientoDatos
+                              };
+                              this.mandarReservaUsarioModelo(reservaModelo)
+                            });
+                          }
+                        });
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      }
+    });
   }
+
 }

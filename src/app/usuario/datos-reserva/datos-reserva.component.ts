@@ -1,4 +1,4 @@
-import { Component,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservaModelo } from 'src/app/interfaces/reserva';
 import { ReservaService } from 'src/app/services/reserva.service';
@@ -9,17 +9,17 @@ import { ReservaService } from 'src/app/services/reserva.service';
   templateUrl: './datos-reserva.component.html',
   styleUrls: ['./datos-reserva.component.css']
 })
-export class DatosReservaComponent implements OnInit{
+export class DatosReservaComponent implements OnInit {
 
   datosReserva !: ReservaModelo
-  listadoAeropuertos :any=[]
-  
-  constructor(private reservaService:ReservaService,private router: Router){
-    
+  listadoAeropuertos: any = []
+
+  constructor(private reservaService: ReservaService, private router: Router) {
+
   }
 
   ngOnInit(): void {
-    
+
   }
 
 }
