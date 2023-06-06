@@ -11,7 +11,8 @@ import { VuelosListadoComponent } from './vuelos-listado/vuelos-listado.componen
 import { DatosVueloComponent } from './datos-vuelo/datos-vuelo.component';
 import { EscogerVueloComponent } from './escoger-vuelo/escoger-vuelo.component';
 import { DatosReservaComponent } from './datos-reserva/datos-reserva.component';
-import { VerReservaComponent } from './ver-reserva/ver-reserva.component'
+import { VerReservaComponent } from './ver-reserva/ver-reserva.component';
+import { GestionarReservaComponent } from './gestionar-reserva/gestionar-reserva.component'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { VerReservaComponent } from './ver-reserva/ver-reserva.component'
     DatosVueloComponent,
     EscogerVueloComponent,
     DatosReservaComponent,
-    VerReservaComponent
+    VerReservaComponent,
+    GestionarReservaComponent
   ],
   imports: [
     CommonModule,
