@@ -37,4 +37,9 @@ export class TrayectoService {
   eliminarTrayecto(idTrayecto:number):Observable<Trayecto>{
     return this.http.delete<Trayecto>(`${this.urlTrayecto}/eliminarTrayecto${idTrayecto}`)
   }
+
+  //Trayecto por vuelo
+  obtenerTrayectoByVuelo(id:number):Observable<Trayecto>{
+    return this.http.get<Trayecto>(`${this.urlTrayecto}/obtenerTrayectosVuelo/${id}`)
+  }
 }
