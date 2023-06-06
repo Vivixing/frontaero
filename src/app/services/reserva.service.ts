@@ -10,6 +10,9 @@ import { Vuelo } from '../interfaces/vuelo';
 import { Asiento } from '../interfaces/asiento';
 import { VueloService } from './vuelo.service';
 import { AsientoService } from './asiento.service';
+import { TrayectoService } from './trayecto.service';
+import { AeropuertosService } from './aeropuertos.service';
+import { AvionService } from './avion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +20,8 @@ import { AsientoService } from './asiento.service';
 export class ReservaService {
 
   private reservaModeloUsuario = new Subject<ReservaModelo>();
-  constructor(private http:HttpClient,private vueloService:VueloService,private asientoService:AsientoService) { }
+  constructor(private http:HttpClient,private vueloService:VueloService,private asientoService:AsientoService,
+    private trayectoService:TrayectoService,private aeropuertoService:AeropuertosService,private avionService:AvionService) { }
 
   urlReserva = `${environment.serverUrl}reserva`
 
@@ -77,7 +81,27 @@ export class ReservaService {
         this.asientoService.obtenerAsientoById(reserva.asieId).subscribe(asiento=>{
           asientoDatos= asiento
 
-          this.ob
+          this.trayectoService.obtenerTrayectoByVuelo(vuelo.vueloId).subscribe(trayectos=>{
+            escalasDatos.push(trayectos)
+
+            for(let i=0; i<escalasDatos.length; i++){
+              this.aeropuertoService.obtenerAeropuertoById(escalasDatos[i].aereoIdOrigen).subscribe(origen=>{
+                aeropuertosDatos.push(origen)
+
+                this.aeropuertoService.obtenerAeropuertoById(escalasDatos[i].aereoIdDestino).subscribe(destino=>{
+                  aeropuertosDatos.push(destino)
+
+                  this.avionService.obtenerAvionById(escalasDatos[i].avioId).subscribe(avion=>{
+                    avionesDatos.push(avion)
+
+                    if(i==(escalasDatos.length-1)){
+                      reservaModelo = {}
+                    }
+                  })
+                })
+              })
+            }
+          })
         })
       })
     })
