@@ -9,7 +9,8 @@ import {PagoUsuarioComponent} from './pago-usuario/pago-usuario.component'
 import {FacturaUsuarioComponent} from './factura-usuario/factura-usuario.component';
 import { VuelosListadoComponent } from './vuelos-listado/vuelos-listado.component';
 import { DatosVueloComponent } from './datos-vuelo/datos-vuelo.component';
-import { EscogerVueloComponent } from './escoger-vuelo/escoger-vuelo.component'
+import { EscogerVueloComponent } from './escoger-vuelo/escoger-vuelo.component';
+import { DatosReservaComponent } from './datos-reserva/datos-reserva.component'
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { EscogerVueloComponent } from './escoger-vuelo/escoger-vuelo.component'
     FacturaUsuarioComponent,
     VuelosListadoComponent,
     DatosVueloComponent,
-    EscogerVueloComponent
+    EscogerVueloComponent,
+    DatosReservaComponent
   ],
   imports: [
     CommonModule,
