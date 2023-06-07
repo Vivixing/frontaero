@@ -16,5 +16,10 @@ export class AeropuertosComponent implements OnInit {
     this.aeropuertosService.obtenerAeropuertos().subscribe(
       listadoAeropuerto => this.aeropuertos = listadoAeropuerto
     );
+    
+  }
+
+  eliminarAeropuerto(id:number){
+    this.aeropuertosService.eliminarAeropuerto(id)
   }
 }
