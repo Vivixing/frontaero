@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,16 +13,17 @@ export class AvionesComponent implements OnInit {
 
   aviones : Avion[] = [];
 
-  constructor(private avionService : AvionService){}
+  constructor(private avionService : AvionService,private router:Router){}
   
   ngOnInit(): void {
     this.avionService.obtenerAviones().subscribe(
       e => this.aviones = e
     );
+    
   }
 
-  eliminarAvion(idAvion:number):void{
-    this.avionService.eliminarAvion(idAvion).subscribe((avion:Avion)=>{
+  eliminarAvion(avion:Avion):void{
+    this.avionService.eliminarAvion(avion).subscribe((avion:Avion)=>{
       console.log('Avion Eliminado',avion);
     },
     error=>{
@@ -30,4 +31,8 @@ export class AvionesComponent implements OnInit {
     })
   }
 
+  actualizarAvion(avion:Avion): void{
+    const avioId = avion.avioID // Valor del avioID
+    this.router.navigate(['/administrador/avionEditarAdmin/', avioId]);
+  }
 }

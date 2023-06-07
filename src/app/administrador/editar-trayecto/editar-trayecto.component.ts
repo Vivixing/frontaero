@@ -4,7 +4,7 @@ import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { Vuelo } from 'src/app/interfaces/vuelo';
 import { VueloService } from 'src/app/services/vuelo.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
 import { Trayecto } from 'src/app/interfaces/trayecto';
@@ -21,8 +21,9 @@ export class EditarTrayectoComponent implements OnInit {
   aviones: Avion[] = [];
   trayectoForm: FormGroup;
 
+  trayId: number=0;
   constructor(private vueloService: VueloService, private avionService: AvionService, private trayectoService: TrayectoService,
-    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router) {
+    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router, private route: ActivatedRoute) {
     this.trayectoForm = this.fb.group({
       avion: ['', [Validators.required]],
       origen: ['', [Validators.required]],
@@ -35,6 +36,11 @@ export class EditarTrayectoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.trayId = params['id'];
+      console.log(this.trayId); // Verificar si el valor se actualiza correctamente
+    });
+    
     this.getAeropuertos()
     this.getAviones()
     this.getVuelos()
@@ -79,14 +85,16 @@ export class EditarTrayectoComponent implements OnInit {
         return;
       }
       const actualizarTrayecto: Trayecto = {
+        trayId: this.trayId,
         avioId: this.trayectoForm.controls['avion'].value,
         aereoIdOrigen: parseInt(this.trayectoForm.controls['origen'].value),
         aereoIdDestino: parseInt(this.trayectoForm.controls['destino'].value),
         horaSalida: this.trayectoForm.controls['fechaHoraSalida'].value,
         horaLlegada: this.trayectoForm.controls['fechaHoraLlegada'].value,
         vuelId: this.trayectoForm.controls['vuelo'].value,
-        estado: 'Activo'
+        estado: this.trayectoForm.controls['estado'].value,
       }
+    
       this.trayectoService.actualizarTrayecto(actualizarTrayecto).subscribe(response => {
         if (response !== null) {
           console.log('Actualizado con éxito el trayecto',actualizarTrayecto)
@@ -100,4 +108,5 @@ export class EditarTrayectoComponent implements OnInit {
     }
     this.trayectoForm.invalid
   }
+
 }

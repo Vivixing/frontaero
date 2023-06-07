@@ -35,8 +35,8 @@ export class VueloService {
   }
 
   //Eliminar Vuelo
-  eliminarVuelo(idVuelo:number):Observable<Vuelo>{
-    return this.http.delete<Vuelo>(`${this.urlVuelo}/eliminarVuelo${idVuelo}`)
+  eliminarVuelo(vuelo:Vuelo):Observable<Vuelo>{
+    return this.http.put<Vuelo>(`${this.urlVuelo}/eliminarVuelo/${vuelo.vueloId}`,vuelo)
   }
 
   //Obtener vuelos del filtro

@@ -40,8 +40,8 @@
             <td>{{vuelo.estado}}</td>
             <td>
               <div class="d-grid gap-3 d-sm-flex justify-content">
-                <i class="fa fa-pen-to-square bigicon"></i>
-                <i class="fa fa-trash bigicon"></i>
+                <i class="fa fa-pen-to-square bigicon" (click)="vuelo.vueloId !== undefined && actualizarVuelo(vuelo)"></i>
+                <i class="fa fa-trash bigicon" (click)="vuelo.vueloId !== undefined && eliminarVuelo(vuelo)"></i>
               </div>
             </td>
           </tr>

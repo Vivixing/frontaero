@@ -33,8 +33,8 @@
               <td>{{trayecto.estado}}</td>
               <td>
                 <div class="d-grid gap-3 d-sm-flex justify-content">
-                  <i routerLink="/administrador/trayectoEditarAdmin" class="fa fa-pen-to-square bigicon"></i>
-                  <i class="fa fa-trash bigicon" (click)="trayecto.trayId !== undefined && eliminarTrayecto(trayecto.trayId)"></i>
+                  <i  class="fa fa-pen-to-square bigicon" (click)="trayecto.trayId !== undefined && actualizarTrayecto(trayecto)"></i>
+                  <i class="fa fa-trash bigicon" (click)="trayecto.trayId !== undefined && eliminarTrayecto(trayecto)"></i>
                 </div>
               </td>
             </tr>

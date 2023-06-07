@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ReservaUsuarioComponent} from './reserva-usuario/reserva-usuario.component'
+import { GestionarReservaComponent } from './gestionar-reserva/gestionar-reserva.component'; 
 import {PagoUsuarioComponent} from './pago-usuario/pago-usuario.component'
 import {FacturaUsuarioComponent} from './factura-usuario/factura-usuario.component'
 import { EscogerVueloComponent } from './escoger-vuelo/escoger-vuelo.component';
-
+import { AsientosElegirComponent } from './asientos-elegir/asientos-elegir.component';
 const routes: Routes = [
   
   {path:'facturaUsuario',component:FacturaUsuarioComponent},
-  {path:'reservaUsuario',component:ReservaUsuarioComponent},
+  {path:'reservaUsuario',component:GestionarReservaComponent},
   {path:'pagoUsuario',component:PagoUsuarioComponent},
-  {path:'escogerVuelo',component:EscogerVueloComponent}
-  
+  {path:'escogerVuelo',component:EscogerVueloComponent},
+  {path:'asientosElegir',component:AsientosElegirComponent}
 ];
 
 @NgModule({

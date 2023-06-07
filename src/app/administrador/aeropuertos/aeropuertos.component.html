@@ -27,8 +27,9 @@
             <td>{{aeropuerto.estado}}</td>
             <td>
               <div class="d-grid gap-3 d-sm-flex justify-content">
-                <i routerLink="/administrador/aeropuertoEditarAdmin" class="fa fa-pen-to-square bigicon"></i>
-                <i class="fa fa-trash bigicon" (click)="aeropuerto.aeroId !== undefined && eliminarAeropuerto(aeropuerto.aeroId)"></i>
+                <!-- <i [routerLink]="'/administrador/aeropuertoEditarAdmin/' + aeropuerto.aeroId" class="fa fa-pen-to-square bigicon"></i> -->
+                <i class="fa fa-pen-to-square bigicon" (click)="aeropuerto.aeroId !== undefined && actualizarAeropuerto(aeropuerto)"></i>
+                <i class="fa fa-trash bigicon" (click)="aeropuerto.aeroId !== undefined && eliminarAeropuerto(aeropuerto)"></i>
               </div>
             </td>
           </tr>

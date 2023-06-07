@@ -34,7 +34,7 @@ export class AvionService {
   }
 
   //Eliminar Avion
-  eliminarAvion(idAvion:number):Observable<Avion>{
-    return this.http.delete<Avion>(`${this.urlAvion}/eliminarAvion${idAvion}`)
+  eliminarAvion(avion:Avion):Observable<Avion>{
+    return this.http.put<Avion>(`${this.urlAvion}/eliminarAvion/${avion.avioID}`,avion)
   }
 }

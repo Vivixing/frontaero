@@ -35,7 +35,7 @@ export class AeropuertosService {
   }
 
   //Eliminar Aeropuerto
-  eliminarAeropuerto(idAeropuerto:number):Observable<Aeropuerto>{
-    return this.http.delete<Aeropuerto>(`${this.urlAeropuerto}/eliminarAeropuerto${idAeropuerto}`)
+  eliminarAeropuerto(aeropuerto:Aeropuerto):Observable<Aeropuerto>{
+    return this.http.put<Aeropuerto>(`${this.urlAeropuerto}/eliminarAeropuerto/${aeropuerto.aeroId}`,aeropuerto)
   }
 }

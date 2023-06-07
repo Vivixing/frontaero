@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<title>CodePen - Aircraft seats map</title>
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div class="aircraft">
+      <div class="aircraft-body">
+        <div class="top-left-exists">
+          <img src="https://i.ibb.co/ftwgLCL/exist.png">
+        </div>
+        <div class="top-right-exists">
+          <img src="https://i.ibb.co/ftwgLCL/exist.png">
+        </div>
+        <div class="seats"  >
+            <!-- Según el estado del asiento, el color cambiará-->
+            <!--Los asientos se clasificarán por tipo de aisento. Primero se traerán los asientos de primera clase
+            luego los de clase ejecutiva y finalmente clase económica-->
+            <div class="seats-triple" *ngFor="let asiento of asientosVentana">
+            <button (click)="elegirAsiento(asiento)" class="active seat" *ngIf="asiento.estado == 'Inactivo'" style="background-color: #D14242">
+            </button>
+            <button (click)="elegirAsiento(asiento)" class="active seat" *ngIf="asiento.estado == 'Activo'" style="background-color: rgb(231, 208, 208)">
+            </button>
+        </div>
+        </div>
+
+        <div class="seats"  >
+            <!-- Según el estado del asiento, el color cambiará-->
+            <!--Los asientos se clasificarán por tipo de aisento. Primero se traerán los asientos de primera clase
+            luego los de clase ejecutiva y finalmente clase económica-->
+            <div class="seats-triple" *ngFor="let asiento of asientosCentro">
+            <button (click)="elegirAsiento(asiento)" class="active seat" *ngIf="asiento.estado == 'Inactivo'" style="background-color: #D14242">
+            </button>
+            <button (click)="elegirAsiento(asiento)" class="active seat" *ngIf="asiento.estado == 'Activo'" style="background-color: rgb(231, 208, 208)">
+            </button>
+        </div>
+        </div>
+
+        <div class="seats"  >
+            <!-- Según el estado del asiento, el color cambiará-->
+            <!--Los asientos se clasificarán por tipo de aisento. Primero se traerán los asientos de primera clase
+            luego los de clase ejecutiva y finalmente clase económica-->
+            <div class="seats-triple" *ngFor="let asiento of asientosPasillo">
+            <button (click)="elegirAsiento(asiento)" class="active seat" *ngIf="asiento.estado == 'Inactivo'" style="background-color: #D14242">
+            </button>
+            <button (click)="elegirAsiento(asiento)" class="active seat" *ngIf="asiento.estado == 'Activo'" style="background-color: rgb(231, 208, 208)">
+            </button>
+        </div>
+        </div>
+    
+        <div class="bottom-left-exists">
+          <img src="https://i.ibb.co/ftwgLCL/exist.png">
+        </div>
+        <div class="bottom-right-exists">
+          <img src="https://i.ibb.co/ftwgLCL/exist.png">
+        </div>
+        <div class="aircraft-top-wing">
+          <div class="exists">
+            <div><img src="https://i.ibb.co/ftwgLCL/exist.png"></div>
+            <div><img src="https://i.ibb.co/ftwgLCL/exist.png"></div>
+          </div>
+        </div>
+        <div class="aircraft-bottom-wing">
+          <div class="exists">
+            <div><img src="https://i.ibb.co/ftwgLCL/exist.png"></div>
+            <div><img src="https://i.ibb.co/ftwgLCL/exist.png"></div>
+          </div>
+        </div>
+        <div class="aircraft-head">
+          <div class="aircraft-head-body">
+            <div class="windows">
+              <img src="https://i.ibb.co/F5hp29L/windows.png">
+            </div>
+            <div class="front-lavatory">
+              <img src="https://i.ibb.co/NVT4SZ1/lavatory.png">
+            </div>
+          </div>
+    
+        </div>
+        <div class="aircraft-tail">
+          <div class="aircraft-tail-body">
+            <div class="back-lavatory">
+              <img src="https://i.ibb.co/NVT4SZ1/lavatory.png">
+    
+              <img src="https://i.ibb.co/NVT4SZ1/lavatory.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <!-- partial -->
+      
+    </body>
+  </html>
+  

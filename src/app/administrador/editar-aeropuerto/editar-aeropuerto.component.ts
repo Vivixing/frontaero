@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { Pais } from 'src/app/interfaces/pais';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
@@ -13,6 +13,7 @@ import { LocacionService } from 'src/app/services/locacion.service';
 })
 export class EditarAeropuertoComponent {
   //paises: any[] = [];
+  aeroId: number = 0;
   ciudades: String[] = [];
   paises: Pais[] = [];
   IataenUso: boolean = false
@@ -20,10 +21,15 @@ export class EditarAeropuertoComponent {
   constructor(private aeropuertosService: AeropuertosService,
     private locationService: LocacionService,
     private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
-
+    this.route.params.subscribe(params => {
+      this.aeroId = params['id'];
+      console.log(this.aeroId); // Verificar si el valor se actualiza correctamente
+    });
+    
     this.locationService.obtenerPaises().subscribe(
       (paises) => {
         this.paises = paises.data;
@@ -36,6 +42,7 @@ export class EditarAeropuertoComponent {
 
   }
   aeropuertoformulario: FormGroup = this.fb.group({
+
     nombre: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(5), Validators.pattern(/^[a-zA-Z]?[A-Za-z-]+$/)]],
     iata: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
     pais: ['', [Validators.required]],
@@ -49,7 +56,9 @@ export class EditarAeropuertoComponent {
     this.ciudades = elPais[0].cities
   }
   actualizarAeropuerto(): void {
+    console.log(this.route.snapshot.params['aeroId']);
     const aeropuerto: Aeropuerto = {
+      aeroId: this.aeroId,
       nombre: this.aeropuertoformulario.value['nombre'],
       iata: this.aeropuertoformulario.value['iata'],
       ubicacion: `${this.aeropuertoformulario.value['pais']}  ${this.aeropuertoformulario.value['ciudad']}`,
@@ -62,6 +71,7 @@ export class EditarAeropuertoComponent {
   }
 
   enviarAeropuerto(aeropuerto: Aeropuerto) {
+    aeropuerto.aeroId=this.aeroId
     this.aeropuertosService.actualizarAeropuerto(aeropuerto)?.subscribe(
       res => {
       if (res == null) {

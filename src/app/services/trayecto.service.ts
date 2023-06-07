@@ -34,8 +34,8 @@ export class TrayectoService {
   }
 
   //Eliminar Trayecto
-  eliminarTrayecto(idTrayecto: number): Observable<Trayecto> {
-    return this.http.delete<Trayecto>(`${this.urlTrayecto}/eliminarTrayecto${idTrayecto}`)
+  eliminarTrayecto(trayecto:Trayecto): Observable<Trayecto> {
+    return this.http.put<Trayecto>(`${this.urlTrayecto}/eliminarTrayecto/${trayecto.trayId}`, trayecto)
   }
 
   //Trayecto por el id del Vuelo

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
 import { Asiento } from 'src/app/interfaces/asiento';
@@ -11,12 +11,22 @@ import { AsientoService } from 'src/app/services/asiento.service';
   templateUrl: './editar-avion.component.html',
   styleUrls: ['./editar-avion.component.css']
 })
-export class EditarAvionComponent {
+export class EditarAvionComponent implements OnInit{
 
+  avioID: number = 0;
   constructor(private avionService: AvionService,
     private asientoService: AsientoService,
     private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder) { }
+
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.avioID = params['id'];
+      console.log(this.avioID); // Verificar si el valor se actualiza correctamente
+    });
+  }
 
   avionFormulario: FormGroup = this.fb.group({
     modelo: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z]{5,}[0-9]{3,}[\/\-]?[a-zA-Z0-9\/\-]*$/)]],
@@ -25,11 +35,12 @@ export class EditarAvionComponent {
   
   actualizarAvion(): void {
     const avion: Avion = {
+      avioID: this.avioID,
       modelo: this.avionFormulario.value['modelo'],
       estado: this.avionFormulario.value['estado']
     };
     console.log(avion);
-
+    avion.avioID=this.avioID
     this.avionService.actualizarAvion(avion)?.subscribe(data => {
       if (data == null) {
         console.log('No se puede actualizar el avión');

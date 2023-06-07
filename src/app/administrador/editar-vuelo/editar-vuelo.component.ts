@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VueloService } from 'src/app/services/vuelo.service';
 import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
@@ -16,9 +16,9 @@ export class EditarVueloComponent implements OnInit {
   aeropuertos: Aeropuerto[] = [];
   vueloForm: FormGroup
 
-
+  vueloId: number = 0;
   constructor(private vueloService: VueloService,
-    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router) {
+    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router, private route: ActivatedRoute) {
     this.vueloForm = this.fb.group({
       origen: ['', [Validators.required]],
       destino: ['', [Validators.required]],
@@ -35,6 +35,10 @@ export class EditarVueloComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.vueloId = params['id'];
+      console.log(this.vueloId); // Verificar si el valor se actualiza correctamente
+    });
     this.getAeropuertos()
   }
 
@@ -102,6 +106,7 @@ export class EditarVueloComponent implements OnInit {
         }
       }
       const VueloActualizar: Vuelo = {
+        vueloId: this.vueloId,
         aeropuerto_aeroIdOrigen: parseInt(this.vueloForm.controls['origen'].value),
         aeropuerto_aeroIdDestino: parseInt(this.vueloForm.controls['destino'].value),
         nombreAeroOrigen: this.vueloForm.controls['origen'].value,
