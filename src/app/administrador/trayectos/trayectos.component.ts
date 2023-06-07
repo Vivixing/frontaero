@@ -18,4 +18,12 @@ export class TrayectosComponent implements OnInit{
     );
   }
 
+  eliminarTrayecto(idTrayecto:number):void{
+    this.trayectoService.eliminarTrayecto(idTrayecto).subscribe((trayecto:Trayecto)=>{
+      console.log('Trayecto Eliminado',trayecto);
+    },
+    error=>{
+      console.error('Error al eliminar el trayecto',error);
+    })
+  }
 }

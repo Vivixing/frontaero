@@ -72,7 +72,20 @@
                                             {{vuelo.vueloId}}</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btnRegister" [disabled]="!trayectoForm.valid">Editar</button>
+                                <div class="form-group">
+                                    <label class="input-group-text">Estado</label>
+                                    <input type="text" class="form-control" placeholder="Estado *"
+                                        formControlName="estado" required />
+                                    <span class="text-danger"
+                                        *ngIf="trayectoForm.get('estado')?.hasError('required') && trayectoForm.get('estado')?.touched">
+                                        El estado del trayecto es requerido <br>
+                                    </span>
+                                    <span class="text-danger" *ngIf="trayectoForm.get('estado')?.hasError('pattern')">
+                                        El estado del trayecto solo permite letras <br>
+                                    </span>
+                                </div>
+                                <button type="submit" class="btnRegister"
+                                    [disabled]="!trayectoForm.valid">Editar</button>
                             </div>
                         </form>
                     </div>
