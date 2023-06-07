@@ -20,7 +20,7 @@ export class DatosReservaComponent implements OnInit {
 
   ngOnInit(): void {
     const idReserva = parseInt(this.router.url.split("/").pop() || "0");
-    this.reservaService.obtenerDatosReserva(idReserva);
+   // this.reservaService.obtenerDatosReserva(idReserva);
     this.reservaService.obtenerReservaUsuarioModelo().subscribe(response => {
       this.datosReserva = response
     })

@@ -63,64 +63,64 @@ export class ReservaService {
 
   //Datos reserva
 
-  obtenerDatosReserva(reseId: number) {
-    let avionesDatos: Avion[] = [];
-    let escalasDatos: Trayecto[] = [];
-    let aeropuertosDatos: Aeropuerto[] = [];
-    let reservaDatos: Reserva;
-    let vueloDatos: Vuelo;
-    let asientoDatos: Asiento;
-    let reservaModelo!: ReservaModelo;
+  // obtenerDatosReserva(reseId: number) {
+  //   let avionesDatos: Avion[] = [];
+  //   let escalasDatos: Trayecto[] = [];
+  //   let aeropuertosDatos: Aeropuerto[] = [];
+  //   let reservaDatos: Reserva;
+  //   let vueloDatos: Vuelo;
+  //   let asientoDatos: Asiento;
+  //   let reservaModelo!: ReservaModelo;
 
-    this.obtenerReservaById(reseId).subscribe(reserva => {
-      reservaDatos = reserva;
+  //   this.obtenerReservaById(reseId).subscribe(reserva => {
+  //     reservaDatos = reserva;
 
-      if (reserva.vuelId !== undefined) {
-        this.vueloService.obtenerVueloById(reserva.vuelId).subscribe(vuelo => {
-          vueloDatos = vuelo;
+  //     if (reserva.vuelId !== undefined) {
+  //       this.vueloService.obtenerVueloById(reserva.vuelId).subscribe(vuelo => {
+  //         vueloDatos = vuelo;
 
-          if (reserva.asieId !== undefined) {
-            this.asientoService.obtenerAsientoById(reserva.asieId).subscribe(asiento => {
-              asientoDatos = asiento;
+  //         if (reserva.asieId !== undefined) {
+  //           this.asientoService.obtenerAsientoById(reserva.asieId).subscribe(asiento => {
+  //             asientoDatos = asiento;
 
-              if (vuelo.vueloId !== undefined) {
-                this.trayectoService.obtenerTrayectoByVuelo(vuelo.vueloId).subscribe(trayecto => {
-                  escalasDatos.push(trayecto);
+  //             if (vuelo.vueloId !== undefined) {
+  //               this.trayectoService.obtenerTrayectoByVuelo(vuelo.vueloId).subscribe(trayecto => {
+  //                 escalasDatos.push(trayecto);
 
-                  if (trayecto.aereoIdOrigen !== undefined) {
-                    this.aeropuertoService.obtenerAeropuertoById(trayecto.aereoIdOrigen).subscribe(origen => {
-                      aeropuertosDatos.push(origen);
+  //                 if (trayecto.aereoIdOrigen !== undefined) {
+  //                   this.aeropuertoService.obtenerAeropuertoById(trayecto.aereoIdOrigen).subscribe(origen => {
+  //                     aeropuertosDatos.push(origen);
 
-                      if (trayecto.aereoIdDestino !== undefined) {
-                        this.aeropuertoService.obtenerAeropuertoById(trayecto.aereoIdDestino).subscribe(destino => {
-                          aeropuertosDatos.push(destino);
+  //                     if (trayecto.aereoIdDestino !== undefined) {
+  //                       this.aeropuertoService.obtenerAeropuertoById(trayecto.aereoIdDestino).subscribe(destino => {
+  //                         aeropuertosDatos.push(destino);
 
-                          if (trayecto.avioId !== undefined) {
-                            this.avionService.obtenerAvionById(trayecto.avioId).subscribe(avion => {
-                              avionesDatos.push(avion);
+  //                         if (trayecto.avioId !== undefined) {
+  //                           this.avionService.obtenerAvionById(trayecto.avioId).subscribe(avion => {
+  //                             avionesDatos.push(avion);
 
-                              reservaModelo = {
-                                reservaDatos,
-                                vueloDatos,
-                                escalasDatos,
-                                avionesDatos,
-                                aeropuertosDatos,
-                                asientoDatos
-                              };
-                              this.mandarReservaUsarioModelo(reservaModelo)
-                            });
-                          }
-                        });
-                      }
-                    });
-                  }
-                });
-              }
-            });
-          }
-        });
-      }
-    });
-  }
+  //                             reservaModelo = {
+  //                               reservaDatos,
+  //                               vueloDatos,
+  //                               escalasDatos,
+  //                               avionesDatos,
+  //                               aeropuertosDatos,
+  //                               asientoDatos
+  //                             };
+  //                             this.mandarReservaUsarioModelo(reservaModelo)
+  //                           });
+  //                         }
+  //                       });
+  //                     }
+  //                   });
+  //                 }
+  //               });
+  //             }
+  //           });
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
 
 }

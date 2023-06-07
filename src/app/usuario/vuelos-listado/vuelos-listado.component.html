@@ -9,6 +9,7 @@
         <th scope="col">Fecha Hora Salida</th>
         <th scope="col">Fecha Hora Llegada</th>
         <th scope="col">Precio $</th>
+        <th scope="col">Reservar</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
         <td>{{vuelo.hora_salida}}</td>
         <td>{{vuelo.hora_llegada}}</td>
         <td>{{vuelo.precio}}</td>
+        <td><i class="fa-solid fa-check" (click)="reservarVuelo(vuelo)"></i></td>
       </tr>
     </tbody>
   </table>

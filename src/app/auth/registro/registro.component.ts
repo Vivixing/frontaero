@@ -35,7 +35,7 @@ export class RegistroComponent {
     };
     console.log(nuevoUsuario)
     this.usuarioService.crearUsuario(nuevoUsuario).subscribe(
-      res=>this.route.navigate(['']) //Escribir la ruta de enlace 'Debe ser vista de '/usuario/mainpage' 
+      res=>this.route.navigate(['auth/login']) //Escribir la ruta de enlace 'Debe ser vista de '/usuario/mainpage' 
     )
   }
 }

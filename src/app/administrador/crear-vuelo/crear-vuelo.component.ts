@@ -5,8 +5,8 @@ import { VueloService } from 'src/app/services/vuelo.service';
 import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { Vuelo } from 'src/app/interfaces/vuelo';
-
-
+import { Trayecto } from 'src/app/interfaces/trayecto';
+import { TrayectoService } from 'src/app/services/trayecto.service';
 @Component({
   selector: 'app-crear-vuelo',
   templateUrl: './crear-vuelo.component.html',
@@ -19,7 +19,7 @@ export class CrearVueloComponent implements OnInit {
 
 
   constructor(private vueloService: VueloService,
-    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router) {
+    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router, private trayectoService: TrayectoService) {
     this.vueloForm = this.fb.group({
       origen: ['', [Validators.required]],
       destino: ['', [Validators.required]],
@@ -77,6 +77,27 @@ export class CrearVueloComponent implements OnInit {
       this.vueloService.crearVuelo(VueloCrear).subscribe((response) => {
         if (response !== null) {
           console.log('Datos enviados éxitosamente al backend')
+          //Creamos un trayecto para ese vuelo
+          if(response.vueloId){
+            const trayecto: Trayecto = {
+              vuelId: response.vueloId,
+              estado: 'Activo',
+              horaSalida: this.vueloForm.controls['fechaHoraSalida'].value,
+              horaLlegada: this.vueloForm.controls['fechaHoraLlegada'].value,
+              aereoIdOrigen: this.vueloForm.controls['origen'].value,
+              aereoIdDestino: this.vueloForm.controls['destino'].value,
+              avioId: 19
+          }
+          this.trayectoService.crearTrayecto(trayecto).subscribe((response) => {
+            if (response !== null) {
+              console.log('Trayecto creado éxitosamente')
+            }
+          },
+            (error) => {
+              console.error('Error al enviar los datos al backend', error);
+            });
+          }
+
           this.vueloForm.reset();
           this.router.navigate(['/administrador/vuelosListadoAdmin']);
         }

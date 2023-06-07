@@ -11,7 +11,7 @@ const routes: Routes = [
   {path:'reservaUsuario',component:GestionarReservaComponent},
   {path:'pagoUsuario',component:PagoUsuarioComponent},
   {path:'escogerVuelo',component:EscogerVueloComponent},
-  {path:'asientosElegir',component:AsientosElegirComponent}
+  {path:'asientosElegir/:id/:vuelo/:usuario',component:AsientosElegirComponent}
 ];
 
 @NgModule({

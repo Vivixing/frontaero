@@ -11,7 +11,7 @@ export interface Reserva {
     usuaId : number;
     precioTotal : number;
     estadoPago : string;
-    fecha : string;
+    fecha : Date;
     estado : string;
 }
 

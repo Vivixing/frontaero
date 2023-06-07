@@ -3,7 +3,7 @@ import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
-
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +20,8 @@ export class LoginComponent {
 
   constructor(private usuarioService:UsuarioService,
               private route:Router,
-              private fb : FormBuilder){}
+              private fb : FormBuilder,
+              private authService: AuthService){}
 
   loginFormulario: FormGroup = this.fb.group({
     cedula: ['',[Validators.required,Validators.minLength(8),Validators.maxLength(10),Validators.pattern(/^[0-9]+$/)]],
@@ -50,7 +51,11 @@ export class LoginComponent {
       this.credencialesNoValidas = true
     }else if(usuarioExite.rolUsuario_rousid != 1){
       if(usuarioExite.correo === this.usuario.email && usuarioExite.cedula === this.usuario.cedula){
-        this.route.navigate(["/index"])
+        this.route.navigate(["/usuario/escogerVuelo"])
+        if(usuarioExite.usuaId != null){
+          const userId = usuarioExite.usuaId
+          this.authService.login(userId)
+        }
         this.credencialesNoValidas = false
       }
       this.credencialesNoValidas = true

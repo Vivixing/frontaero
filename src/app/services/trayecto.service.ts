@@ -39,7 +39,7 @@ export class TrayectoService {
   }
 
   //Trayecto por el id del Vuelo
-  obtenerTrayectoByVuelo(id: number): Observable<Trayecto> {
-    return this.http.get<Trayecto>(`${this.urlTrayecto}/obtenerTrayectosVuelo/${id}`)
+  obtenerTrayectoByVuelo(id: number): Observable<Trayecto[]> {
+    return this.http.get<Trayecto[]>(`${this.urlTrayecto}/obtenerTrayectosVuelo/${id}`)
   }
 }
