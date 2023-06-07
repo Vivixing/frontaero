@@ -18,6 +18,7 @@ import { TrayectosComponent } from './trayectos/trayectos.component';
 import { CrearTrayectoComponent } from './crear-trayecto/crear-trayecto.component';
 import { EditarVueloComponent } from './editar-vuelo/editar-vuelo.component';
 import { EditarTrayectoComponent } from './editar-trayecto/editar-trayecto.component';
+import { AsientosComponent } from './asientos/asientos.component';
 
 
 
@@ -36,7 +37,8 @@ import { EditarTrayectoComponent } from './editar-trayecto/editar-trayecto.compo
     TrayectosComponent,
     CrearTrayectoComponent,
     EditarVueloComponent,
-    EditarTrayectoComponent
+    EditarTrayectoComponent,
+    AsientosComponent
   ],
   imports: [
     CommonModule,
