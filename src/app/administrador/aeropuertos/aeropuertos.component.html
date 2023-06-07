@@ -28,7 +28,7 @@
             <td>
               <div class="d-grid gap-3 d-sm-flex justify-content">
                 <i routerLink="/administrador/aeropuertoEditarAdmin" class="fa fa-pen-to-square bigicon"></i>
-                <i class="fa fa-trash bigicon" eliminarAeropuerto()></i>
+                <i class="fa fa-trash bigicon" (click)="aeropuerto.aeroId !== undefined && eliminarAeropuerto(aeropuerto.aeroId)"></i>
               </div>
             </td>
           </tr>
