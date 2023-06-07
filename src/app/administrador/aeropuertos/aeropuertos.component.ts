@@ -21,7 +21,7 @@ export class AeropuertosComponent implements OnInit {
 
   eliminarAeropuerto(idAeropuerto:number):void{
     this.aeropuertosService.eliminarAeropuerto(idAeropuerto).subscribe((aeropuerto:Aeropuerto)=>{
-      console.log('AeropuertoEliminado:',aeropuerto);
+      console.log('Aeropuerto Eliminado',aeropuerto);
     }, 
     (error)=>{
       console.error('Error al eliminar el aeropuerto',error);

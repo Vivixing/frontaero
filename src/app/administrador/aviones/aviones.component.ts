@@ -21,4 +21,13 @@ export class AvionesComponent implements OnInit {
     );
   }
 
+  eliminarAvion(idAvion:number):void{
+    this.avionService.eliminarAvion(idAvion).subscribe((avion:Avion)=>{
+      console.log('Avion Eliminado',avion);
+    },
+    error=>{
+      console.error('Error al eliminar el aeropuerto',error);
+    })
+  }
+
 }
