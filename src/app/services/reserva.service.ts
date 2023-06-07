@@ -48,8 +48,8 @@ export class ReservaService {
   }
 
   //Obtener Resersvas por usuario 
-  ontenerReservaDelUsuario(cedula: string): Observable<Reserva[]> {
-    return this.http.get<Reserva[]>(`${this.urlReserva}/obtenerReservasUsuario/${cedula}`)
+  obtenerReservaDelUsuario(id: number): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(`${this.urlReserva}/obtenerReservasUsuario/${id}`)
   }
 
   //Reserva Modelo

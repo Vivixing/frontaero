@@ -4,7 +4,8 @@ import {Asiento} from 'src/app/interfaces/asiento';
 import {AsientoService} from 'src/app/services/asiento.service';
 import { Reserva } from 'src/app/interfaces/reserva';
 import { ReservaService } from 'src/app/services/reserva.service';
-
+import { Vuelo } from 'src/app/interfaces/vuelo';
+import { VueloService } from 'src/app/services/vuelo.service';
 @Component({
   selector: 'app-asientos-elegir',
   templateUrl: './asientos-elegir.component.html',
@@ -20,8 +21,9 @@ export class AsientosElegirComponent implements OnInit{
   avionId : number = 0;
   vueloId : number = 0;
   usuarioId:number = 0;
+  total:number = 0;
   constructor(private asientosService : AsientoService, private route: ActivatedRoute, 
-             private reservaService:ReservaService, private router:Router){}
+            private reservaService:ReservaService, private router:Router, private vueloService:VueloService){}
   
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -55,42 +57,42 @@ export class AsientosElegirComponent implements OnInit{
     );
   }
 
-  elegirAsiento(asiento : Asiento){
+  elegirAsiento(asiento: Asiento) {
     console.log(asiento);
-    //Verificar si el asiento esta disponible
-    if(asiento.estado == "Activo"){
-      //Se cambia el estado del asiento a reservado, y se guarda en la base de datos
-    asiento.estado = "Inactivo";
-    this.asientosService.actualizarAsiento(asiento).subscribe(
-      e => console.log(e)
-    )
-    //Se crea una reserva con el asiento elegido y el usuario logueado
-    if(asiento.asieId != undefined)
-    {
-      const reserva : Reserva = {
-        asieId : asiento.asieId,
-        usuaId : this.usuarioId,
-        estado : "Activo",
-        fecha : new Date(),
-        estadoPago : "Pendiente",
-        precioTotal : 1,
-        vuelId : this.vueloId
+    
+    // Verificar si el asiento está disponible
+    if (asiento.estado == "Activo") {
+      // Cambiar el estado del asiento a reservado y guardarlo en la base de datos
+      asiento.estado = "Inactivo";
+      this.asientosService.actualizarAsiento(asiento).subscribe(e => console.log(e));
+      
+      this.vueloService.obtenerVueloById(this.vueloId).subscribe(vuelo => {
+        // Aquí se obtiene el valor real del objeto 'Vuelo'
+        
+        // Crear una reserva con el asiento elegido y el usuario logueado
+        if (asiento.asieId != undefined) {
+          const reserva: Reserva = {
+            asieId: asiento.asieId,
+            usuaId: this.usuarioId,
+            estado: "Activo",
+            fecha: new Date(),
+            estadoPago: "Pendiente",
+            precioTotal: asiento.precio + vuelo.precio,
+            vuelId: this.vueloId
+          };
+          console.log(reserva);
+          
+          // Guardar la reserva en la base de datos
+          this.reservaService.crearReserva(reserva).subscribe(e => console.log(e));
+          
+          // Redirigir al usuario a la página de reservas
+          this.router.navigate(['/usuario/reservaUsuario', this.usuarioId, this.vueloId]);
+        }
+      });
+    } else {
+      // Si el asiento no está disponible, mostrar un mensaje
+      alert("Por favor, seleccione un asiento disponible");
     }
-    console.log(reserva);
-    //Se guarda la reserva en la base de datos
-    this.reservaService.crearReserva(reserva).subscribe(
-      e => console.log(e)
-    )
-    //Se muestra un mensaje de confirmacion
-    //alert("Asiento reservado con exito")
-    //Se redirige al usuario a la pagina de reservas
-    //this.router.navigate(['/usuario/reservaUsuario']);
-    }
-  //Si el asiento no esta disponible, se muestra un mensaje
-  else{
-    alert("Por favor, seleccione un asiento disponible")
-  }
-}
   }
 
 }
