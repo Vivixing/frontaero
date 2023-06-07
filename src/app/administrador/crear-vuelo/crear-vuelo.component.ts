@@ -30,7 +30,6 @@ export class CrearVueloComponent implements OnInit {
       precioAsientoVip: [],
       precioAsientoNormal: [],
       precioAsientoBasico: [],
-      escalas: this.fb.array([])
     });
   }
 
@@ -38,21 +37,6 @@ export class CrearVueloComponent implements OnInit {
     this.getAeropuertos()
   }
 
-  get escalas() {
-    return this.vueloForm.get('escalas') as FormArray;
-  }
-
-  agregarEscala() {
-    const escalasGroup = this.fb.group({
-      aeropuertoEscala: [],
-      fechaHoraSalida: [],
-      fechaHoraLlegada: []
-    });
-    this.escalas.push(escalasGroup);
-  }
-  eliminarEscala(index: number) {
-    this.escalas.removeAt(index);
-  }
 
   enviarFromulario() {
     if (this.vueloForm.valid) {
@@ -76,30 +60,6 @@ export class CrearVueloComponent implements OnInit {
       if (fechaHoraSalida < fechaActualSistema) {
         alert('La fecha hora de salida no puede ser una fecha antes de la actual')
         return;
-      }
-      //Validación escalas
-      if (datosVuelo.tieneEscalas && datosVuelo.escalas.length < 1) {
-        alert('Debe agregar al menos una escala')
-        return;
-      }
-      //Validación Aeropuertos de escalas diferentes a los de origen y destino
-      for (const escalas of datosVuelo.escalas) {
-        if (escalas.aeroId === datosVuelo.origen || escalas.aeroId === datosVuelo.destino) {
-          alert('Los aeropuertos de escalas deben ser diferentes a el aeropuerto de origen y destino')
-          return;
-        }
-        const escalaFechaHoraSalida = new Date(datosVuelo.fechaHoraSalida).getTime();
-        const escalaFechaHoraLlegada = new Date(datosVuelo.fechaHoraLlegada).getTime();
-        const escalafechaActualSistema = new Date().getTime();
-        if (escalaFechaHoraSalida >= escalaFechaHoraLlegada) {
-          alert('La fecha hora de salida no puede ser igual o una fecha después que la de llegada')
-          return;
-        }
-        //Validación fecha salida con Actual
-        if (escalaFechaHoraSalida < escalafechaActualSistema) {
-          alert('La fecha hora de salida no puede ser una fecha antes de la actual')
-          return;
-        }
       }
       const VueloCrear: Vuelo = {
         aeropuerto_aeroIdOrigen: parseInt(this.vueloForm.controls['origen'].value),

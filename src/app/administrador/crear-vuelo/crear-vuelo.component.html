@@ -42,31 +42,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tieneEscalas">¿El vuelo tiene escalas?</label>
-                                    <input type="checkbox" id="tieneEscalas" formControlName="tieneEscalas">
-                                </div>
-                                <div class="form-group" *ngIf="vueloForm.get('tieneEscalas')?.value">
-                                    <h3>Escala(s)</h3>
-                                    <div formArrayName="escalas">
-                                        <div *ngFor="let escala of escalas.controls; let i=index" [formGroupName]="i">
-                                            <label>Aeropuerto de escala:</label>
-                                            <select formControlName="aeropuertoEscala">
-                                                <option *ngFor="let airport of aeropuertos" [value]="airport.aeroId">{{
-                                                    airport.nombre }}</option>
-                                            </select>
-
-                                            <label>Hora de salida:</label>
-                                            <input type="datetime-local" formControlName="fechaHoraSalida">
-
-                                            <label>Hora de llegada:</label>
-                                            <input type="datetime-local" formControlName="fechaHoraLlegada">
-
-                                            <button type="button" (click)="eliminarEscala(i)">Eliminar Escala</button>
-                                        </div>
-                                    </div>
-                                    <button type="button" (click)="agregarEscala()">Agregar Escala</button>
-                                </div>
-                                <div class="form-group">
                                     <label for="precioVuelo">Precio Vuelo:</label>
                                     <input type="number" class="form-control" name="precio"
                                         formControlName="precioVuelo" />

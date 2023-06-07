@@ -29,7 +29,7 @@ export class EditarAeropuertoComponent {
       this.aeroId = params['id'];
       console.log(this.aeroId); // Verificar si el valor se actualiza correctamente
     });
-    
+    this.buscarAeropuerto();
     this.locationService.obtenerPaises().subscribe(
       (paises) => {
         this.paises = paises.data;
@@ -43,7 +43,7 @@ export class EditarAeropuertoComponent {
   }
   aeropuertoformulario: FormGroup = this.fb.group({
 
-    nombre: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(5), Validators.pattern(/^[a-zA-Z]?[A-Za-z-]+$/)]],
+    nombre: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(5), Validators.pattern(/^[a-zA-Z]?[A-Za-z-]+$/)]],
     iata: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
     pais: ['', [Validators.required]],
     ciudad: ['', [Validators.required]],
@@ -55,6 +55,28 @@ export class EditarAeropuertoComponent {
     const elPais = this.paises.filter(elPais => elPais.country == this.aeropuertoformulario.value['pais'])
     this.ciudades = elPais[0].cities
   }
+    //Buscamos el aeropuerto por su id
+    buscarAeropuerto(): void {
+      //Buscamos el aeropuerto por su id, para luego mostrarlo en el formulario
+      this.aeropuertosService.obtenerAeropuertoById(this.aeroId).subscribe(
+        (aeropuerto) => {
+          console.log(aeropuerto);
+          const ubicacionSplit = aeropuerto.ubicacion.split(',');
+          const ciudad = ubicacionSplit[0].trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+          const pais = ubicacionSplit[1].trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+          console.log(ciudad);
+          console.log(pais);
+          this.aeropuertoformulario.patchValue({
+            nombre: aeropuerto.nombre,
+            iata: aeropuerto.iata,
+            pais: pais,
+            ciudad: ciudad,
+            estado: aeropuerto.estado
+          })
+          this.encontrarCiudades()
+        },
+      );
+    }
   actualizarAeropuerto(): void {
     console.log(this.route.snapshot.params['aeroId']);
     const aeropuerto: Aeropuerto = {

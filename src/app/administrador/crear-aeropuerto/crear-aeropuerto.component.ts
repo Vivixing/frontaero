@@ -38,7 +38,7 @@ export class CrearAeropuertoComponent implements OnInit {
 
   }
   aeropuertoformulario: FormGroup = this.fb.group({
-    nombre: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(5), Validators.pattern(/^[a-zA-Z]?[A-Za-z-]+$/)]],
+    nombre: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(5), Validators.pattern(/^[a-zA-Z]?[A-Za-z-]+$/)]],
     iata: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
     pais: ['', [Validators.required]],
     ciudad: ['', [Validators.required]],
@@ -53,7 +53,7 @@ export class CrearAeropuertoComponent implements OnInit {
     const aeropuerto: Aeropuerto = {
       nombre: this.aeropuertoformulario.value['nombre'],
       iata: this.aeropuertoformulario.value['iata'],
-      ubicacion: `${this.aeropuertoformulario.value['pais']}  ${this.aeropuertoformulario.value['ciudad']}`,
+      ubicacion: `${this.aeropuertoformulario.value['pais']}, ${this.aeropuertoformulario.value['ciudad']}`,
       estado: 'Activo'      
     };
     this.aeropuertoformulario.valid,

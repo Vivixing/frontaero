@@ -40,7 +40,7 @@ export class EditarTrayectoComponent implements OnInit {
       this.trayId = params['id'];
       console.log(this.trayId); // Verificar si el valor se actualiza correctamente
     });
-    
+    this.buscarTrayecto()
     this.getAeropuertos()
     this.getAviones()
     this.getVuelos()
@@ -59,6 +59,19 @@ export class EditarTrayectoComponent implements OnInit {
   getVuelos() {
     this.vueloService.obtenerVuelos().subscribe(listaVuelos => {
       this.vuelos = listaVuelos
+    })
+  }
+  buscarTrayecto() {
+    this.trayectoService.obtenerTrayectoById(this.trayId).subscribe(trayecto => {
+      this.trayectoForm.patchValue({
+        avion: trayecto.avioId,
+        origen: trayecto.aereoIdOrigen,
+        destino: trayecto.aereoIdDestino,
+        fechaHoraSalida: trayecto.horaSalida,
+        fechaHoraLlegada: trayecto.horaLlegada,
+        vuelo: trayecto.vuelId,
+        estado: trayecto.estado
+      })
     })
   }
 

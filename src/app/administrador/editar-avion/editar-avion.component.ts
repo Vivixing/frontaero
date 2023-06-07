@@ -24,6 +24,7 @@ export class EditarAvionComponent implements OnInit{
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.avioID = params['id'];
+      this.buscarAvion();
       console.log(this.avioID); // Verificar si el valor se actualiza correctamente
     });
   }
@@ -33,6 +34,22 @@ export class EditarAvionComponent implements OnInit{
     estado:['',[Validators.required,Validators.pattern(/^[A-Za-z]+$/)]]
   })
   
+  buscarAvion(): void {
+    //Buscamos el avión por su id, para luego mostrarlo en el formulario
+    this.avionService.obtenerAvionById(this.avioID)?.subscribe(data => {
+      if (data == null) {
+        console.log('No se puede encontrar el avión');
+        return;
+      } else {
+        console.log('Avión encontrado');
+        console.log(data);
+        this.avionFormulario.patchValue({
+          modelo: data.modelo,
+          estado: data.estado
+        });
+      }
+    });
+  }
   actualizarAvion(): void {
     const avion: Avion = {
       avioID: this.avioID,
@@ -47,6 +64,7 @@ export class EditarAvionComponent implements OnInit{
         return;
       } else {
         console.log('Avión actualizado con éxito');
+        /*
         const avionId = data.avioID;
         if (avionId) {
           //Creamos 3 asientos para clase económica, 3 para clase ejecutiva y 3 para primera clase
@@ -220,7 +238,7 @@ export class EditarAvionComponent implements OnInit{
           )
 
         };
-
+        */
         this.avionFormulario.reset()
         this.router.navigate(["/administrador/avionesListadoAdmin"])
       }

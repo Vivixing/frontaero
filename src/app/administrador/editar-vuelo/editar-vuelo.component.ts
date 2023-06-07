@@ -29,8 +29,7 @@ export class EditarVueloComponent implements OnInit {
       precioAsientoVip: [],
       precioAsientoNormal: [],
       precioAsientoBasico: [],
-      estado: ['',[Validators.required,Validators.pattern(/^[A-Za-z]+$/)]],
-      escalas: this.fb.array([])
+      estado: ['', [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
     });
   }
 
@@ -39,23 +38,32 @@ export class EditarVueloComponent implements OnInit {
       this.vueloId = params['id'];
       console.log(this.vueloId); // Verificar si el valor se actualiza correctamente
     });
+    this.buscarVuelo();
     this.getAeropuertos()
   }
 
-  get escalas() {
-    return this.vueloForm.get('escalas') as FormArray;
-  }
+  buscarVuelo() {
+    this.vueloService.obtenerVueloById(this.vueloId).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.vueloForm.patchValue({
+          origen: res.aeropuerto_aeroIdOrigen,
+          destino: res.aeropuerto_aeroIdDestino,
+          tieneEscalas: res.tieneEscalas,
+          precioVuelo: res.precio,
+          fechaHoraSalida: res.fechaHoraSalida,
+          fechaHoraLlegada: res.fechaHoraLlegada,
+          precioAsientoVip: res.precioAsientoVip,
+          precioAsientoNormal: res.precioAsientoNormal,
+          precioAsientoBasico: res.precioAsientoBasico,
+          estado: res.estado
+        });
 
-  agregarEscala() {
-    const escalasGroup = this.fb.group({
-      aeropuertoEscala: [],
-      fechaHoraSalida: [],
-      fechaHoraLlegada: []
-    });
-    this.escalas.push(escalasGroup);
-  }
-  eliminarEscala(index: number) {
-    this.escalas.removeAt(index);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   enviarFromulario() {
@@ -81,30 +89,7 @@ export class EditarVueloComponent implements OnInit {
         alert('La fecha hora de salida no puede ser una fecha antes de la actual')
         return;
       }
-      //Validación escalas
-      if (datosVuelo.tieneEscalas && datosVuelo.escalas.length < 1) {
-        alert('Debe agregar al menos una escala')
-        return;
-      }
-      //Validación Aeropuertos de escalas diferentes a los de origen y destino
-      for (const escalas of datosVuelo.escalas) {
-        if (escalas.aeroId === datosVuelo.origen || escalas.aeroId === datosVuelo.destino) {
-          alert('Los aeropuertos de escalas deben ser diferentes a el aeropuerto de origen y destino')
-          return;
-        }
-        const escalaFechaHoraSalida = new Date(datosVuelo.fechaHoraSalida).getTime();
-        const escalaFechaHoraLlegada = new Date(datosVuelo.fechaHoraLlegada).getTime();
-        const escalafechaActualSistema = new Date().getTime();
-        if (escalaFechaHoraSalida >= escalaFechaHoraLlegada) {
-          alert('La fecha hora de salida no puede ser igual o una fecha después que la de llegada')
-          return;
-        }
-        //Validación fecha salida con Actual
-        if (escalaFechaHoraSalida < escalafechaActualSistema) {
-          alert('La fecha hora de salida no puede ser una fecha antes de la actual')
-          return;
-        }
-      }
+      
       const VueloActualizar: Vuelo = {
         vueloId: this.vueloId,
         aeropuerto_aeroIdOrigen: parseInt(this.vueloForm.controls['origen'].value),
@@ -121,7 +106,7 @@ export class EditarVueloComponent implements OnInit {
       }
       this.vueloService.actualizarVuelo(VueloActualizar).subscribe((response) => {
         if (response !== null) {
-          console.log('Actualizado exitosamente el vuelo',VueloActualizar)
+          console.log('Actualizado exitosamente el vuelo', VueloActualizar)
           this.vueloForm.reset();
           this.router.navigate(['/administrador/vuelosListadoAdmin']);
         }
