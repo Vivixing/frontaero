@@ -10,8 +10,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { IndexComponent } from './components/index/index.component';
 import { Error404Component } from './components/error404/error404.component';
-import { AsientosComponent } from './administrador/asientos/asientos.component';
-import { CrearAsientoComponent } from './administrador/crear-asiento/crear-asiento.component';
+
+
 
 
 
@@ -24,8 +24,6 @@ import { CrearAsientoComponent } from './administrador/crear-asiento/crear-asien
     FooterComponent,
     IndexComponent,
     Error404Component,
-    AsientosComponent,
-    CrearAsientoComponent,
   ],
   imports: [
     BrowserModule,
