@@ -1,1 +1,124 @@
-<p>editar-vuelo works!</p>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+            <h3>Bienvenido</h3>
+            <p>Ingresa los datos necesarios para editar un Vuelo!</p>
+        </div>
+        <div class="col-md-9 register-right">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home"
+                        aria-selected="true">Vuelo</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Editar Vuelo</h3>
+                    <div class="row register-form">
+                        <form [formGroup]="vueloForm" (ngSubmit)="enviarFromulario()">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="origen">Aeropuerto Origen:</label>
+                                    <select class="form-control" name="aeropuertoOrigen" formControlName="origen">
+                                        <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto
+                                            de Origen</option>
+                                        <option *ngFor="let aeropuerto of aeropuertos" [value]="aeropuerto.aeroId">
+                                            {{aeropuerto.nombre}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="destino">Aeropuerto Destino:</label>
+                                    <select class="form-control" name="aeropuertoDestino" formControlName="destino">
+                                        <option value="" class="text-primary" disabled selected>Seleccione un aeropuerto
+                                            de Destino</option>
+                                        <option *ngFor="let aeropuerto of aeropuertos" [value]="aeropuerto.aeroId">{{
+                                            aeropuerto.nombre}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tieneEscalas">¿El vuelo tiene escalas?</label>
+                                    <input type="checkbox" id="tieneEscalas" formControlName="tieneEscalas">
+                                </div>
+                                <div class="form-group" *ngIf="vueloForm.get('tieneEscalas')?.value">
+                                    <h3>Escala(s)</h3>
+                                    <div formArrayName="escalas">
+                                        <div *ngFor="let escala of escalas.controls; let i=index" [formGroupName]="i">
+                                            <label>Aeropuerto de escala:</label>
+                                            <select formControlName="aeropuertoEscala">
+                                                <option *ngFor="let airport of aeropuertos" [value]="airport.aeroId">{{
+                                                    airport.nombre }}</option>
+                                            </select>
+
+                                            <label>Hora de salida:</label>
+                                            <input type="datetime-local" formControlName="fechaHoraSalida">
+
+                                            <label>Hora de llegada:</label>
+                                            <input type="datetime-local" formControlName="fechaHoraLlegada">
+
+                                            <button type="button" (click)="eliminarEscala(i)">Eliminar Escala</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" (click)="agregarEscala()">Agregar Escala</button>
+                                </div>
+                                <div class="form-group">
+                                    <label for="precioVuelo">Precio Vuelo:</label>
+                                    <input type="number" class="form-control" name="precio"
+                                        formControlName="precioVuelo" />
+                                </div>
+                                <div class="form-group">
+                                    <label for=" fechaHoraSalida">Hora de salida:</label>
+                                    <input type="datetime-local" class="form-control" name="hora_salida"
+                                        formControlName="fechaHoraSalida" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="fechaHoraLlegada">Hora de llegada:</label>
+                                    <input type="datetime-local" class="form-control" name="hora_llegada"
+                                        formControlName="fechaHoraLlegada" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="precioAsientoVip">Precio Asiento VIP:</label>
+                                    <input type="number" class="form-control" name="precioAsientoVip"
+                                        formControlName="precioAsientoVip" />
+                                </div>
+                                <div class="form-group">
+                                    <label for=" precioAsientoNormal">Precio Asiento Normal:</label>
+                                    <input type="number" class="form-control" name="precioAsientoNormal"
+                                        formControlName="precioAsientoNormal" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="precioAsientoBasico">Precio Asiento Básico:</label>
+                                    <input type="number" class="form-control" name="precioAsientoBasico"
+                                        formControlName="precioAsientoBasico" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="input-group-text">Estado</label>
+                                    <input type="text" class="form-control" placeholder="Estado *" formControlName="estado"
+                                        required />
+                                    <span class="text-danger"
+                                        *ngIf="vueloForm.get('estado')?.hasError('required') && vueloForm.get('estado')?.touched">
+                                        El estado del vuelo es requerido <br>
+                                    </span>
+                                    <span class="text-danger"
+                                        *ngIf="vueloForm.get('estado')?.hasError('pattern')">
+                                        El estado del vuelo solo permite letras <br>
+                                    </span>
+                                </div>
+                                <button type="submit" class="btnRegister" [disabled]="!vueloForm.valid">Editar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
