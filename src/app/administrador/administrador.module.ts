@@ -16,6 +16,8 @@ import { EditarAeropuertoComponent } from './editar-aeropuerto/editar-aeropuerto
 import { EditarAvionComponent } from './editar-avion/editar-avion.component';
 import { TrayectosComponent } from './trayectos/trayectos.component';
 import { CrearTrayectoComponent } from './crear-trayecto/crear-trayecto.component';
+import { EditarVueloComponent } from './editar-vuelo/editar-vuelo.component';
+import { EditarTrayectoComponent } from './editar-trayecto/editar-trayecto.component';
 
 
 
@@ -32,7 +34,9 @@ import { CrearTrayectoComponent } from './crear-trayecto/crear-trayecto.componen
     EditarAeropuertoComponent,
     EditarAvionComponent,
     TrayectosComponent,
-    CrearTrayectoComponent
+    CrearTrayectoComponent,
+    EditarVueloComponent,
+    EditarTrayectoComponent
   ],
   imports: [
     CommonModule,
