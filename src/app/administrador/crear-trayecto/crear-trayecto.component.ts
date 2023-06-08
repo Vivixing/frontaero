@@ -9,6 +9,7 @@ import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
 import { Trayecto } from 'src/app/interfaces/trayecto';
 import { TrayectoService } from 'src/app/services/trayecto.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-crear-trayecto',
@@ -41,17 +42,17 @@ export class CrearTrayectoComponent implements OnInit {
   }
 
   getAeropuertos() {
-    this.aeropuertoService.obtenerAeropuertos().subscribe(listaAeropuertos => {
+    this.aeropuertoService.obtenerAeropuertosActivos().subscribe(listaAeropuertos => {
       this.aeropuertos = listaAeropuertos
     })
   }
   getAviones() {
-    this.avionService.obtenerAviones().subscribe(listaAviones => {
+    this.avionService.obtenerAvionesActivos().subscribe(listaAviones => {
       this.aviones = listaAviones
     })
   }
   getVuelos() {
-    this.vueloService.obtenerVuelos().subscribe(listaVuelos => {
+    this.vueloService.obtenerVuelosActivos().subscribe(listaVuelos => {
       this.vuelos = listaVuelos
     })
   }
@@ -90,12 +91,16 @@ export class CrearTrayectoComponent implements OnInit {
       this.trayectoService.crearTrayecto(crearTrayecto).subscribe(response=>{
         if(response !== null){
           console.log('Datos enviados éxitosamente al backend')
-          this.trayectoForm.reset();
           this.router.navigate(['/administrador/trayectosListadoAdmin']);
+          this.trayectoForm.reset();
         }
       },
-      error=>{
-        console.error('Error al enviar los datos al backend', error);
+      (err:HttpErrorResponse)=>{
+        if(err.status == 400){
+          console.log(err.error);
+          const mensaje = err.error.mensaje;
+          alert(mensaje);
+        }
       });
     }
     this.trayectoForm.invalid

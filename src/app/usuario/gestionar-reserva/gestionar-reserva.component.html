@@ -1,16 +1,21 @@
 <div *ngFor="let reserva of reservas">
-  <div class="reserva-info">
-    <h1>Reserva de: {{usuario.nombre}}</h1>
-    <h1>ID de reserva: {{ reserva.reseId }}</h1>
-    <p>ID de vuelo: {{ vuelo.vueloId }}</p>
-    <p>Aeropuerto Origen : {{ vuelo.nombreAeroOrigen}}</p>
-    <p>Aeropuerto Destino Ubicación: {{ vuelo.nombreAeroDestino}}</p>
-    <p>Fecha Hora Salida Vuelo: {{vuelo.hora_salida }}</p>
-    <p>Fecha Hora Llegada Vuelo: {{vuelo.hora_llegada }}</p>
-    <p>Fecha Reserva: {{ reserva.fecha }}</p>
-    <p>Estado de pago: {{ reserva.estadoPago }}</p>
-    <p>Precio total: {{ reserva.precioTotal }}</p>
+  <div class="card">
+    <div class="card-body reserva-info">
+      <h5 class="card-title">Reserva de: {{usuario.nombre}}</h5>
+      <p class="card-text"><strong>ID de reserva:</strong> {{ reserva.reseId }}</p>
+      <p class="card-text"><strong>ID de vuelo:</strong> {{ vuelo.vueloId }}</p>
+      <p class="card-text"><strong>Aeropuerto Origen :</strong> {{ vuelo.nombreAeroOrigen}}</p>
+      <p class="card-text"><strong>Aeropuerto Destino :</strong> {{ vuelo.nombreAeroDestino}}</p>
+      <p class="card-text"><strong>Fecha Hora Salida Vuelo:</strong> {{vuelo.hora_salida | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+      <p class="card-text"><strong>Fecha Hora Llegada Vuelo:</strong> {{vuelo.hora_llegada | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+      <p class="card-text"><strong>Fecha Reserva:</strong> {{ reserva.fecha | date }}</p>
+      <p class="card-text"><strong>Estado de pago:</strong> {{ reserva.estadoPago}}</p>
+      <p class="card-text"><strong>Precio total $:</strong> {{ reserva.precioTotal}}</p>
+      <!-- Add more reservation information here -->
+    </div>
   </div>
-  <button class="btn btn-primary" (click)="generarFactura(reserva)">Pagar</button>
-  <button class="btn btn-primary" (click)="cancelarReserva(reserva)">Cancelar</button>
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-outline-primary" (click)="generarFactura(reserva)">Pagar</button>
+    <button class="btn btn-outline-primary" (click)="cancelarReserva(reserva)">Cancelar</button>
+  </div>
 </div>

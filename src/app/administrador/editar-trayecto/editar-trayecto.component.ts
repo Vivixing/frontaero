@@ -9,6 +9,7 @@ import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
 import { Trayecto } from 'src/app/interfaces/trayecto';
 import { TrayectoService } from 'src/app/services/trayecto.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-trayecto',
@@ -115,9 +116,13 @@ export class EditarTrayectoComponent implements OnInit {
           this.router.navigate(['/administrador/trayectosListadoAdmin']);
         }
       },
-        error => {
-          console.error('Error al actualizar el trayecto', error);
-        });
+      (err:HttpErrorResponse)=>{
+        if(err.status == 400){
+          console.log(err.error);
+          const mensaje = err.error.mensaje;
+          alert(mensaje);
+        }
+      });
     }
     this.trayectoForm.invalid
   }

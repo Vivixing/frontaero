@@ -18,6 +18,10 @@ export class AvionService {
     return this.http.get<Avion[]>(`${this.urlAvion}/obtenerAviones`)
   }
 
+  obtenerAvionesActivos():Observable<Avion[]>{
+    return this.http.get<Avion[]>(`${this.urlAvion}/AvionesActivos`)
+  }
+
   //Obtener Avión por Id
   obtenerAvionById(id:number):Observable<Avion>{
     return this.http.get<Avion>(`${this.urlAvion}/${id}`)

@@ -165,3 +165,10 @@ button, input, optgroup, select, textarea {
   }
 }
 
+p{
+  cursor: pointer;
+}
+
+p:hover{
+  color: #0d6efd;
+}

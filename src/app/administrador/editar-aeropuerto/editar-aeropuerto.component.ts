@@ -5,6 +5,7 @@ import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { Pais } from 'src/app/interfaces/pais';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { LocacionService } from 'src/app/services/locacion.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-aeropuerto',
@@ -47,7 +48,7 @@ export class EditarAeropuertoComponent {
     iata: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3), Validators.pattern(/^[A-Za-z]+$/)]],
     pais: ['', [Validators.required]],
     ciudad: ['', [Validators.required]],
-    estado:['',[Validators.required,Validators.pattern(/^[A-Za-z]+$/)]],
+    estado: ['', [Validators.required, Validators.pattern(/^[A-Za-z]+$/)]],
   })
 
   encontrarCiudades() {
@@ -55,60 +56,64 @@ export class EditarAeropuertoComponent {
     const elPais = this.paises.filter(elPais => elPais.country == this.aeropuertoformulario.value['pais'])
     this.ciudades = elPais[0].cities
   }
-    //Buscamos el aeropuerto por su id
-    buscarAeropuerto(): void {
-      //Buscamos el aeropuerto por su id, para luego mostrarlo en el formulario
-      this.aeropuertosService.obtenerAeropuertoById(this.aeroId).subscribe(
-        (aeropuerto) => {
-          console.log(aeropuerto);
-          const ubicacionSplit = aeropuerto.ubicacion.split(',');
-          const ciudad = ubicacionSplit[0].trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-          const pais = ubicacionSplit[1].trim().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-          console.log(ciudad);
-          console.log(pais);
-          this.aeropuertoformulario.patchValue({
-            nombre: aeropuerto.nombre,
-            iata: aeropuerto.iata,
-            pais: pais,
-            ciudad: ciudad,
-            estado: aeropuerto.estado
-          })
-          this.encontrarCiudades()
-        },
-      );
-    }
+  //Buscamos el aeropuerto por su id
+  buscarAeropuerto(): void {
+    //Buscamos el aeropuerto por su id, para luego mostrarlo en el formulario
+    this.aeropuertosService.obtenerAeropuertoById(this.aeroId).subscribe(
+      (aeropuerto) => {
+        console.log(aeropuerto);
+        const ubicacionSplit = aeropuerto.ubicacion.split(', ');
+        const ciudad = ubicacionSplit[1]
+        const pais = ubicacionSplit[0]
+        this.aeropuertoformulario.patchValue({
+          nombre: aeropuerto.nombre,
+          iata: aeropuerto.iata,
+          pais: pais,
+          ciudad: ciudad,
+          estado: aeropuerto.estado
+        })
+        this.encontrarCiudades()
+      }, (err: HttpErrorResponse) => {
+        if (err.status == 400) {
+          console.log(err.error);
+          const mensaje = err.error.mensaje;
+          alert(mensaje);
+        }
+      }
+    );
+  }
   actualizarAeropuerto(): void {
-    console.log(this.route.snapshot.params['aeroId']);
-    const aeropuerto: Aeropuerto = {
-      aeroId: this.aeroId,
-      nombre: this.aeropuertoformulario.value['nombre'],
-      iata: this.aeropuertoformulario.value['iata'],
-      ubicacion: `${this.aeropuertoformulario.value['pais']}  ${this.aeropuertoformulario.value['ciudad']}`,
-      estado: this.aeropuertoformulario.value['estado']      
-    };
-    this.aeropuertoformulario.valid,
-    //console.log(aeropuerto);
-    this.enviarAeropuerto(aeropuerto)
-    this.aeropuertoformulario.reset()
+    if (this.aeropuertoformulario.valid) {
+      console.log(this.route.snapshot.params['aeroId']);
+      const aeropuerto: Aeropuerto = {
+        aeroId: this.aeroId,
+        nombre: this.aeropuertoformulario.value['nombre'],
+        iata: this.aeropuertoformulario.value['iata'],
+        ubicacion: `${this.aeropuertoformulario.value['pais']}, ${this.aeropuertoformulario.value['ciudad']}`,
+        estado: this.aeropuertoformulario.value['estado']
+      };
+      this.enviarAeropuerto(aeropuerto)
+      this.aeropuertoformulario.reset()
+    }
   }
 
   enviarAeropuerto(aeropuerto: Aeropuerto) {
-    aeropuerto.aeroId=this.aeroId
+    aeropuerto.aeroId = this.aeroId
     this.aeropuertosService.actualizarAeropuerto(aeropuerto)?.subscribe(
       res => {
-      if (res == null) {
-        console.log('No se puedo actualizar el aeropuerto')
-        return
-      }
-      console.log(res,'Aeropuerto actualizado con éxito');
-      this.router.navigate(["/administrador/aeropuertosListadoAdmin"])
-    },
-      err => {
-        let MensajeError = 'Error al actualizar el aeropuerto'
-        if (err.error && err.error.mensaje) {
-          MensajeError = err.error.mensaje;
+        if (res == null) {
+          console.log('No se puedo actualizar el aeropuerto')
+          return
         }
-        console.log(MensajeError);
+        console.log(res, 'Aeropuerto actualizado con éxito');
+        this.router.navigate(["/administrador/aeropuertosListadoAdmin"])
+      },
+      (err:HttpErrorResponse)=> {
+        if(err.status == 400){
+          console.log(err.error);
+          const mensaje = err.error.mensaje;
+          alert(mensaje);
+        }
       })
   }
 }

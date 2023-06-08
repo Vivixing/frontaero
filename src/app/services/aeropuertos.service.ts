@@ -19,6 +19,11 @@ export class AeropuertosService {
     return this.http.get<Aeropuerto[]>(`${this.urlAeropuerto}/obtenerAeropuertos`)
   }
 
+  obtenerAeropuertosActivos():Observable<Aeropuerto[]>{ 
+    //Observable es asíncrono, permite obtener datos a menera que estén disponibles
+    return this.http.get<Aeropuerto[]>(`${this.urlAeropuerto}/aeropuertosActivos`)
+  }
+
   //Obtener Aeropuerto por Id
   obtenerAeropuertoById(id:number):Observable<Aeropuerto>{
     return this.http.get<Aeropuerto>(`${this.urlAeropuerto}/${id}`)

@@ -5,7 +5,7 @@ import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { LocacionService } from 'src/app/services/locacion.service';
 import { Pais } from 'src/app/interfaces/pais';
-
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-crear-aeropuerto',
@@ -67,18 +67,20 @@ export class CrearAeropuertoComponent implements OnInit {
       res => {
       if (res == null) {
         console.log('No se puedo crear el aeropuerto')
+        alert('No se puedo crear el aeropuerto')
         return
       }
+      alert('Aeropuerto creado con éxito')
       console.log(res,'Aeropuerto creado con éxito');
       this.router.navigate(["/administrador/aeropuertosListadoAdmin"])
     },
-      err => {
-        let MensajeError = 'Error al crear el aeropuerto'
-        if (err.error && err.error.mensaje) {
-          MensajeError = err.error.mensaje;
-        }
-        console.log(MensajeError);
-      })
+    (err:HttpErrorResponse)=>{
+      if(err.status == 400){
+        console.log(err.error);
+        const mensaje = err.error.mensaje;
+        alert(mensaje);
+      }
+    })
   }
 
   // validarIata(aeropuerto: Aeropuerto[], iata: string): boolean {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -26,8 +27,12 @@ export class AvionesComponent implements OnInit {
     this.avionService.eliminarAvion(avion).subscribe((avion:Avion)=>{
       console.log('Avion Eliminado',avion);
     },
-    error=>{
-      console.error('Error al eliminar el aeropuerto',error);
+    (err:HttpErrorResponse)=>{
+      if(err.status == 400){
+        console.log(err.error);
+        const mensaje = err.error.mensaje;
+        alert(mensaje);
+      }
     })
   }
 

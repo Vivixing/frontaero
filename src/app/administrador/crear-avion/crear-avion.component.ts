@@ -224,6 +224,7 @@ export class CrearAvionComponent implements OnInit{
       }
 
       console.log(errorMensaje);
+      alert(errorMensaje);
     })
 
   }

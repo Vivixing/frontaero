@@ -5,6 +5,7 @@ import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
 import { Asiento } from 'src/app/interfaces/asiento';
 import { AsientoService } from 'src/app/services/asiento.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-avion',
@@ -243,15 +244,13 @@ export class EditarAvionComponent implements OnInit{
         this.router.navigate(["/administrador/avionesListadoAdmin"])
       }
     },
-      err => {
-        let errorMensaje = 'Error al actualizar el avión';
-
-        if (err.error && err.error.mensaje) {
-          errorMensaje = err.error.mensaje;
-        }
-
-        console.log(errorMensaje);
-      })
+    (err:HttpErrorResponse)=>{
+      if(err.status == 400){
+        console.log(err.error);
+        const mensaje = err.error.mensaje;
+        alert(mensaje);
+      }
+    })
 
   }
 }

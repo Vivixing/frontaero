@@ -43,9 +43,9 @@
                     Debe ser una dirección de email válida<br>
                   </span>
                 </div>
-                <span *ngIf="credencialesNoValidas">Error en las Credenciales</span>
                 <!-- <button class="btn btn-block btn-danger"><i class="fa fa-times"></i></button> -->
                 <button type="submit" value="Ingresar" class="btn btn-block btn-primary" [disabled]="loginFormulario.invalid">Ingresar</button>
+                <p routerLink="/auth/registro" class="text-center mt-2 text-decoration">No estás registrado aún? Regístrate</p>
               </form>
             </div>
           </div>

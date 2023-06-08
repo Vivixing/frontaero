@@ -5,6 +5,7 @@ import { VueloService } from 'src/app/services/vuelo.service';
 import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { Vuelo } from 'src/app/interfaces/vuelo';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-vuelo',
@@ -111,9 +112,13 @@ export class EditarVueloComponent implements OnInit {
           this.router.navigate(['/administrador/vuelosListadoAdmin']);
         }
       },
-        (error) => {
-          console.error('Error al actualizar el vuelo', error);
-        });
+      (err:HttpErrorResponse)=>{
+        if(err.status == 400){
+          console.log(err.error);
+          const mensaje = err.error.mensaje;
+          alert(mensaje);
+        }
+      });
     }
     this.vueloForm.invalid
 

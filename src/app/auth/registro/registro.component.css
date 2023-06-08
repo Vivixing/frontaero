@@ -8,3 +8,10 @@
       margin-right: 0;
     }
 }
+p{
+  cursor: pointer;
+}
+
+p:hover{
+  color: #0d6efd;
+}

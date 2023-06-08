@@ -39,6 +39,10 @@ export class VueloService {
     return this.http.put<Vuelo>(`${this.urlVuelo}/eliminarVuelo/${vuelo.vueloId}`,vuelo)
   }
 
+  //Obtener Vuelos Activos
+  obtenerVuelosActivos():Observable<Vuelo[]>{
+    return this.http.get<Vuelo[]>(`${this.urlVuelo}/vuelosActivos`)
+  }
   
   obtenerVueloConLosDatos():Promise<any[]>{
     let vuelosModelo: any[]=[]

@@ -3,7 +3,7 @@ import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
-
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -14,7 +14,8 @@ export class RegistroComponent {
 
   constructor(private usuarioService:UsuarioService,
               private route:Router,
-              private fb:FormBuilder){}
+              private fb:FormBuilder,
+              ){}
 
   registroFormulario:FormGroup = this.fb.group({
     nombre:['',[Validators.required, Validators.minLength(4), Validators.maxLength(30), Validators.pattern(/^[A-Za-z]+$/)]],
@@ -35,7 +36,14 @@ export class RegistroComponent {
     };
     console.log(nuevoUsuario)
     this.usuarioService.crearUsuario(nuevoUsuario).subscribe(
-      res=>this.route.navigate(['auth/login']) //Escribir la ruta de enlace 'Debe ser vista de '/usuario/mainpage' 
+      res=>{this.route.navigate(['auth/login'])
+    },(err:HttpErrorResponse)=>{
+      if(err.status == 400){
+        console.log(err.error);
+        const mensaje = err.error.mensaje;
+        alert(mensaje);
+      }
+    } //Escribir la ruta de enlace 'Debe ser vista de '/usuario/mainpage' 
     )
   }
 }

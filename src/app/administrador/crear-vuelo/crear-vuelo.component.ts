@@ -7,6 +7,7 @@ import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { Vuelo } from 'src/app/interfaces/vuelo';
 import { Trayecto } from 'src/app/interfaces/trayecto';
 import { TrayectoService } from 'src/app/services/trayecto.service';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-crear-vuelo',
   templateUrl: './crear-vuelo.component.html',
@@ -102,16 +103,20 @@ export class CrearVueloComponent implements OnInit {
           this.router.navigate(['/administrador/vuelosListadoAdmin']);
         }
       },
-        (error) => {
-          console.error('Error al enviar los datos al backend', error);
-        });
+      (err:HttpErrorResponse)=>{
+        if(err.status == 400){
+          console.log(err.error);
+          const mensaje = err.error.mensaje;
+          alert(mensaje);
+        }
+      });
     }
     this.vueloForm.invalid
 
   }
 
   getAeropuertos() {
-    this.aeropuertoService.obtenerAeropuertos().subscribe(listaAeropuertos => {
+    this.aeropuertoService.obtenerAeropuertosActivos().subscribe(listaAeropuertos => {
       this.aeropuertos = listaAeropuertos
     })
   }
