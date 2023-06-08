@@ -10,6 +10,7 @@ import { Trayecto } from 'src/app/interfaces/trayecto';
 import { Reserva } from 'src/app/interfaces/reserva';
 import { Factura } from 'src/app/interfaces/factura';
 import { FacturaService } from 'src/app/services/factura.service';
+import { AsientoService } from 'src/app/services/asiento.service';
 
 @Component({
   selector: 'app-gestionar-reserva',
@@ -44,7 +45,7 @@ export class GestionarReservaComponent implements OnInit {
 
   constructor(private router: Router, private vueloService: VueloService,
     private usuarioService: UsuarioService, private reservaService: ReservaService, private facturaService:FacturaService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private asientoService:AsientoService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -58,7 +59,7 @@ export class GestionarReservaComponent implements OnInit {
     });
     //Obtener la reserva del Id Usuario
     this.reservaService.obtenerReservaDelUsuario(this.usuarioId).subscribe(response=>{
-      this.reservas = response.filter((reserva)=>reserva.vuelId == this.vueloId)
+      this.reservas = response.filter((reserva)=>reserva.vuelId == this.vueloId && reserva.estado == 'Activo')
       console.log(this.reservas);
     },
     error=>{
@@ -103,5 +104,58 @@ export class GestionarReservaComponent implements OnInit {
     }
   }
 
-}
+  cancelarReserva(reserva:Reserva){
+    if(reserva.reseId !== undefined){
+      const crearFactura : Factura={
+        reseId: reserva.reseId,
+        fecha: reserva.fecha,
+        estado: 'Activo'
+      }
+      //this.facturaService.actualizarFactura(crearFactura).subscribe(response=>{
+        //console.log('Factura actualizada con éxito', response);
+        
+        //Inactivamos la reserva también
+        if(reserva.reseId !== undefined){
+          this.reservaService.eliminarReserva(reserva).subscribe(response=>{
+            console.log('Reserva cancelada con éxito', response);
+          },
+          error=>{
+            console.error('Error al cancelar la reserva', error);
+          })
+          //Activamos los asientos de la reserva
+          if(reserva.asieId !== undefined){
+            //Obtenemos el asiento de la reserva
+            this.asientoService.obtenerAsientoById(reserva.asieId).subscribe(response=>{
+              const asiento : Asiento={
+                asieId: response.asieId,
+                precio: response.precio,
+                tipoAsiento_tiasId: response.tipoAsiento_tiasId,
+                ubicacion: response.ubicacion,
+                nombreTipoAsiento: response.nombreTipoAsiento,
+                ModeloAvion: response.ModeloAvion,
+                avion_avioId: response.avion_avioId,
+                estado: 'Activo'
+              }
+              //Actualizamos el asiento
+              this.asientoService.actualizarAsiento(asiento).subscribe(response=>{
+                console.log('Asiento activado con éxito', response);
+              },
+              error=>{
+                console.error('Error al actualizar el asiento', error);
+              })
+            }
+            )
+          }
+          this.router.navigate(['/usuario/escogerVuelo']);
+        }
+      }//,
+      // error=>{
+      //   console.error('Error al generar la factura', error);
+      // })
+
+    }
+  }
+
+
+
 

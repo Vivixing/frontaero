@@ -108,6 +108,7 @@ export class AsientosElegirComponent implements OnInit{
           this.asientosService.obtenerAsientoById(reservas[i].asieId).subscribe(
             (asiento) => {
               //Actualizamos el estado del asiento
+              reservas[i].estado = "Inactivo";
               asiento.estado = "Activo";
               this.asientosService.actualizarAsiento(asiento).subscribe(e => console.log(e));
             }

@@ -44,7 +44,7 @@ export class ReservaService {
 
   //Eliminar Reserva
   eliminarReserva(reserva: Reserva): Observable<Reserva> {
-    return this.http.put<Reserva>(`${this.urlReserva}/eliminarReserva${reserva.reseId}`, reserva)
+    return this.http.put<Reserva>(`${this.urlReserva}/eliminarReserva/${reserva.reseId}`,reserva)
   }
 
   //Obtener Resersvas por usuario 

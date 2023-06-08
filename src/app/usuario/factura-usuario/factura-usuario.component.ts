@@ -73,7 +73,8 @@ export class FacturaUsuarioComponent implements OnInit {
           if (this.usuario.usuaId) {
 
             this.reservaService.obtenerReservaDelUsuario(this.usuario.usuaId).subscribe(reservas => {
-              this.reservas = reservas;
+              //filtramos las reservas que están activas
+              this.reservas = reservas.filter(reserva => reserva.estado == 'Activo');
               console.log(this.reservas);
               //Por cada reserva, obtenemos el asiento
               this.reservas.forEach(reserva => {
@@ -81,6 +82,7 @@ export class FacturaUsuarioComponent implements OnInit {
                   this.asientos.push(asiento);
                   console.log(this.asientos);
                   this.total= reserva.precioTotal + this.total;
+                  reserva.estadoPago = 'Pagado';
                   
                 });
               }

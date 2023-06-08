@@ -34,7 +34,7 @@ export class AsientoService {
   }
 
   //Eliminar Asiento
-  eliminarAsiento(idAsiento:number):Observable<Asiento>{
-    return this.http.delete<Asiento>(`${this.urlAsiento}/eliminarAsiento${idAsiento}`)
+  eliminarAsiento(asiento:Asiento):Observable<Asiento>{
+    return this.http.put<Asiento>(`${this.urlAsiento}/eliminarAsiento/${asiento.asieId}`,asiento)
   }
 }
