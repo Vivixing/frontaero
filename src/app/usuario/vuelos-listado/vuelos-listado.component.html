@@ -16,8 +16,8 @@
       <tr *ngFor="let vuelo of listadoVuelos">
         <td>{{vuelo.aeropuerto_aeroIdOrigen.ubicacion}}</td>
         <td>{{vuelo.aeropuerto_aeroIdDestino.ubicacion}}</td>
-        <td>{{vuelo.hora_salida}}</td>
-        <td>{{vuelo.hora_llegada}}</td>
+        <td>{{vuelo.hora_salida | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{vuelo.hora_llegada | date:'yyyy-MM-dd HH:mm:ss'}}</td>
         <td>{{vuelo.precio}}</td>
         <td><i class="fa-solid fa-check" (click)="reservarVuelo(vuelo)"></i></td>
       </tr>

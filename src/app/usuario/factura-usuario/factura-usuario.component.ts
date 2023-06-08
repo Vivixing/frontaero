@@ -83,7 +83,11 @@ export class FacturaUsuarioComponent implements OnInit {
                   console.log(this.asientos);
                   this.total= reserva.precioTotal + this.total;
                   reserva.estadoPago = 'Pagado';
-                  
+                  reserva.estado = 'Inactivo';
+                  this.reservaService.actualizarReserva(reserva).subscribe(reserva => {
+                    console.log(reserva);
+                  }
+                  );
                 });
               }
               );

@@ -48,7 +48,7 @@ export class VueloService {
     let vuelosModelo: any[]=[]
     return new Promise<any[]>((resolve,reject) => {
       try{
-        this.obtenerVuelos()?.subscribe((response:Vuelo[])=>{
+        this.obtenerVuelosActivos()?.subscribe((response:Vuelo[])=>{
           vuelosModelo = response.map(vueloAntiguo =>{
             let nuevoVuelo: VueloModelo={
               aeropuerto_aeroIdOrigen: {nombre:'',iata:'',estado:'',ubicacion:''},
@@ -63,7 +63,7 @@ export class VueloService {
               precioAsientoBasico: 0,
               estado: ''
             };
-            if(vueloAntiguo.estado=='Activo' || vueloAntiguo.estado=='Activa'){
+            if(vueloAntiguo.estado=='Activo'){
               nuevoVuelo.vueloId = vueloAntiguo.vueloId
               nuevoVuelo.hora_salida = vueloAntiguo.hora_salida
               nuevoVuelo.hora_llegada = vueloAntiguo.hora_llegada

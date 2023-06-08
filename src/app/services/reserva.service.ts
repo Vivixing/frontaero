@@ -33,6 +33,12 @@ export class ReservaService {
   obtenerReservaById(id: number): Observable<Reserva> {
     return this.http.get<Reserva>(`${this.urlReserva}/${id}`)
   }
+
+  //Obtener Reservas Activas
+  obtenerReservasActivas():Observable<Reserva[]>{
+    return this.http.get<Reserva[]>(`${this.urlReserva}/reservasUsuario`)
+  }
+
   //Crear Reserva
   crearReserva(reserva: Reserva): Observable<Reserva> {
     return this.http.post<Reserva>(`${this.urlReserva}/guardarReserva`, reserva)

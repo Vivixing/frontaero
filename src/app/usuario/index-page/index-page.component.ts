@@ -33,13 +33,10 @@ export class IndexPageComponent implements OnInit {
   
   enviarFormulario(){
     if(this.viajeForm.valid){     
-    
       const origen = this.viajeForm.value['viajeOrigen']
       const destino = this.viajeForm.value['viajeDestino']
       this.filtroVuelo(origen, destino)
-    
     }
-
   }
 
   filtroVuelo(aeropuertoOrigen:number, aeropuertoDestino:number){
