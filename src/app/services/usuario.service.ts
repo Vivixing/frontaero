@@ -26,4 +26,8 @@ export class UsuarioService {
   crearUsuario(usuario:Usuario):Observable<Usuario>{
     return this.http.post<Usuario>(`${this.urlUsuario}/guardarUsuario`,usuario)
   }
+  //Obtener Usuario por Id
+  obtenerUsuarioById(id:number):Observable<Usuario>{
+    return this.http.get<Usuario>(`${this.urlUsuario}/${id}`)
+  }
 }

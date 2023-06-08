@@ -1,12 +1,15 @@
 <div *ngFor="let reserva of reservas">
-    <div class="reserva-info">
-      <h1>ID de reserva: {{ reserva.reseId }}</h1>
-      <p>ID de vuelo: {{ reserva.vuelId }}</p>
-      <p>ID de asiento: {{ reserva.asieId }}</p>
-      <p>ID de usuario: {{ reserva.usuaId }}</p>
-      <p>Precio total: {{ reserva.precioTotal }}</p>
-      <p>Estado de pago: {{ reserva.estadoPago }}</p>
-      <p>Fecha: {{ reserva.fecha }}</p>
-    </div>
+  <div class="reserva-info">
+    <h1>Reserva de: {{usuario.nombre}}</h1>
+    <h1>ID de reserva: {{ reserva.reseId }}</h1>
+    <p>ID de vuelo: {{ vuelo.vueloId }}</p>
+    <p>Aeropuerto Origen : {{ vuelo.nombreAeroOrigen}}</p>
+    <p>Aeropuerto Destino Ubicación: {{ vuelo.nombreAeroDestino}}</p>
+    <p>Fecha Hora Salida Vuelo: {{vuelo.hora_salida }}</p>
+    <p>Fecha Hora Llegada Vuelo: {{vuelo.hora_llegada }}</p>
+    <p>Fecha Reserva: {{ reserva.fecha }}</p>
+    <p>Estado de pago: {{ reserva.estadoPago }}</p>
+    <p>Precio total: {{ reserva.precioTotal }}</p>
   </div>
-  
+  <button class="btn btn-primary" (click)="generarFactura(reserva)">Pagar</button>
+</div>

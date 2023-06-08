@@ -100,7 +100,7 @@ export class CrearAvionComponent implements OnInit{
         const asiento7 : Asiento = {
           tipoAsiento_tiasId: 57,
           avion_avioId: avionId,
-          ubicacion: 'Salida de Emergencia',
+          ubicacion: 'Ventana',
           precio: 100,
           estado: 'Activo',
           nombreTipoAsiento: 'Clase Económica',

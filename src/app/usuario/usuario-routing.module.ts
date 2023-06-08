@@ -7,7 +7,7 @@ import { EscogerVueloComponent } from './escoger-vuelo/escoger-vuelo.component';
 import { AsientosElegirComponent } from './asientos-elegir/asientos-elegir.component';
 const routes: Routes = [
   
-  {path:'facturaUsuario',component:FacturaUsuarioComponent},
+  {path:'facturaUsuario/:id/:vuelo',component:FacturaUsuarioComponent},
   {path:'reservaUsuario/:id/:vuelo',component:GestionarReservaComponent},
   {path:'pagoUsuario',component:PagoUsuarioComponent},
   {path:'escogerVuelo',component:EscogerVueloComponent},

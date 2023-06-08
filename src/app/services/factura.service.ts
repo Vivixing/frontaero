@@ -34,7 +34,7 @@ export class FacturaService {
   }
 
   //Eliminar Factura
-  eliminarFactura(idFactura:number):Observable<Factura>{
-    return this.http.delete<Factura>(`${this.urlFactura}/eliminarFactura${idFactura}`)
+  eliminarFactura(factura: Factura):Observable<Factura>{
+    return this.http.put<Factura>(`${this.urlFactura}/eliminarFactura${factura.factId}`,factura)
   }
 }

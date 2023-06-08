@@ -27,34 +27,34 @@
         <div class="row">
           <div class="col-md-6">
             <h5>Información del cliente:</h5>
-            <p>Nombre completo: Vivian Echeverri </p>
-            <p>Dirección: </p>
-            <p>Número de teléfono: </p>
+            <p>Nombre completo: {{usuario.nombre}} {{usuario.apellido}}</p>
+            <p>Email: {{usuario.correo}} </p>
+            <p>Tipo de usuario: {{usuario.descripcion}} </p>
           </div>
           <div class="col-md-6">
             <h5>Detalles de la factura:</h5>
-            <p>Número de factura: </p>
-            <p>Fecha de emisión: </p>
+            <p>Número de factura: {{factura.factId}}</p>
+            <p>Fecha de emisión: {{factura.fecha | date}}</p>
           </div>
         </div>
         <hr>
         <table class="table custom-table">
           <thead>
             <tr>
-              <th>Cantidad</th>
-              <th>Descripción</th>
-              <th>Precio unitario</th>
-              <th>IVA</th>
-              <th>Total</th>
+              <th>Silla</th>
+              <th>Categoria</th>
+              <th>Precio</th>
+              <th>Total Silla</th>
             </tr>
           </thead>
           <tbody>
           
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr *ngFor="let asiento of asientos">
+                <td>{{asiento.asieId}}</td>
+                <td>{{asiento.nombreTipoAsiento}}</td>
+                <td>{{asiento.precio}}</td>
+                <td *ngFor="let reserva of reservas">{{reserva.precioTotal}}</td>
+                
             </tr>
           
           </tbody>
@@ -65,19 +65,11 @@
             <table class="table">
               <tbody>
                 <tr>
-                    <th class="text-right">Nro de ítems:</th>
-                    <td></td>
+                    <th class="text-right">Nro de sillas:</th>
+                    <td>{{asientos.length}}</td>
                   </tr>
                 <tr>
-                  <th class="text-right">Subtotal:</th>
-                  <td></td>
-                </tr>
-                <tr>
-                  <th class="text-right">Total IVA:</th>
-                  <td></td>
-                </tr>
-                <tr>
-              <th  class="text-right">Total a pagar:</th>
+              <th  class="text-right">Total a pagar: {{total}}</th>
               <td></td>
               </tr>
             

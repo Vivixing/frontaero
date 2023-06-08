@@ -18,6 +18,26 @@ import { FacturaService } from 'src/app/services/factura.service';
 })
 export class GestionarReservaComponent implements OnInit {
 
+  vuelo :Vuelo={
+    aeropuerto_aeroIdOrigen: 0,
+    aeropuerto_aeroIdDestino: 0,
+    nombreAeroOrigen: '',
+    nombreAeroDestino: '',
+    precio: 0,
+    hora_salida: new Date(),
+    hora_llegada: new Date(),
+    precioAsientoVip: 0,
+    precioAsientoNormal: 0,
+    precioAsientoBasico: 0,
+    estado: 'Activo'
+  };
+  usuario :Usuario={
+    cedula: '',
+    nombre: '',
+    apellido: '',
+    correo: '',
+    estado: 'Activo'
+  }
   reservas:Reserva[]=[]
   usuarioId: number = 0;
   vueloId: number = 0;
@@ -36,7 +56,7 @@ export class GestionarReservaComponent implements OnInit {
       this.vueloId = params['vuelo'];
       console.log(this.vueloId); // Verificar si el valor se actualiza correctamente
     });
-
+    //Obtener la reserva del Id Usuario
     this.reservaService.obtenerReservaDelUsuario(this.usuarioId).subscribe(response=>{
       this.reservas = response.filter((reserva)=>reserva.vuelId == this.vueloId)
       console.log(this.reservas);
@@ -44,25 +64,40 @@ export class GestionarReservaComponent implements OnInit {
     error=>{
       console.error('Error al traer el id del usuario',error);
     })
+    //Obtener vuelo por Id
+    this.vueloService.obtenerVueloById(this.vueloId).subscribe(response=>{
+      this.vuelo = response
+      console.log(this.vuelo);
+    },
+    error=>{
+      console.error('Error al traer el id del vuelo',error);
+    })
+    //Obtener Ususario
+    this.usuarioService.obtenerUsuarioById(this.usuarioId).subscribe(response=>{
+      this.usuario = response
+      console.log(this.usuario);
+    },
+    error=>{
+      console.error('Error al encontrar el usuario por el Id',error);
+    })
   }
   
-
-  
-
   generarFactura(reserva:Reserva){
     if(reserva.reseId !== undefined){
       const crearFactura : Factura={
-        reseId: reserva?.reseId,
+        reseId: reserva.reseId,
         fecha: reserva.fecha,
         estado: 'Activo'
       }
-
+      console.log(crearFactura.estado);
       this.facturaService.crearFactura(crearFactura).subscribe(response=>{
         console.log('Factura generada con éxito', response);
+        this.router.navigate(['/usuario/facturaUsuario', crearFactura.factId, this.vueloId]);
       },
       error=>{
         console.error('Error al generar la factura', error);
       })
+
     }
   }
 

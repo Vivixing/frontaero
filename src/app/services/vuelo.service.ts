@@ -39,11 +39,7 @@ export class VueloService {
     return this.http.put<Vuelo>(`${this.urlVuelo}/eliminarVuelo/${vuelo.vueloId}`,vuelo)
   }
 
-  //Obtener vuelos del filtro
-  filtroVuelos(origen:string, destino:string):Observable<Vuelo[]>{
-    return this.http.get<Vuelo[]>(`${this.urlVuelo}/${origen}/${destino}`)
-  }
-
+  
   obtenerVueloConLosDatos():Promise<any[]>{
     let vuelosModelo: any[]=[]
     return new Promise<any[]>((resolve,reject) => {
