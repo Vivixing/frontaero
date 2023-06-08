@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -38,7 +38,8 @@ export class LoginComponent {
       if (response !== null) {
         this.usuarioExistenteEnBd(response)
       } else {
-        alert('No existen esas credenciales')
+        this.credencialesNoValidas = true
+        alert('No existen esas credenciales');
       }
     })
     this.loginFormulario.valid
@@ -47,6 +48,7 @@ export class LoginComponent {
   usuarioExistenteEnBd(usuarioExite: Usuario) {
     if (usuarioExite.rolUsuario_rousid == 1) { //el id 1 de rolUsuario es el Admin
       if (usuarioExite.correo === this.usuario.email && usuarioExite.cedula === this.usuario.cedula) {
+        alert('Bienvenido Administrador')
         this.route.navigate(["/administrador/dashboardAdmin"])
         this.credencialesNoValidas = false
       }
@@ -59,8 +61,8 @@ export class LoginComponent {
           this.authService.login(userId)
         }
         this.credencialesNoValidas = false;
-        return;
       }
+      alert('No existen esas credenciales');
       this.credencialesNoValidas = true;
     }
   }

@@ -86,13 +86,16 @@ export class AsientosElegirComponent implements OnInit{
           this.reservaService.crearReserva(reserva).subscribe(e => console.log(e));
           
           // Redirigir al usuario a la página de reservas
-          this.router.navigate(['/usuario/reservaUsuario', this.usuarioId, this.vueloId]);
+          //this.router.navigate(['/usuario/reservaUsuario', this.usuarioId, this.vueloId]);
         }
       });
     } else {
       // Si el asiento no está disponible, mostrar un mensaje
       alert("Por favor, seleccione un asiento disponible");
     }
+  }
+  redireccionar(){
+    this.router.navigate(['/usuario/reservaUsuario', this.usuarioId, this.vueloId]);
   }
 
 }
