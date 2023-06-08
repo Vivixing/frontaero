@@ -97,5 +97,25 @@ export class AsientosElegirComponent implements OnInit{
   redireccionar(){
     this.router.navigate(['/usuario/reservaUsuario', this.usuarioId, this.vueloId]);
   }
+  cancelar(){
+    this.router.navigate(['/usuario/escogerVuelo']);
+    //Activamos los asientos que se habian reservado
+    //Obtenemos las reservas del usuario
+    this.reservaService.obtenerReservaDelUsuario(this.usuarioId).subscribe(
+      (reservas) => {
+        //Obtenemos los asientos de las reservas
+        for(let i = 0; i < reservas.length; i++){
+          this.asientosService.obtenerAsientoById(reservas[i].asieId).subscribe(
+            (asiento) => {
+              //Actualizamos el estado del asiento
+              asiento.estado = "Activo";
+              this.asientosService.actualizarAsiento(asiento).subscribe(e => console.log(e));
+            }
+          );
+        }
+      }
+    );
+
+  }
 
 }

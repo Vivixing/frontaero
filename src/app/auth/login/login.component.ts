@@ -39,7 +39,6 @@ export class LoginComponent {
         this.usuarioExistenteEnBd(response)
       } else {
         this.credencialesNoValidas = true
-        alert('No existen esas credenciales');
       }
     })
     this.loginFormulario.valid
@@ -62,7 +61,6 @@ export class LoginComponent {
         }
         this.credencialesNoValidas = false;
       }
-      alert('No existen esas credenciales');
       this.credencialesNoValidas = true;
     }
   }
