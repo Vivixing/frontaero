@@ -16,7 +16,7 @@ import { AsientoService } from 'src/app/services/asiento.service';
   styleUrls: ['./factura-usuario.component.css']
 })
 export class FacturaUsuarioComponent implements OnInit {
-  facturaId: number = 0;
+  reservaId: number = 0;
   factura: Factura = {
     reseId: 0,
     fecha: new Date(),
@@ -29,6 +29,7 @@ export class FacturaUsuarioComponent implements OnInit {
     cedula: '',
     estado: ''
   }
+  
   reservas: Reserva[] = [];
   asientos: Asiento[] = [];
   idVuelo: number = 0;
@@ -44,21 +45,22 @@ export class FacturaUsuarioComponent implements OnInit {
   ngOnInit(): void {
     //obtener los datos de la factura
     this.route.params.subscribe(params => {
-      this.facturaId = params['id'];
-      console.log(this.facturaId); // Verificar si el valor se actualiza correctamente
+      this.reservaId = params['id'];
+      console.log(this.reservaId); // Verificar si el valor se actualiza correctamente
     });
     //obtener los datos del avión
     this.route.params.subscribe(params => {
       this.idVuelo = params['vuelo'];
       console.log(this.idVuelo); // Verificar si el valor se actualiza correctamente
     });
-    //obtener los datos de la factura
+    /*
     this.facturaService.obtenerFacturaById(this.facturaId).subscribe(factura => {
       this.factura = factura;
       console.log(this.factura);
-
+      */
+  
       //obtenemos los datos de la reserva
-      this.reservaService.obtenerReservaById(this.factura.reseId).subscribe(reserva => {
+      this.reservaService.obtenerReservaById(this.reservaId).subscribe(reserva => {
         this.reservas.push(reserva);
         console.log(this.reservas);
 
@@ -87,7 +89,7 @@ export class FacturaUsuarioComponent implements OnInit {
           }
         });
       });
-    });
+    };
 
 
 
@@ -120,4 +122,4 @@ export class FacturaUsuarioComponent implements OnInit {
   }
 
 
-}
+

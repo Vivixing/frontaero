@@ -89,10 +89,12 @@ export class GestionarReservaComponent implements OnInit {
         fecha: reserva.fecha,
         estado: 'Activo'
       }
-      console.log(crearFactura.estado);
       this.facturaService.crearFactura(crearFactura).subscribe(response=>{
         console.log('Factura generada con éxito', response);
-        this.router.navigate(['/usuario/facturaUsuario', crearFactura.factId, this.vueloId]);
+        //Obtenemos el id de la factura que acabamos de crear
+        
+        console.log('IdFacturaPrueba',crearFactura.factId);
+        this.router.navigate(['/usuario/facturaUsuario', reserva.reseId, this.vueloId]);
       },
       error=>{
         console.error('Error al generar la factura', error);
