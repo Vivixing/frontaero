@@ -6,6 +6,7 @@ import { Reserva } from 'src/app/interfaces/reserva';
 import { ReservaService } from 'src/app/services/reserva.service';
 import { Vuelo } from 'src/app/interfaces/vuelo';
 import { VueloService } from 'src/app/services/vuelo.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-asientos-elegir',
   templateUrl: './asientos-elegir.component.html',
@@ -23,7 +24,7 @@ export class AsientosElegirComponent implements OnInit{
   usuarioId:number = 0;
   total:number = 0;
   constructor(private asientosService : AsientoService, private route: ActivatedRoute, 
-            private reservaService:ReservaService, private router:Router, private vueloService:VueloService){}
+            private reservaService:ReservaService, private router:Router, private vueloService:VueloService, private toastr:ToastrService){}
   
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -84,14 +85,14 @@ export class AsientosElegirComponent implements OnInit{
           
           // Guardar la reserva en la base de datos
           this.reservaService.crearReserva(reserva).subscribe(e => console.log(e));
-          
+          this.toastr.success("Asiento reservado con éxito");
           // Redirigir al usuario a la página de reservas
           //this.router.navigate(['/usuario/reservaUsuario', this.usuarioId, this.vueloId]);
         }
       });
     } else {
       // Si el asiento no está disponible, mostrar un mensaje
-      alert("Por favor, seleccione un asiento disponible");
+      this.toastr.error("Por favor, seleccione un asiento disponible");
     }
   }
   redireccionar(){
@@ -116,7 +117,7 @@ export class AsientosElegirComponent implements OnInit{
         }
       }
     );
-
+      this.toastr.success("Reserva cancelada con éxito");
   }
 
 }

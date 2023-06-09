@@ -8,7 +8,7 @@ import { Reserva } from 'src/app/interfaces/reserva';
 import { ActivatedRoute } from '@angular/router';
 import { Asiento } from 'src/app/interfaces/asiento';
 import { AsientoService } from 'src/app/services/asiento.service';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-factura-usuario',
@@ -39,7 +39,8 @@ export class FacturaUsuarioComponent implements OnInit {
     private facturaService: FacturaService,
     private reservaService: ReservaService,
     private route: ActivatedRoute,
-    private asientoService: AsientoService
+    private asientoService: AsientoService,
+    private toastr: ToastrService 
   ) { }
 
   ngOnInit(): void {
@@ -95,6 +96,7 @@ export class FacturaUsuarioComponent implements OnInit {
           }
         });
       });
+      this.toastr.success('Pago realizado con éxito');
     };
 
 

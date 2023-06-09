@@ -11,6 +11,7 @@ import { Reserva } from 'src/app/interfaces/reserva';
 import { Factura } from 'src/app/interfaces/factura';
 import { FacturaService } from 'src/app/services/factura.service';
 import { AsientoService } from 'src/app/services/asiento.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-gestionar-reserva',
@@ -45,7 +46,7 @@ export class GestionarReservaComponent implements OnInit {
 
   constructor(private router: Router, private vueloService: VueloService,
     private usuarioService: UsuarioService, private reservaService: ReservaService, private facturaService:FacturaService,
-    private route: ActivatedRoute, private asientoService:AsientoService) { }
+    private route: ActivatedRoute, private asientoService:AsientoService, private toast:ToastrService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -93,11 +94,12 @@ export class GestionarReservaComponent implements OnInit {
       this.facturaService.crearFactura(crearFactura).subscribe(response=>{
         console.log('Factura generada con éxito', response);
         //Obtenemos el id de la factura que acabamos de crear
-        
+        this.toast.success('Factura generada con éxito')
         console.log('IdFacturaPrueba',crearFactura.factId);
         this.router.navigate(['/usuario/facturaUsuario', reserva.reseId, this.vueloId]);
       },
       error=>{
+        this.toast.error('Error al generar la factura')
         console.error('Error al generar la factura', error);
       })
 
@@ -117,9 +119,11 @@ export class GestionarReservaComponent implements OnInit {
         //Inactivamos la reserva también
         if(reserva.reseId !== undefined){
           this.reservaService.eliminarReserva(reserva).subscribe(response=>{
+            this.toast.success('Reserva cancelada con éxito')
             console.log('Reserva cancelada con éxito', response);
           },
           error=>{
+            this.toast.error('Error al cancelar la reserva')
             console.error('Error al cancelar la reserva', error);
           })
           //Activamos los asientos de la reserva
