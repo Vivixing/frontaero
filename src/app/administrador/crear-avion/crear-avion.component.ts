@@ -5,7 +5,7 @@ import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
 import { Asiento } from 'src/app/interfaces/asiento';
 import { AsientoService } from 'src/app/services/asiento.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-crear-avion',
   templateUrl: './crear-avion.component.html',
@@ -16,7 +16,8 @@ export class CrearAvionComponent implements OnInit{
   constructor(private avionService:AvionService,
               private asientoService:AsientoService,
               private router : Router,
-              private fb:FormBuilder){}
+              private fb:FormBuilder,
+              private toastr:ToastrService){}
 
   ngOnInit(): void {
   }
@@ -37,6 +38,7 @@ export class CrearAvionComponent implements OnInit{
         console.log('No se puede crear el avión');
         return;
       }else{
+        this.toastr.success('Avión creado con éxito');
         console.log('Avión creado con éxito');
         const avionId = data.avioID;
         if (avionId) {
@@ -45,7 +47,7 @@ export class CrearAvionComponent implements OnInit{
           tipoAsiento_tiasId: 55,
           avion_avioId: avionId,
           ubicacion: 'Ventana',
-          precio: 100,
+          precio: 250,
           estado: 'Activo',
           nombreTipoAsiento: 'Primera Clase',
           ModeloAvion: data.modelo
@@ -54,7 +56,7 @@ export class CrearAvionComponent implements OnInit{
           tipoAsiento_tiasId: 55,
           avion_avioId: avionId,
           ubicacion: 'Pasillo',
-          precio: 100,
+          precio: 200,
           estado: 'Activo',
           nombreTipoAsiento: 'Primera Clase',
           ModeloAvion: data.modelo
@@ -63,7 +65,7 @@ export class CrearAvionComponent implements OnInit{
           tipoAsiento_tiasId: 55,
           avion_avioId: avionId,
           ubicacion: 'Centro',
-          precio: 100,
+          precio: 190,
           estado: 'Activo',
           nombreTipoAsiento: 'Primera Clase',
           ModeloAvion: data.modelo
@@ -72,7 +74,7 @@ export class CrearAvionComponent implements OnInit{
           tipoAsiento_tiasId: 56,
           avion_avioId: avionId,
           ubicacion: 'Ventana',
-          precio: 100,
+          precio: 150,
           estado: 'Activo',
           nombreTipoAsiento: 'Clase Ejecutiva',
           ModeloAvion: data.modelo
@@ -81,7 +83,7 @@ export class CrearAvionComponent implements OnInit{
           tipoAsiento_tiasId: 56,
           avion_avioId: avionId,
           ubicacion: 'Pasillo',
-          precio: 100,
+          precio: 130,
           estado: 'Activo',
           nombreTipoAsiento: 'Clase Ejecutiva',
           ModeloAvion: data.modelo
@@ -91,7 +93,7 @@ export class CrearAvionComponent implements OnInit{
           tipoAsiento_tiasId: 56,
           avion_avioId: avionId,
           ubicacion: 'Centro',
-          precio: 100,
+          precio: 110,
           estado: 'Activo',
           nombreTipoAsiento: 'Clase Ejecutiva',
           ModeloAvion: data.modelo
@@ -101,7 +103,7 @@ export class CrearAvionComponent implements OnInit{
           tipoAsiento_tiasId: 57,
           avion_avioId: avionId,
           ubicacion: 'Ventana',
-          precio: 100,
+          precio: 80,
           estado: 'Activo',
           nombreTipoAsiento: 'Clase Económica',
           ModeloAvion: data.modelo
@@ -111,7 +113,7 @@ export class CrearAvionComponent implements OnInit{
           tipoAsiento_tiasId: 57,
           avion_avioId: avionId,
           ubicacion: 'Pasillo',
-          precio: 100,
+          precio: 50,
           estado: 'Activo',
           nombreTipoAsiento: 'Clase Económica',
           ModeloAvion: data.modelo
@@ -121,7 +123,7 @@ export class CrearAvionComponent implements OnInit{
           tipoAsiento_tiasId: 57,
           avion_avioId: avionId,
           ubicacion: 'Centro',
-          precio: 100,
+          precio: 40,
           estado: 'Activo',
           nombreTipoAsiento: 'Clase Económica',
           ModeloAvion: data.modelo
@@ -224,7 +226,7 @@ export class CrearAvionComponent implements OnInit{
       }
 
       console.log(errorMensaje);
-      alert(errorMensaje);
+      this.toastr.error(errorMensaje);
     })
 
   }

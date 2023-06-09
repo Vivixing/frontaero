@@ -14,6 +14,8 @@ import { VerReservaComponent } from './ver-reserva/ver-reserva.component';
 import { GestionarReservaComponent } from './gestionar-reserva/gestionar-reserva.component';
 import { AsientosElegirComponent } from './asientos-elegir/asientos-elegir.component'
 
+
+
 @NgModule({
   declarations: [
     IndexPageComponent,
@@ -32,7 +34,7 @@ import { AsientosElegirComponent } from './asientos-elegir/asientos-elegir.compo
     UsuarioRoutingModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class UsuarioModule { }

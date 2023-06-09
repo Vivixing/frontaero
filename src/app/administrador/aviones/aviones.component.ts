@@ -3,6 +3,7 @@ import { Avion } from 'src/app/interfaces/avion';
 import { AvionService } from 'src/app/services/avion.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class AvionesComponent implements OnInit {
 
   aviones : Avion[] = [];
 
-  constructor(private avionService : AvionService,private router:Router){}
+  constructor(private avionService : AvionService,private router:Router, private toast: ToastrService){}
   
   ngOnInit(): void {
     this.avionService.obtenerAviones().subscribe(
@@ -25,13 +26,13 @@ export class AvionesComponent implements OnInit {
 
   eliminarAvion(avion:Avion):void{
     this.avionService.eliminarAvion(avion).subscribe((avion:Avion)=>{
-      console.log('Avion Eliminado',avion);
+      this.toast.success('¡Operación exitosa!','Avión eliminado con éxito')
     },
     (err:HttpErrorResponse)=>{
       if(err.status == 400){
         console.log(err.error);
         const mensaje = err.error.mensaje;
-        alert(mensaje);
+        this.toast.error('¡Algo salió mal!',mensaje)
       }
     })
   }

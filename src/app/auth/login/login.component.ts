@@ -5,6 +5,7 @@ import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent {
     private route: Router,
     private fb: FormBuilder,
     private authService: AuthService,
+    private toast: ToastrService
   ) { }
 
   loginFormulario: FormGroup = this.fb.group({
@@ -42,11 +44,11 @@ export class LoginComponent {
         } else {
           this.credencialesNoValidas = true
         }
-      },(err:HttpErrorResponse)=>{
-        if(err.status == 400){
+      }, (err: HttpErrorResponse) => {
+        if (err.status == 400) {
           console.log(err.error);
           const mensaje = err.error.mensaje;
-          alert(mensaje);
+          this.toast.error('¡Algo salió mal!', mensaje);
         }
       })
     } else {
@@ -58,6 +60,7 @@ export class LoginComponent {
   usuarioExistenteEnBd(usuarioExite: Usuario) {
     if (usuarioExite.rolUsuario_rousid == 1) { //el id 1 de rolUsuario es el Admin
       if (usuarioExite.correo === this.usuario.email && usuarioExite.cedula === this.usuario.cedula) {
+        this.toast.success('¡Ingreso Exitoso!', 'Bienvenido al apartado del Administrador')
         this.route.navigate(["/administrador/dashboardAdmin"])
         this.credencialesNoValidas = false
       } else {
@@ -65,6 +68,7 @@ export class LoginComponent {
       }
     } else if (usuarioExite.rolUsuario_rousid != 1) {
       if (usuarioExite.correo === this.usuario.email && usuarioExite.cedula === this.usuario.cedula) {
+        this.toast.success('¡Ingreso Exitoso!', 'Bienvenido al apartado del Usuario')
         this.route.navigate(["/usuario/escogerVuelo"])
         if (usuarioExite.usuaId != null) {
           const userId = usuarioExite.usuaId

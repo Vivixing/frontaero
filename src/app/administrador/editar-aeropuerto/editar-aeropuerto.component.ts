@@ -6,7 +6,7 @@ import { Pais } from 'src/app/interfaces/pais';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { LocacionService } from 'src/app/services/locacion.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-editar-aeropuerto',
   templateUrl: './editar-aeropuerto.component.html',
@@ -23,7 +23,8 @@ export class EditarAeropuertoComponent {
     private locationService: LocacionService,
     private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -77,7 +78,7 @@ export class EditarAeropuertoComponent {
         if (err.status == 400) {
           console.log(err.error);
           const mensaje = err.error.mensaje;
-          alert(mensaje);
+          this.toast.error(mensaje);
         }
       }
     );
@@ -105,6 +106,7 @@ export class EditarAeropuertoComponent {
           console.log('No se puedo actualizar el aeropuerto')
           return
         }
+        this.toast.success('Aeropuerto actualizado con éxito')
         console.log(res, 'Aeropuerto actualizado con éxito');
         this.router.navigate(["/administrador/aeropuertosListadoAdmin"])
       },
@@ -112,7 +114,7 @@ export class EditarAeropuertoComponent {
         if(err.status == 400){
           console.log(err.error);
           const mensaje = err.error.mensaje;
-          alert(mensaje);
+          this.toast.error(mensaje);
         }
       })
   }

@@ -10,6 +10,7 @@ import { AvionService } from 'src/app/services/avion.service';
 import { Trayecto } from 'src/app/interfaces/trayecto';
 import { TrayectoService } from 'src/app/services/trayecto.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-crear-trayecto',
@@ -24,7 +25,7 @@ export class CrearTrayectoComponent implements OnInit {
   trayectoForm: FormGroup;
 
   constructor(private vueloService: VueloService, private avionService: AvionService, private trayectoService:TrayectoService,
-    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router) {
+    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router, private toastr: ToastrService) {
     this.trayectoForm = this.fb.group({
       avion: ['', [Validators.required]],
       origen: ['', [Validators.required]],
@@ -62,7 +63,7 @@ export class CrearTrayectoComponent implements OnInit {
       const datosTrayecto = this.trayectoForm.value;
       // Realiza la validación de id de aeropuerto de origen y destino
       if (datosTrayecto.origen === datosTrayecto.destino) {
-        alert('El aeropuerto de origen y destino deben ser diferentes.');
+        this.toastr.error('El aeropuerto de origen y destino deben ser diferentes.');
         return;
       }
       //Validacioón fecha salida con la de llegada
@@ -71,12 +72,12 @@ export class CrearTrayectoComponent implements OnInit {
       const fechaActualSistema = new Date().getTime();
       // const fechaHoraLlegada = this.vueloForm.get('fechaHoraLlegada')?.value;
       if (fechaHoraSalida >= fechaHoraLlegada) {
-        alert('La fecha hora de salida no puede ser igual o una fecha después que la de llegada')
+        this.toastr.error('La fecha hora de salida no puede ser igual o una fecha después que la de llegada')
         return;
       }
       //Validación fecha salida con Actual
       if (fechaHoraSalida < fechaActualSistema) {
-        alert('La fecha hora de salida no puede ser una fecha antes de la actual')
+        this.toastr.error('La fecha hora de salida no puede ser una fecha antes de la actual')
         return;
       }
       const crearTrayecto:Trayecto={
@@ -90,6 +91,7 @@ export class CrearTrayectoComponent implements OnInit {
       }
       this.trayectoService.crearTrayecto(crearTrayecto).subscribe(response=>{
         if(response !== null){
+          this.toastr.success('Trayecto creado con éxito');
           console.log('Datos enviados éxitosamente al backend')
           this.router.navigate(['/administrador/trayectosListadoAdmin']);
           this.trayectoForm.reset();
@@ -99,7 +101,7 @@ export class CrearTrayectoComponent implements OnInit {
         if(err.status == 400){
           console.log(err.error);
           const mensaje = err.error.mensaje;
-          alert(mensaje);
+          this.toastr.error(mensaje);
         }
       });
     }

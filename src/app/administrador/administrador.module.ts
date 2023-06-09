@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-
 import { AdministradorRoutingModule } from './administrador-routing.module';
 import { VuelosComponent } from './vuelos/vuelos.component';
 import { AvionesComponent } from './aviones/aviones.component';
@@ -41,11 +40,12 @@ import { AsientosComponent } from './asientos/asientos.component';
     AsientosComponent
   ],
   imports: [
-    CommonModule,
     AdministradorRoutingModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
+
   ]
 })
 export class AdministradorModule { }

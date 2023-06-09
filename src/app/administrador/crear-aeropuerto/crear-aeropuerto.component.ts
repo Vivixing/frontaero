@@ -6,6 +6,7 @@ import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { LocacionService } from 'src/app/services/locacion.service';
 import { Pais } from 'src/app/interfaces/pais';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-crear-aeropuerto',
@@ -22,17 +23,17 @@ export class CrearAeropuertoComponent implements OnInit {
   constructor(private aeropuertosService: AeropuertosService,
     private locationService: LocacionService,
     private router: Router,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private toast: ToastrService) { }
 
   ngOnInit(): void {
 
     this.locationService.obtenerPaises().subscribe(
       (paises) => {
         this.paises = paises.data;
-        //console.log(paises);
       },
       (error) => {
-        console.log('Error al encontrar paises:', error);
+        this.toast.error('Error al obtener paises',error)
       }
     );
 
@@ -57,7 +58,6 @@ export class CrearAeropuertoComponent implements OnInit {
       estado: 'Activo'      
     };
     this.aeropuertoformulario.valid,
-    //console.log(aeropuerto);
     this.enviarAeropuerto(aeropuerto)
     this.aeropuertoformulario.reset()
   }
@@ -67,10 +67,11 @@ export class CrearAeropuertoComponent implements OnInit {
       res => {
       if (res == null) {
         console.log('No se puedo crear el aeropuerto')
+        this.toast.error('¡Algo salió mal!',res)
         alert('No se puedo crear el aeropuerto')
         return
       }
-      alert('Aeropuerto creado con éxito')
+      this.toast.success('Aeropuerto creado con éxito')
       console.log(res,'Aeropuerto creado con éxito');
       this.router.navigate(["/administrador/aeropuertosListadoAdmin"])
     },
@@ -78,7 +79,7 @@ export class CrearAeropuertoComponent implements OnInit {
       if(err.status == 400){
         console.log(err.error);
         const mensaje = err.error.mensaje;
-        alert(mensaje);
+        this.toast.error(mensaje);
       }
     })
   }

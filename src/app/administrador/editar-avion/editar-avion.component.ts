@@ -6,6 +6,7 @@ import { AvionService } from 'src/app/services/avion.service';
 import { Asiento } from 'src/app/interfaces/asiento';
 import { AsientoService } from 'src/app/services/asiento.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar-avion',
@@ -19,7 +20,8 @@ export class EditarAvionComponent implements OnInit{
     private asientoService: AsientoService,
     private router: Router,
     private route: ActivatedRoute,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private toast: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -61,9 +63,11 @@ export class EditarAvionComponent implements OnInit{
     avion.avioID=this.avioID
     this.avionService.actualizarAvion(avion)?.subscribe(data => {
       if (data == null) {
+        this.toast.error('No se puede actualizar el avión');
         console.log('No se puede actualizar el avión');
         return;
       } else {
+        this.toast.success('Avión actualizado con éxito');
         console.log('Avión actualizado con éxito');
         /*
         const avionId = data.avioID;
@@ -248,7 +252,7 @@ export class EditarAvionComponent implements OnInit{
       if(err.status == 400){
         console.log(err.error);
         const mensaje = err.error.mensaje;
-        alert(mensaje);
+        this.toast.error(mensaje);
       }
     })
 

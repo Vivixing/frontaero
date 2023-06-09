@@ -6,7 +6,7 @@ import { Aeropuerto } from 'src/app/interfaces/aeropuerto';
 import { AeropuertosService } from 'src/app/services/aeropuertos.service';
 import { Vuelo } from 'src/app/interfaces/vuelo';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-editar-vuelo',
   templateUrl: './editar-vuelo.component.html',
@@ -19,7 +19,7 @@ export class EditarVueloComponent implements OnInit {
 
   vueloId: number = 0;
   constructor(private vueloService: VueloService,
-    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router, private route: ActivatedRoute) {
+    private fb: FormBuilder, private aeropuertoService: AeropuertosService, private router: Router, private route: ActivatedRoute, private toastr: ToastrService) {
     this.vueloForm = this.fb.group({
       origen: ['', [Validators.required]],
       destino: ['', [Validators.required]],
@@ -72,7 +72,7 @@ export class EditarVueloComponent implements OnInit {
       const datosVuelo = this.vueloForm.value;
       // Realiza la validación de id de aeropuerto de origen y destino
       if (datosVuelo.origen === datosVuelo.destino) {
-        alert('El aeropuerto de origen y destino deben ser diferentes.');
+        this.toastr.error('El aeropuerto de origen y destino deben ser diferentes.');
         return;
       }
       //Validacioón fecha salida con la de llegada
@@ -82,12 +82,12 @@ export class EditarVueloComponent implements OnInit {
       const fechaActualSistema = new Date().getTime();
       // const fechaHoraLlegada = this.vueloForm.get('fechaHoraLlegada')?.value;
       if (fechaHoraSalida >= fechaHoraLlegada) {
-        alert('La fecha hora de salida no puede ser igual o una fecha después que la de llegada')
+        this.toastr.error('La fecha hora de salida no puede ser igual o una fecha después que la de llegada')
         return;
       }
       //Validación fecha salida con Actual
       if (fechaHoraSalida < fechaActualSistema) {
-        alert('La fecha hora de salida no puede ser una fecha antes de la actual')
+        this.toastr.error('La fecha hora de salida no puede ser una fecha antes de la actual')
         return;
       }
       
@@ -107,6 +107,7 @@ export class EditarVueloComponent implements OnInit {
       }
       this.vueloService.actualizarVuelo(VueloActualizar).subscribe((response) => {
         if (response !== null) {
+          this.toastr.success('Vuelo actualizado exitosamente');
           console.log('Actualizado exitosamente el vuelo', VueloActualizar)
           this.vueloForm.reset();
           this.router.navigate(['/administrador/vuelosListadoAdmin']);
@@ -116,7 +117,7 @@ export class EditarVueloComponent implements OnInit {
         if(err.status == 400){
           console.log(err.error);
           const mensaje = err.error.mensaje;
-          alert(mensaje);
+          this.toastr.error(mensaje);
         }
       });
     }
